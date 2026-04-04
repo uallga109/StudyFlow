@@ -1,0 +1,18 @@
+{
+    "9de3af8c-74b2-40ca-a6b3-8896913d3da4": {
+        "id": "9de3af8c-74b2-40ca-a6b3-8896913d3da4",
+        "titulo": "prueba 1",
+        "creado": "2026-04-02 19:29:47",
+        "fuentes": [
+            "Tema2_24_25.pdf"
+        ]
+    },
+    "cce5b8cf-fa7f-4b46-93a8-c72043aff0f1": {
+        "id": "cce5b8cf-fa7f-4b46-93a8-c72043aff0f1",
+        "titulo": "prueba 2",
+        "creado": "2026-04-04 17:17:49",
+        "fuentes": [
+            "Tema6 TDRC 2024-25.pdf"
+        ]
+    }
+}
