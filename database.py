@@ -34,7 +34,8 @@ def crear_cuaderno(titulo):
         "titulo": titulo,
         "creado": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "fuentes": [],
-        "resumenes": [] # NUEVO: Ahora es una lista para guardar el historial
+        "resumenes": [],
+        "quizzes": []  # <--- NUEVO: Historial de exámenes vacío
     }
     cuadernos[id_unico] = nuevo_cuaderno
     with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
@@ -135,3 +136,30 @@ def borrar_archivo_de_cuaderno(notebook_id, nombre_archivo):
             os.remove(ruta_archivo)
         return True
     return False
+
+def guardar_quiz_en_historial(notebook_id, nuevo_quiz):
+    cuadernos = listar_cuadernos()
+    if notebook_id in cuadernos:
+        if "quizzes" not in cuadernos[notebook_id]:
+            cuadernos[notebook_id]["quizzes"] = []
+        # Borramos el rastro del quiz antiguo si existiera
+        if "quiz" in cuadernos[notebook_id]: del cuadernos[notebook_id]["quiz"]
+        
+        cuadernos[notebook_id]["quizzes"].append(nuevo_quiz)
+        with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(cuadernos, f, indent=4, ensure_ascii=False)
+        return True
+    return False
+
+def obtener_info_pdf(notebook_id, fuentes_seleccionadas):
+    """Cuenta el total de páginas de los PDFs seleccionados para recomendar preguntas."""
+    total_paginas = 0
+    carpeta = os.path.join(FILES_DIR, notebook_id)
+    for f in fuentes_seleccionadas:
+        ruta = os.path.join(carpeta, f)
+        if os.path.exists(ruta):
+            try:
+                lector = PyPDF2.PdfReader(ruta)
+                total_paginas += len(lector.pages)
+            except: pass
+    return total_paginas

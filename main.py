@@ -36,6 +36,10 @@ class PeticionResumen(BaseModel):
 class PeticionChat(BaseModel):
     mensaje: str
 
+class PeticionQuiz(BaseModel):
+    fuentes: list[str]
+    num_preguntas: int
+
 # 1. Obtener todos
 @app.get("/api/notebooks")
 def obtener_cuadernos():
@@ -114,48 +118,45 @@ def generar_resumen_cuaderno(notebook_id: str, peticion: PeticionResumen):
 
 # 6. Generar y guardar Cuestionario
 @app.post("/api/notebooks/{notebook_id}/quiz")
-def generar_quiz_cuaderno(notebook_id: str, num_preguntas: int = 10):
+def generar_quiz_cuaderno(notebook_id: str, peticion: PeticionQuiz):
     cuaderno = db.obtener_cuaderno(notebook_id)
     if not cuaderno: raise HTTPException(status_code=404)
 
-    # Si ya hay un quiz guardado, lo devolvemos
-    if cuaderno.get("quiz"):
-        return {"quiz": cuaderno["quiz"], "cache": True}
-
-    texto_contexto = db.extraer_texto_cuaderno(notebook_id)
+    texto_contexto = db.extraer_texto_cuaderno(notebook_id, peticion.fuentes)
+    if not texto_contexto.strip(): raise HTTPException(status_code=400)
     
-    if not texto_contexto.strip():
-        raise HTTPException(status_code=400, detail="No hay texto en las fuentes. Sube un PDF primero.")
-        
     instrucciones = f"""
-    Basándote en estos apuntes, genera un examen de {num_preguntas} preguntas.
-    Responde ÚNICAMENTE con un JSON válido (sin markdown, sin texto extra).
-    Formato: 
-    [
-      {{
-        "pregunta": "texto",
-        "opciones": ["A", "B", "C", "D"],
-        "correcta": "texto exacto de la opción",
-        "explicacion": "por qué es esa",
-        "pista": "una pequeña ayuda"
-      }}
-    ]
+    Genera un examen de EXACTAMENTE {peticion.num_preguntas} preguntas sobre estos apuntes.
+    Responde ÚNICAMENTE con un JSON válido. 
+    Formato: [{{ "pregunta": "...", "opciones": ["A", "B", "C", "D"], "correcta": "...", "explicacion": "...", "pista": "..." }}]
     Apuntes: {texto_contexto}
     """
-    
     try:
         respuesta = model.generate_content(instrucciones)
-        # Limpiamos posibles etiquetas de markdown que Gemini a veces añade
         json_puro = respuesta.text.replace("```json", "").replace("```", "").strip()
-        lista_quiz = json.loads(json_puro)
+        lista_preguntas = json.loads(json_puro)
         
-        # Guardamos en DB
-        db.guardar_quiz_cuaderno(notebook_id, lista_quiz)
-        return {"quiz": lista_quiz, "cache": False}
+        nuevo_quiz = {
+            "id": str(uuid.uuid4()),
+            "fecha": datetime.now().strftime("%d/%m/%Y %H:%M"),
+            "fuentes_usadas": peticion.fuentes,
+            "preguntas": lista_preguntas
+        }
+        db.guardar_quiz_en_historial(notebook_id, nuevo_quiz)
+        return nuevo_quiz
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Error generando el test")
-    
-    # 7. Borrar un Cuaderno entero
+        raise HTTPException(status_code=500, detail=str(e))
+
+# NUEVO: Endpoint para obtener recomendación de preguntas
+@app.post("/api/notebooks/{notebook_id}/quiz/recommend")
+def recomendar_preguntas(notebook_id: str, peticion: PeticionResumen): # Reutilizamos el modelo de fuentes
+    paginas = db.obtener_info_pdf(notebook_id, peticion.fuentes)
+    # Lógica: 3 preguntas por página, mínimo 5, máximo 50
+    recomendadas = max(5, min(50, paginas * 3))
+    return {"paginas": paginas, "recomendadas": recomendadas}
+
+
+# 7. Borrar un Cuaderno entero
 @app.delete("/api/notebooks/{notebook_id}")
 def eliminar_cuaderno(notebook_id: str):
     if not db.borrar_cuaderno(notebook_id):

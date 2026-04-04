@@ -96,7 +96,7 @@ function VistaCuaderno() {
   const [creandoNuevoResumen, setCreandoNuevoResumen] = useState(false);
   const [fuentesSeleccionadas, setFuentesSeleccionadas] = useState([]);
 
-  // --- ESTADOS DEL QUIZ ---
+ // --- ESTADOS DEL QUIZ ---
   const [preguntas, setPreguntas] = useState([]);      
   const [indicePregunta, setIndicePregunta] = useState(0);
   const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
@@ -105,6 +105,11 @@ function VistaCuaderno() {
   const [puntuacion, setPuntuacion] = useState(0);
   const [omitidas, setOmitidas] = useState(0);
   const [quizFinalizado, setQuizFinalizado] = useState(false);
+  
+  const [quizActivoIdx, setQuizActivoIdx] = useState(0); 
+  const [configurandoQuiz, setConfigurandoQuiz] = useState(false);
+  const [numPreguntas, setNumPreguntas] = useState(10);
+  const [recomendacion, setRecomendacion] = useState(null);
 
   // NUEVO: Función para enviar el mensaje al chat
   const handleEnviarMensaje = (e) => {
@@ -132,7 +137,7 @@ function VistaCuaderno() {
           setIaPensando(false);
       });
   };
-
+  
   const cargarDatosCuaderno = () => {
     fetch(`http://localhost:8000/api/notebooks/${id}`)
       .then(res => res.json())
@@ -209,21 +214,60 @@ function VistaCuaderno() {
   };
 
   // --- LÓGICA DEL QUIZ ---
-  const handleIniciarQuiz = () => {
-    setVistaActiva('quiz');
+const handleIniciarQuiz = () => {
+    if (fuentesSeleccionadas.length === 0) return alert("Selecciona al menos una fuente");
+
     setIaPensando(true);
-    fetch(`http://localhost:8000/api/notebooks/${id}/quiz`, { method: "POST" })
-      .then(res => res.json())
-      .then(data => {
-          setPreguntas(data.quiz);
-          setIndicePregunta(0);
-          setPuntuacion(0);
-          setOmitidas(0);
-          setQuizFinalizado(false);
-          setIaPensando(false);
-          setMostrandoPista(false);
-      });
+    
+    fetch(`http://localhost:8000/api/notebooks/${id}/quiz`, { 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+            fuentes: fuentesSeleccionadas, 
+            num_preguntas: numPreguntas 
+        })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Error en el servidor");
+        return res.json();
+    })
+    .then(data => {
+        setIaPensando(false);
+        setConfigurandoQuiz(false);
+        // Aquí está el truco: el backend devuelve 'quiz', lo metemos en 'preguntas'
+        const nuevasPreguntas = data.quiz || data.preguntas || [];
+        setPreguntas(nuevasPreguntas); 
+        setIndicePregunta(0);
+        setQuizFinalizado(false);
+        setOpcionSeleccionada(null);
+        setMostrandoResultado(false);
+        setPuntuacion(0);
+        setOmitidas(0);
+        cargarDatosCuaderno(); // Para actualizar las pestañas del historial
+    })
+    .catch(err => {
+        console.error(err);
+        setIaPensando(false);
+        alert("La IA está saturada o no hay texto suficiente. Prueba con menos preguntas.");
+    });
   };
+
+  //método para recomendar número de preguntas del test
+  useEffect(() => {
+    if (configurandoQuiz && fuentesSeleccionadas.length > 0) {
+        fetch(`http://localhost:8000/api/notebooks/${id}/quiz/recommend`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ fuentes: fuentesSeleccionadas })
+        })
+        .then(res => res.json())
+        .then(data => {
+            setRecomendacion(data.recomendadas);
+            setNumPreguntas(data.recomendadas);
+        });
+    }
+  }, [fuentesSeleccionadas, configurandoQuiz]);
+
 
   const resolverPregunta = () => {
     if (opcionSeleccionada === preguntas[indicePregunta].correcta) setPuntuacion(puntuacion + 1);
@@ -386,94 +430,154 @@ function VistaCuaderno() {
             )}
 
             {/* --- VISTA: QUIZ --- */}
-            {vistaActiva === 'quiz' && (
-              <div className="max-w-2xl mx-auto h-full flex flex-col justify-center py-10">
-                {iaPensando ? (
-                    <div className="text-center animate-pulse text-gray-400">🧠 Formulando preguntas retadoras...</div>
-                ) : !quizFinalizado && preguntas.length > 0 ? (
-                  <div className="bg-[#2a2a35] p-8 rounded-3xl border border-gray-700 shadow-2xl">
-                    <div className="flex justify-between items-center mb-6">
-                      <span className="text-xs font-bold text-blue-400 tracking-widest uppercase">Pregunta {indicePregunta + 1} de {preguntas.length}</span>
-                      <div className="h-1 w-32 bg-gray-700 rounded-full overflow-hidden">
-                        <div className="h-full bg-blue-500 transition-all" style={{width: `${((indicePregunta+1)/preguntas.length)*100}%`}}></div>
-                      </div>
+            {/* --- VISTA: QUIZ (CONFIGURACIÓN + HISTORIAL + JUEGO) --- */}
+              {vistaActiva === 'quiz' && (
+                <div className="flex flex-col h-full">
+                    {/* Pestañas de Historial de Tests */}
+                    {!iaPensando && datos.quizzes?.length > 0 && (
+                        <div className="flex gap-2 overflow-x-auto pb-4 shrink-0 border-b border-gray-700 mb-6">
+                            {datos.quizzes.map((q, idx) => (
+                                <button key={q.id} onClick={() => { setConfigurandoQuiz(false); setQuizActivoIdx(idx); setQuizFinalizado(false); setIndicePregunta(0); setPreguntas(q.preguntas); }} className={`whitespace-nowrap px-4 py-2 rounded-lg text-sm transition ${!configurandoQuiz && quizActivoIdx === idx ? 'bg-blue-600 text-white font-bold' : 'bg-gray-800 text-gray-400 hover:bg-gray-700'}`}>
+                                    Test {idx + 1} <span className="text-xs opacity-70 ml-2">({q.fecha})</span>
+                                </button>
+                            ))}
+                            <button onClick={() => { setConfigurandoQuiz(true); setFuentesSeleccionadas([...datos.fuentes]); }} className="whitespace-nowrap px-4 py-2 rounded-lg text-sm bg-indigo-600 hover:bg-indigo-500 text-white transition font-bold shadow-md">
+                                + Nuevo Test
+                            </button>
+                        </div>
+                    )}
+
+                    <div className="flex-1 overflow-y-auto flex flex-col justify-center">
+                        {iaPensando ? (
+                            <div className="text-center animate-pulse text-gray-400 flex flex-col items-center">
+                                <span className="text-5xl mb-4">🧠</span>
+                                <p className="text-xl font-medium">Formulando preguntas basadas en tus fuentes...</p>
+                                <p className="text-sm mt-2">Esto puede tardar un poco según el tamaño de los PDFs</p>
+                            </div>
+                        ) : (configurandoQuiz || !datos.quizzes?.length) ? (
+                            /* PANTALLA DE CONFIGURACIÓN */
+                            <div className="bg-[#2a2a35] p-8 rounded-3xl border border-gray-700 shadow-2xl max-w-xl mx-auto w-full">
+                                <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">⚙️ Configurar nuevo Test</h2>
+                                
+                                <div className="mb-6">
+                                    <p className="text-sm font-bold text-gray-400 mb-3 uppercase tracking-wider">1. Selecciona las fuentes:</p>
+                                    <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto pr-2">
+                                        {datos.fuentes.map((f, i) => (
+                                            <label key={i} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition ${fuentesSeleccionadas.includes(f) ? 'border-blue-500 bg-blue-500/10' : 'border-gray-600 bg-gray-800'}`}>
+                                                <input type="checkbox" className="w-4 h-4 accent-blue-500" checked={fuentesSeleccionadas.includes(f)} onChange={() => toggleFuente(f)}/>
+                                                <span className="text-sm truncate">{f}</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <div className="mb-8 p-4 bg-gray-800/50 rounded-2xl border border-gray-600">
+                                    <div className="flex justify-between items-center mb-4">
+                                        <p className="text-sm font-bold text-gray-400 uppercase tracking-wider">2. Número de preguntas:</p>
+                                        <span className="bg-blue-600 px-3 py-1 rounded-full text-sm font-bold text-white">{numPreguntas}</span>
+                                    </div>
+                                    <input type="range" min="5" max="50" step="5" value={numPreguntas} onChange={(e) => setNumPreguntas(parseInt(e.target.value))} className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-blue-500 mb-2"/>
+                                    {recomendacion && (
+                                        <p className="text-xs text-blue-400 font-medium">✨ Recomendado para tus documentos: <span className="underline">{recomendacion} preguntas</span></p>
+                                    )}
+                                </div>
+
+                                <button 
+                                onClick={handleIniciarQuiz} 
+                                disabled={fuentesSeleccionadas.length === 0 || iaPensando} 
+                                className="w-full bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 p-4 rounded-2xl font-bold transition-all shadow-lg"
+                              >
+                                {iaPensando ? "🧠 Generando..." : "🚀 Comenzar Desafío"}
+                              </button>
+                                {datos.quizzes?.length > 0 && (
+                                    <button onClick={() => setConfigurandoQuiz(false)} className="w-full text-gray-500 text-sm mt-4 hover:text-white transition">Volver al historial</button>
+                                )}
+                            </div>
+                    ) : (!quizFinalizado && preguntas.length > 0) ? (
+                    /* PANTALLA DE JUEGO (EL TEST INTERACTIVO) */
+                    <div className="bg-[#2a2a35] p-8 rounded-3xl border border-gray-700 shadow-2xl max-w-2xl mx-auto w-full">
+                        <div className="flex justify-between items-center mb-6">
+                            <span className="text-xs font-bold text-blue-400 tracking-widest uppercase">
+                                Pregunta {indicePregunta + 1} de {preguntas.length}
+                            </span>
+                            <div className="h-1 w-32 bg-gray-700 rounded-full overflow-hidden">
+                                <div className="h-full bg-blue-500 transition-all" style={{width: `${((indicePregunta+1)/preguntas.length)*100}%`}}></div>
+                            </div>
+                        </div>
+                        
+                        {/* USAMOS EL ESCUDO ?. POR SI ACASO */}
+                        <h2 className="text-2xl font-bold mb-4 leading-tight">
+                            {preguntas[indicePregunta]?.pregunta}
+                        </h2>
+                        
+                        <div className="mb-8">
+                            <button onClick={() => setMostrandoPista(!mostrandoPista)} className="text-yellow-500/80 hover:text-yellow-400 text-sm font-bold flex items-center gap-2 transition">
+                                💡 {mostrandoPista ? "Ocultar pista" : "¿Necesitas una pista?"}
+                            </button>
+                            {mostrandoPista && (
+                                <div className="mt-3 p-4 bg-yellow-900/20 border border-yellow-700/50 rounded-xl text-sm text-yellow-200/80 italic animate-in fade-in slide-in-from-top-2">
+                                    "{preguntas[indicePregunta]?.pista}"
+                                </div>
+                            )}
+                        </div>
+                        
+                        <div className="space-y-3">
+                            {/* OTRO ESCUDO ?. ANTES DEL MAP */}
+                            {preguntas[indicePregunta]?.opciones?.map((opc, i) => {
+                                let color = "bg-[#353542] border-transparent hover:border-gray-500 shadow-sm";
+                                if (mostrandoResultado) {
+                                    if (opc === preguntas[indicePregunta]?.correcta) color = "bg-green-500/20 border-green-500 text-green-200";
+                                    else if (opc === opcionSeleccionada) color = "bg-red-500/20 border-red-500 text-red-200";
+                                    else color = "opacity-50 bg-[#353542]";
+                                } else if (opcionSeleccionada === opc) {
+                                    color = "border-blue-500 bg-blue-500/10";
+                                }
+                                
+                                return (
+                                    <button key={i} disabled={mostrandoResultado} onClick={() => setOpcionSeleccionada(opc)} className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4 ${color}`}>
+                                        <span className="w-8 h-8 rounded-lg bg-black/20 flex items-center justify-center font-bold shrink-0">{String.fromCharCode(65 + i)}</span>
+                                        <span className="text-sm font-medium">{opc}</span>
+                                    </button>
+                                )
+                            })}
+                        </div>
+
+                        {mostrandoResultado && (
+                            <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl text-sm italic text-blue-200">
+                                📖 {preguntas[indicePregunta]?.explicacion}
+                            </div>
+                        )}
+
+                        <div className="mt-10 flex gap-4">
+                            {!mostrandoResultado ? (
+                                <>
+                                    <button onClick={omitirPregunta} className="flex-1 bg-gray-700 hover:bg-gray-600 p-4 rounded-2xl font-bold transition text-gray-300">⏭️ Omitir</button>
+                                    <button onClick={resolverPregunta} disabled={!opcionSeleccionada} className="flex-[2] bg-blue-600 hover:bg-blue-500 disabled:opacity-50 p-4 rounded-2xl font-bold transition">✅ Resolver</button>
+                                </>
+                            ) : (
+                                <button onClick={siguientePregunta} className="w-full bg-gray-600 hover:bg-gray-500 p-4 rounded-2xl font-bold transition">Siguiente ➡️</button>
+                            )}
+                        </div>
                     </div>
-                    
-                    <h2 className="text-2xl font-bold mb-4 leading-tight">{preguntas[indicePregunta].pregunta}</h2>
-                    
-                    {/* BOTÓN PISTA */}
-                    <div className="mb-8">
-                        <button onClick={() => setMostrandoPista(!mostrandoPista)} className="text-yellow-500/80 hover:text-yellow-400 text-sm font-bold flex items-center gap-2 transition">
-                            💡 {mostrandoPista ? "Ocultar pista" : "¿Necesitas una pista?"}
-                        </button>
-                        {mostrandoPista && (
-                            <div className="mt-3 p-4 bg-yellow-900/20 border border-yellow-700/50 rounded-xl text-sm text-yellow-200/80 italic">
-                                "{preguntas[indicePregunta].pista}"
+                ) : (
+                            /* PANTALLA DE RESULTADOS */
+                            <div className="text-center bg-[#2a2a35] p-12 rounded-3xl border border-gray-700 shadow-2xl max-w-lg mx-auto w-full">
+                                <div className="w-32 h-32 rounded-full border-8 border-blue-500 flex items-center justify-center mx-auto mb-6">
+                                    <span className="text-4xl font-black">{Math.round((puntuacion/preguntas.length)*100)}%</span>
+                                </div>
+                                <h2 className="text-3xl font-bold mb-8">¡Test Finalizado!</h2>
+                                <div className="grid grid-cols-3 gap-4 mb-10">
+                                  <div className="bg-green-500/10 p-4 rounded-2xl"><div className="text-2xl font-bold text-green-500">{puntuacion}</div><div className="text-xs text-green-500/70 uppercase font-bold">Correctas</div></div>
+                                  <div className="bg-red-500/10 p-4 rounded-2xl"><div className="text-2xl font-bold text-red-500">{preguntas.length - puntuacion - omitidas}</div><div className="text-xs text-red-500/70 uppercase font-bold">Incorrectas</div></div>
+                                  <div className="bg-gray-500/10 p-4 rounded-2xl"><div className="text-2xl font-bold text-gray-400">{omitidas}</div><div className="text-xs text-gray-500/70 uppercase font-bold">Omitidas</div></div>
+                                </div>
+                                <button onClick={() => { setIndicePregunta(0); setPuntuacion(0); setOmitidas(0); setQuizFinalizado(false); }} className="w-full bg-blue-600 hover:bg-blue-500 p-4 rounded-2xl font-bold transition">🔁 Repetir este Test</button>
+                                <button onClick={() => setConfigurandoQuiz(true)} className="w-full text-gray-400 text-sm mt-4 hover:text-white transition underline">Crear otro test diferente</button>
                             </div>
                         )}
                     </div>
-                    
-                    <div className="space-y-3">
-                      {preguntas[indicePregunta].opciones.map((opc, i) => {
-                        let color = "bg-[#353542] border-transparent hover:border-gray-500";
-                        if (mostrandoResultado) {
-                          if (opc === preguntas[indicePregunta].correcta) color = "bg-green-500/20 border-green-500 text-green-200";
-                          else if (opc === opcionSeleccionada) color = "bg-red-500/20 border-red-500 text-red-200";
-                          else color = "opacity-50 bg-[#353542]";
-                        } else if (opcionSeleccionada === opc) {
-                          color = "border-blue-500 bg-blue-500/10";
-                        }
-                        
-                        return (
-                          <button key={i} disabled={mostrandoResultado} onClick={() => setOpcionSeleccionada(opc)} className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 flex items-center gap-4 ${color}`}>
-                            <span className="w-8 h-8 rounded-lg bg-black/20 flex items-center justify-center font-bold shrink-0">{String.fromCharCode(65 + i)}</span>
-                            {opc}
-                          </button>
-                        )
-                      })}
-                    </div>
-
-                    {mostrandoResultado && (
-                      <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl text-sm italic text-blue-200">
-                        📖 {preguntas[indicePregunta].explicacion}
-                      </div>
-                    )}
-
-                    <div className="mt-10 flex gap-4">
-                      {!mostrandoResultado ? (
-                        <>
-                            {/* BOTÓN OMITIR */}
-                            <button onClick={omitirPregunta} className="flex-1 bg-gray-700 hover:bg-gray-600 p-4 rounded-2xl font-bold transition text-gray-300">
-                                ⏭️ Omitir
-                            </button>
-                            <button onClick={resolverPregunta} disabled={!opcionSeleccionada} className="flex-[2] bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed p-4 rounded-2xl font-bold transition">
-                                ✅ Resolver
-                            </button>
-                        </>
-                      ) : (
-                        <button onClick={siguientePregunta} className="w-full bg-gray-600 hover:bg-gray-500 p-4 rounded-2xl font-bold transition">
-                            Siguiente ➡️
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                ) : preguntas.length > 0 ? (
-                  /* RESULTADOS */
-                  <div className="text-center bg-[#2a2a35] p-12 rounded-3xl border border-gray-700 shadow-2xl">
-                    <div className="w-32 h-32 rounded-full border-8 border-blue-500 flex items-center justify-center mx-auto mb-6">
-                        <span className="text-4xl font-black">{Math.round((puntuacion/preguntas.length)*100)}%</span>
-                    </div>
-                    <h2 className="text-3xl font-bold mb-8">¡Test Finalizado!</h2>
-                    <div className="grid grid-cols-3 gap-4 mb-10">
-                      <div className="bg-green-500/10 p-4 rounded-2xl"><div className="text-2xl font-bold text-green-500">{puntuacion}</div><div className="text-xs text-green-500/70 uppercase font-bold">Correctas</div></div>
-                      <div className="bg-red-500/10 p-4 rounded-2xl"><div className="text-2xl font-bold text-red-500">{preguntas.length - puntuacion - omitidas}</div><div className="text-xs text-red-500/70 uppercase font-bold">Incorrectas</div></div>
-                      <div className="bg-gray-500/10 p-4 rounded-2xl"><div className="text-2xl font-bold text-gray-400">{omitidas}</div><div className="text-xs text-gray-500/70 uppercase font-bold">Omitidas</div></div>
-                    </div>
-                    <button onClick={handleIniciarQuiz} className="w-full bg-blue-600 hover:bg-blue-500 p-4 rounded-2xl font-bold transition">🔁 Repetir Test</button>
-                  </div>
-                ) : null}
-              </div>
-            )}
+                </div>
+              )}
           </div>
         </div>
 
@@ -484,9 +588,13 @@ function VistaCuaderno() {
             <button onClick={abrirPestanaResumen} className="w-full bg-[#2a2a35] hover:bg-gray-700 p-4 rounded-2xl text-sm font-bold flex justify-between items-center transition border border-gray-700 shadow-sm">
               📝 Resúmenes {datos.resumenes?.length > 0 && <span className="bg-blue-600 text-white px-2 py-0.5 rounded-full text-xs">{datos.resumenes.length}</span>}
             </button>
-            <button onClick={handleIniciarQuiz} className="w-full bg-[#2a2a35] hover:bg-gray-700 p-4 rounded-2xl text-sm font-bold flex justify-between items-center transition border border-gray-700 shadow-sm">
-              ❓ Cuestionario {datos.quiz && "✅"}
-            </button>
+            {/* En la COL 3: HERRAMIENTAS */}
+              <button 
+                onClick={() => { setVistaActiva('quiz'); setConfigurandoQuiz(true); }} 
+                className="w-full bg-[#2a2a35] hover:bg-gray-700 p-4 rounded-2xl text-sm font-bold flex justify-between items-center transition border border-gray-700 shadow-sm"
+              >
+                ❓ Cuestionario {datos.quizzes?.length > 0 && <span className="bg-blue-600 text-white px-2 py-0.5 rounded-full text-xs">{datos.quizzes.length}</span>}
+              </button>
           </div>
         </div>
       </div>

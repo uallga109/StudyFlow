@@ -15,128 +15,6 @@
             "Tema6 TDRC 2024-25.pdf",
             "Tema5_TDRC 2024-25_19Nov.pdf"
         ],
-        "quiz": [
-            {
-                "pregunta": "¿Cuál de las siguientes afirmaciones sobre las redes Wi-Fi que operan en la banda de 5 GHz es correcta, según los apuntes?",
-                "opciones": [
-                    "A) Ofrecen un mayor alcance que las redes de 2.4 GHz.",
-                    "B) Suelen operar a una menor velocidad que las redes de 2.4 GHz.",
-                    "C) Disponen de 24 canales de 20 MHz sin solape.",
-                    "D) Los canales están muy saturados por la cantidad de dispositivos que la utilizan."
-                ],
-                "correcta": "C) Disponen de 24 canales de 20 MHz sin solape.",
-                "explicacion": "Según los apuntes, las redes de 5 GHz 'Ofrece un menor alcance' y 'Opera a una mayor velocidad que la 2,4 GHz'. Además, 'Dispone de 24 canales de 20 MHz, sin solape entre los canales', a diferencia de la banda de 2.4 GHz que tiene canales 'muy saturados'.",
-                "pista": "Compara las características de alcance, velocidad y saturación entre las bandas de 2.4 GHz y 5 GHz."
-            },
-            {
-                "pregunta": "En el protocolo CSMA/CA, ¿cuál es el propósito principal del Vector de Asignación de Red (NAV)?",
-                "opciones": [
-                    "A) Detección de colisiones en el canal.",
-                    "B) Sincronización de los relojes de las estaciones.",
-                    "C) Informar a otras estaciones cuánto tiempo estará ocupado el canal.",
-                    "D) Asegurar la entrega de los frames de datos."
-                ],
-                "correcta": "C) Informar a otras estaciones cuánto tiempo estará ocupado el canal.",
-                "explicacion": "Los apuntes indican que el NAV 'Permite evitar las colisiones en CSMA-CA' y que 'Cuando una estación envía un RTS o CTS, este incluye la duración en tiempo en el que se ocupará el canal. Las estaciones afectadas... crean un NAV, que indica cuánto hay que esperar para chequear de nuevo el canal'.",
-                "pista": "Piensa en cómo CSMA/CA evita, no detecta, las colisiones y cómo se comunican las estaciones sobre el uso del canal."
-            },
-            {
-                "pregunta": "¿Cuál de los siguientes problemas de comunicación se resuelve mediante el uso de los frames RTS y CTS en redes inalámbricas?",
-                "opciones": [
-                    "A) El problema de la estación expuesta.",
-                    "B) La detección de colisiones directa entre estaciones.",
-                    "C) El problema de la estación oculta.",
-                    "D) La asignación dinámica de direcciones IP."
-                ],
-                "correcta": "C) El problema de la estación oculta.",
-                "explicacion": "Los apuntes afirman que 'El uso de los frames RTS y CTS evitan la colisión' causada por la estación oculta. También mencionan explícitamente que 'Los frames RTS y CTS no solucionan el problema de la estación expuesta'.",
-                "pista": "Recuerda el escenario donde dos estaciones B y C no se ven entre sí, pero ambas ven a una estación A, causando colisiones en A."
-            },
-            {
-                "pregunta": "Según los apuntes, ¿qué mejora principal introduce WPA3 con respecto a WPA2?",
-                "opciones": [
-                    "A) Utiliza el algoritmo RC4 para el cifrado.",
-                    "B) Reemplaza WPS por WiFi Easy Connect y aumenta la clave de cifrado a 192 bits.",
-                    "C) Reduce la clave de cifrado a 128 bits para mayor velocidad.",
-                    "D) Soluciona completamente todos los problemas de seguridad heredados de WEP."
-                ],
-                "correcta": "B) Reemplaza WPS por WiFi Easy Connect y aumenta la clave de cifrado a 192 bits.",
-                "explicacion": "Los apuntes indican que 'WPA3 (Acceso Protegido WiFi v3) mejora a WPA2... pasando la clave de cifrado de 128 bits a 192 bits y reemplazando WPS... por WiFi Easy Connect'.",
-                "pista": "WPA3 es una evolución. Piensa en qué aspectos de seguridad se suelen mejorar en las nuevas versiones de protocolos de seguridad Wi-Fi."
-            },
-            {
-                "pregunta": "¿Cuál es la principal característica que distingue a una Scatternet de una Piconet en Bluetooth?",
-                "opciones": [
-                    "A) Una Piconet permite conectar más de 8 dispositivos.",
-                    "B) Una Scatternet permite la interconexión de varias Piconets, comunicando más de 8 dispositivos.",
-                    "C) En una Scatternet, todos los dispositivos son maestros.",
-                    "D) Una Piconet siempre tiene un maestro y un esclavo dedicado."
-                ],
-                "correcta": "B) Una Scatternet permite la interconexión de varias Piconets, comunicando más de 8 dispositivos.",
-                "explicacion": "Según los apuntes, una Piconet está limitada 'hasta un máximo de 8 dispositivos'. Por otro lado, una Scatternet es la 'Interconexión de varias piconets, permitiendo comunicar más de 8 dispositivos'.",
-                "pista": "Considera la escala y la capacidad de interconexión entre las dos estructuras de red Bluetooth."
-            },
-            {
-                "pregunta": "Respecto a los tipos de enlaces en el protocolo LMP de Bluetooth, ¿cuál es una característica del enlace SCO (Synchronous Connection-Oriented)?",
-                "opciones": [
-                    "A) Es una conexión punto a multipunto sin ancho de banda prefijado.",
-                    "B) Se utiliza principalmente para la transferencia de datos sin requerimientos temporales.",
-                    "C) Es una conexión punto a punto con un ancho de banda fijo, utilizado para comunicaciones de voz y no necesita retransmisión.",
-                    "D) El maestro solo soporta un solo enlace SCO simultáneo."
-                ],
-                "correcta": "C) Es una conexión punto a punto con un ancho de banda fijo, utilizado para comunicaciones de voz y no necesita retransmisión.",
-                "explicacion": "Los apuntes describen el enlace SCO como 'Conexión punto a punto con un ancho de banda fijo... suele ser utilizado para comunicaciones de voz... no es necesario asegurar la entrega y no necesita retransmisión'. Además, el maestro 'soporta 3 enlaces SCOs simultáneos'.",
-                "pista": "Recuerda la diferencia entre comunicación de voz (sensible al tiempo) y datos (flexible en el tiempo) en Bluetooth."
-            },
-            {
-                "pregunta": "¿Cuál de las siguientes afirmaciones describe mejor el objetivo principal de la tecnología ZigBee, según los apuntes?",
-                "opciones": [
-                    "A) Alcanzar las tasas de transferencia de datos más altas posibles para transmisión de video en tiempo real.",
-                    "B) Proporcionar comunicaciones seguras con baja tasa de envío de datos y maximización de la vida útil de sus baterías.",
-                    "C) Ser completamente compatible con Bluetooth en todos los aspectos de transferencia y capacidad de nodos.",
-                    "D) Habilitar redes de área local inalámbricas de gran alcance con alta potencia de emisión."
-                ],
-                "correcta": "B) Proporcionar comunicaciones seguras con baja tasa de envío de datos y maximización de la vida útil de sus baterías.",
-                "explicacion": "Los apuntes establecen que ZigBee 'tiene como objetivo las aplicaciones que requieren comunicaciones seguras con baja tasa de envío de datos y maximización de la vida útil de sus baterías'. También se menciona que 'no puede ser compatible con bluetooth en todos sus aspectos'.",
-                "pista": "Piensa en el nicho de aplicación de ZigBee en comparación con Wi-Fi o Bluetooth de alta velocidad."
-            },
-            {
-                "pregunta": "En una red ZigBee, ¿qué tipo de dispositivo es responsable de controlar la red, gestionar los caminos de conexión entre dispositivos y requiere memoria y capacidad de computación significativas?",
-                "opciones": [
-                    "A) Router ZigBee (ZR).",
-                    "B) Dispositivo final (ZED).",
-                    "C) Coordinador ZigBee (ZC).",
-                    "D) Dispositivo de funcionalidad reducida (RFD)."
-                ],
-                "correcta": "C) Coordinador ZigBee (ZC).",
-                "explicacion": "Los apuntes describen al Coordinador ZigBee (ZC) como el dispositivo que 'Debe existir uno por red y se encarga de controlar la red y los caminos que deben seguir los dispositivos para conectarse entre ellos, requiere memoria y capacidad de computación'.",
-                "pista": "Este dispositivo actúa como el 'cerebro' central o punto de inicio de la red ZigBee."
-            },
-            {
-                "pregunta": "Según los apuntes, en la banda de 2.4 GHz, ¿cuántas redes Wi-Fi se pueden operar simultáneamente sin que haya solape entre sus canales, y cuáles son esos canales recomendados?",
-                "opciones": [
-                    "A) 14 redes, usando cualquiera de los 14 canales disponibles.",
-                    "B) 22 redes, ya que cada canal tiene 22 MHz de ancho.",
-                    "C) Hasta cuatro redes sin solape, los canales 1, 6, 11 y 14.",
-                    "D) Un número ilimitado de redes debido a la tecnología OFDM."
-                ],
-                "correcta": "C) Hasta cuatro redes sin solape, los canales 1, 6, 11 y 14.",
-                "explicacion": "Los apuntes indican que en la banda de 2.4 GHz 'Se puede elegir entre 14 canales de comunicación' y 'Puede haber hasta cuatro redes sin solape, los canales 1, 6, 11 y 14'.",
-                "pista": "No es el número total de canales disponibles, sino cuántos se pueden usar de forma independiente para evitar interferencias."
-            },
-            {
-                "pregunta": "¿Cuál de las siguientes es una fuente común de interferencia para las redes Wi-Fi que se menciona en los apuntes, cuya amplitud depende de la antigüedad del electrodoméstico y la calidad de su aislante?",
-                "opciones": [
-                    "A) Bluetooth.",
-                    "B) Micróondas.",
-                    "C) Ratones inalámbricos.",
-                    "D) Sensores de movimiento."
-                ],
-                "correcta": "B) Micróondas.",
-                "explicacion": "En la sección de fuentes de interferencia WiFi, los apuntes mencionan 'Microondas: La amplitud depende de la antiguedad del electrodoméstico, calidad del aislante y distancia al dispositivo WiFi.'",
-                "pista": "Piensa en electrodomésticos comunes que emiten energía en el rango de frecuencia de 2.4 GHz y cuya efectividad del blindaje puede variar con el tiempo."
-            }
-        ],
         "resumenes": [
             {
                 "id": "7ef19514-fc45-4abb-808f-fcc1cf350972",
@@ -153,6 +31,390 @@
                     "Tema5_TDRC 2024-25_19Nov.pdf"
                 ],
                 "texto": "Como experto tutor universitario, he revisado tus apuntes sobre \"Redes Cableadas\" (Tema V). A continuación, te presento un resumen exhaustivo y estructurado, basándome **única y exclusivamente** en la información que has proporcionado, utilizando formato Markdown y destacando los conceptos clave.\n\n---\n\n# TEMA V: Redes Cableadas\n\nEste tema aborda las **redes cableadas**, diferenciando entre **LANs** y **WANs**, y explora diversas tecnologías y protocolos asociados.\n\n## V.1. Ejemplos de LANs Cableadas\n\n### Comunicación Serial con UART\n\nLa **UART** (Transmisor-Receptor Asíncrono Universal) es una interfaz de comunicación serial.\n\n*   **Funcionalidad:** Se encarga de convertir los bits secuenciales transmitidos por el cable en Bytes. Necesita incluir **bits de inicio y parada** en cada byte para resincronizar al receptor, ya que los dispositivos pueden tener frecuencias de reloj ligeramente diferentes.\n*   **Modos de Comunicación Asíncrona:**\n    *   **Full-duplex:** Transmite y recibe simultáneamente.\n    *   **Half-duplex:** Solo transmite o solo recibe.\n    *   **Simplex:** Solo transmite información binaria.\n*   **Paquete de datos:** Consta de **Bit de inicio + 8 bits de datos + 1 bit de parada**.\n*   **Velocidades (Baud-rates):** Amplia gama, desde 300 hasta 921.600 bps (en Arduino, por ejemplo).\n*   **Protocolos disponibles:** Definen la configuración de bits de datos, paridad (No, Even, Odd) y bits de parada (1 o 2). El **SERIAL_8N1** (8-bit No parity 1 stop bit) es el predeterminado.\n*   **Ejemplos de uso:**\n    *   **Arduino:** Tiene un puerto serie UART conectado al USB, alcanzando hasta 921.600 bps.\n    *   **ESP32:** Dispone de 3 puertos seriales (uart0, uart1, uart2), donde uart0 se usa por defecto para registro y consola. uart1 y uart2 son utilizables.\n    *   Comunicación entre PC y placa (con tarjeta de conversión a USB), y entre dos placas (con o sin distintos voltajes lógicos).\n*   **Programación (ejemplo ESP32):** `Serial2.begin(baud-rate, protocol, RX pin, TX pin);`\n    *   Funciones clave: `Serial.available()`, `Serial.print()`, `Serial.read()`.\n*   **Características resumidas de UART:**\n    *   **Topología:** Punto a punto o multipunto (con convertidores RS-485).\n    *   **Cables:** Dos cables (TX y RX).\n    *   **Modo de Operación:** **Asíncrona** (no requiere reloj compartido), bidireccional.\n    *   **Velocidad de Transferencia:** Generalmente hasta **1 Mbps**.\n    *   **Tamaño de Mensaje:** Normalmente envía datos en paquetes de un byte (8 bits), máximo 9 bits con paridad.\n    *   **Número de Dispositivos:** Generalmente **2** (punto a punto).\n    *   **Propósito/Uso:** Comunicación simple entre dos dispositivos (ej. computadora y microcontrolador).\n    *   **Ventajas:** **Simplicidad de implementación**, pocos cables, no necesita reloj compartido.\n    *   **Desventajas:** Velocidades limitadas, menos confiable en largas distancias, sin soporte nativo para múltiples dispositivos.\n\n### Interfaz SPI (Serial Peripheral Interface)\n\n**SPI** es una interfaz de comunicación **síncrona** de alta velocidad.\n\n*   **Pines:** Utiliza cuatro hilos para la comunicación:\n    *   **MOSI** (Master Output Slave Input): Salida del maestro, entrada del esclavo.\n    *   **MISO** (Master Input Slave Output): Entrada del maestro, salida del esclavo.\n    *   **SCLK** (Serial Clock): Reloj Serial, generado por el maestro.\n    *   **CS/SS** (Chip Select/Slave Select): Selecciona el esclavo activo.\n*   **Funcionalidad:**\n    *   Comunicación **full-duplex** (ambos sentidos simultáneamente).\n    *   **Muy bajo consumo**.\n    *   Velocidades de hasta **10 Mbps** o más.\n*   **Implementación en ESP32:**\n    *   Incluye 4 interfaces SPI: SPI0, SPI1, SPI2 (HSPI) y SPI3 (VSPI).\n    *   **SPI0 y SPI1** se usan internamente (memoria flash).\n    *   **HSPI y VSPI** son para el usuario, cada uno con señales de bus independientes y pudiendo controlar hasta **3 esclavos**.\n*   **Múltiples Esclavos:** Se gestionan activando la línea CS/SS del esclavo deseado y deshabilitando los demás. Pueden estar en el mismo bus SPI o en diferentes buses.\n*   **Programación:**\n    *   Requiere la librería `<SPI.h>`.\n    *   Inicializar objetos `SPIClass` para el bus deseado (ej. `vspi = new SPIClass(VSPI);`).\n    *   Especificar pines con `SPI.begin(SCK, MISO, MOSI, SS);` o `vspi->begin(...)`.\n    *   Habilitar pines SS como salida.\n    *   Abrir (`beginTransaction`) y cerrar (`endTransaction`) comunicaciones SPI.\n    *   Modos SPI (`SPI_MODE0` a `SPI_MODE3`) definen el nivel del reloj y flanco de muestreo.\n    *   Transferencia de datos: `hspi->transfer(data);`.\n    *   Orden de bits: **MSBFIRST** (más significativo primero) o **LSBFIRST** (menos significativo primero).\n*   **Características resumidas de SPI:**\n    *   **Topología:** Maestro-esclavo (un maestro, múltiples esclavos).\n    *   **Cables:** Cuatro cables (MOSI, MISO, SCK, SS/CS).\n    *   **Modo de Operación:** **Síncrona** (reloj generado por el maestro).\n    *   **Velocidad de Transferencia:** Puede alcanzar **10 Mbps o más**.\n    *   **Tamaño de Mensaje:** Flexible, típicamente configurable de 8 a 16 bits por transferencia.\n    *   **Número de Dispositivos:** Limitado por pines CS, ampliable con decodificadores externos.\n    *   **Propósito/Uso:** Aplicaciones de alta velocidad (pantallas, memorias flash, sensores).\n    *   **Ventajas:** **Alta velocidad**, full-duplex, flexible en tamaño de datos.\n    *   **Desventajas:** Requiere más cables, manejo complejo de múltiples esclavos sin hardware adicional.\n\n### Bus CAN (Controller Area Network)\n\nEl **Bus CAN** es un protocolo robusto, especialmente utilizado en la **industria automotriz**, para la comunicación entre **sensores, actuadores y Unidades de Control Electrónico (ECU)**.\n\n*   **Funcionamiento:**\n    *   En modo inactivo, ambas líneas (CAN_H y CAN_L) transportan 2.5V.\n    *   Al transmitir bits de datos, CAN_H sube a 3.75V y CAN_L baja a 1.25V, generando un **diferencial de 2.5V**. Las líneas se referencian entre sí, no a tierra.\n*   **Estructura del Mensaje (Frame CAN):**\n    *   **SOF (Start of Frame) - 1 bit:** Bit dominante que marca el inicio del mensaje y sincroniza los nodos.\n    *   **CAN ID - 11 bits:** Identificador único del mensaje, define la **prioridad** (IDs más bajos tienen mayor prioridad).\n    *   **RTR (Remote Transmission Request) - 1 bit:** Indica si la trama es de datos (dominante/0) o de solicitud remota (recesivo/1).\n    *   **Control - 6 bits:** Incluye el **DLC (Data Length Code)**, que especifica la longitud del campo de datos (0 a 8 bytes).\n    *   **Data - 0-64 bits:** Contiene los datos reales del mensaje (0 a 8 bytes).\n    *   **CRC (Cyclic Redundancy Check) - 16 bits:** Código de verificación para **detectar errores** en la transmisión.\n    *   **ACK (Acknowledgment) - 2 bits:** Permite a otros nodos confirmar la recepción correcta del mensaje. Un bit dominante indica que al menos un nodo ha reconocido la recepción.\n    *   **EOF (End of Frame) - 7 bits:** Bits recesivos que marcan el final de la trama.\n*   **Estándares OBD-II soportados:** Incluye **ISO 15765 CAN** (250 kbps o 500 kbps), entre otros (SAE J1850 PWM/VPW, ISO 9141-2, KWP2000).\n*   **Módulo MCP2515:**\n    *   Permite recibir y enviar frames en formato estándar y extendido.\n    *   Posee **máscaras y filtros** para reducir la carga del microcontrolador.\n    *   **Programación:** Requiere librerías `<SPI.h>` y `<mcp2515.h>`.\n        *   Usa la estructura `can_frame` para mensajes (`can_id`, `can_dlc`, `data`).\n        *   Inicialización: `mcp2515.reset()`, `mcp2515.setBitrate(CAN_125KBPS, etc.)`, `mcp2515.setNormalMode()`.\n        *   Envío/Recepción: `mcp2515.sendMessage(&Msg)`, `mcp2515.readMessage(&Msg)`.\n*   **Características resumidas de Bus CAN:**\n    *   **Topología:** Bus, **multidifusión** (todos los nodos reciben, deciden si procesar).\n    *   **Cables:** Dos cables diferenciales (CAN_H y CAN_L) para **resistencia al ruido**.\n    *   **Modo de Operación:** Basado en **identificadores**, sin destinatarios específicos.\n    *   **Velocidad de Transferencia:** Hasta **1 Mbps** (CAN estándar).\n    *   **Tamaño de Mensaje:** 0 a 8 bytes (CAN estándar), hasta 64 bytes (CAN FD).\n    *   **Arbitraje:** Basado en el **identificador del mensaje** (ID más bajo = mayor prioridad).\n    *   **Número de Dispositivos:** Teóricamente ilimitado, limitado en la práctica por carga del bus.\n    *   **Control de Errores:** **CRC** y **retransmisión automática**.\n    *   **Propósito/Uso:** Industria automotriz, control industrial, sistemas de tiempo real (alta fiabilidad).\n    *   **Ventajas:** **Alta fiabilidad y resistencia al ruido**, gestión de prioridad de mensajes, multidifusión.\n    *   **Desventajas:** Requiere hardware especializado (transceptores CAN), implementación más compleja y mayor costo.\n\n### Bus KNX\n\n**KNX** es un **protocolo de comunicación estandarizado para edificios inteligentes**, sucesor de EHS, BatiBus y EIB (Instabus).\n\n*   **Concepto:** Permite interconectar dispositivos en viviendas inteligentes, superando la limitación del cableado en estrella, conectando sensores y actuadores a través de un **cable bus**.\n*   **Principios:**\n    *   **Topología descentralizada:** No requiere unidad central.\n    *   **Acceso al bus regulado** para evitar solapamientos.\n    *   Información en **telegramas** (órdenes, direcciones).\n    *   **Dispositivos:**\n        *   **Sensores:** Detectan acciones (pulsación, movimiento, temperatura) y las convierten en telegramas.\n        *   **Actuadores:** Reciben telegramas y ejecutan acciones (encender luz, subir persiana).\n*   **Independencia de hardware:** Utiliza microcontroladores (sencillo) o microprocesadores (complejo).\n*   **Medios de Transmisión más comunes:**\n    *   **Par Trenzado (KNX TP)**: El más común.\n    *   **Red Powerline (KNX PL)**.\n    *   **Radiofrecuencia (KNX RF)**.\n    *   **Ethernet/IP (KNX IP)**.\n    *   **Infrarrojos**.\n*   **Instalación KNX vs. Estándar:** En KNX, los dispositivos se conectan a un **bus que funciona a 29V CC**. La programación se realiza con una herramienta común (ETS) sin necesidad de recablear.\n*   **Componentes de un sistema KNX:** **Fuente de Alimentación**, **Sensores**, **Actuadores** y el **BUS**.\n*   **Ahorro energético:** Un sistema basado en KNX puede alcanzar un ahorro global superior al **50%**.\n*   **Ejemplos de Sensores:** Interruptores, termostatos, detectores de movimiento/presencia, contactos de ventanas, medidores de consumo, sensores de luminosidad/viento, lectores de huellas.\n*   **Ejemplos de Actuadores:** Relés de conmutación de luz, dimmers, válvulas eléctricas, accionamientos de persianas/cortinas, alarmas, bombas.\n*   **Ejemplos de Módulos de Función:** Reguladores de temperatura, funciones temporizadas, módulos lógicos, autómatas programables, control de luz constante, acceso remoto.\n*   **Participantes:** Mínimo 2, teóricamente más de **50.000 participantes**.\n*   **Tensión del bus:** **29 V CC**, con tolerancia entre 21V y 30V.\n\n#### KNX Twisted Pair (KNX TP)\n\n*   **Transferencia de datos:** **Simétrica libre de tierra**, la señal se transmite por ambos cables a **9.600 bit/s**.\n    *   **Cero lógico:** Tensión disminuye brevemente y vuelve a nivelarse.\n    *   **Uno lógico:** Corresponde al estado inactivo del bus.\n    *   El receptor evalúa el **cambio en la diferencia de tensión** entre conductores.\n*   **Procedimiento de acceso al bus:** **CSMA/CA** (Carrier Sense Multiple Access / Collision Avoidance). Los ceros tienen prioridad sobre los unos en caso de colisión.\n*   **Terminales de bus:** Permiten desconectar un dispositivo sin interrumpir la línea.\n*   **Telegrama KNX TP:** Se compone de 4 campos:\n    *   **Campo de control:** Prioridad, repetición.\n    *   **Campo de dirección:** Dirección física del emisor y destinatario (física o de grupo).\n    *   **Campo de datos:** Datos útiles (hasta 16 Bytes).\n    *   **Campo de comprobación:** Verificación de paridad.\n*   **Topología:**\n    *   **Línea KNX TP:** Hasta **64 dispositivos**.\n    *   Línea KNX TP con 3 repetidores máximo: Hasta **255 dispositivos**.\n    *   **Área KNX TP:** Acoplarse hasta **15 líneas** (15 acopladores máximo).\n*   **Direcciones Físicas:** Tres cifras separadas por puntos: número de área.número de línea.número correlativo. Los acopladores de línea y área tienen el número correlativo **0**.\n\n#### KNX Powerline (KNX PL)\n\n*   Utiliza la **red eléctrica existente (230 V)** para la transmisión de datos.\n*   **No necesita fuente de alimentación** adicional en los dispositivos PL.\n*   Velocidad de transmisión: **1.200 bit/s**.\n*   **Método SFSK** (Spread Frequency Shift Keying):\n    *   **Cero lógico:** Señal de 105.6 kHz.\n    *   **Uno lógico:** Señal de 115.2 kHz.\n\n#### KNX Ethernet (KNX IP)\n\n*   Utiliza el estándar **IEEE 802.3** (Ethernet) y métodos de comunicación de Ethernet como **tunneling** y **routing**, ambos sobre **UDP**.\n*   **Tunneling (KNXnet/IP tunneling):** Para acceder al bus desde redes locales o internet (ej. programación KNX).\n*   **Routing (KNXnet/IP routing):** Para el intercambio de telegramas a través de Ethernet (ej. acoplar dos instalaciones KNX TP).\n*   **Ratio de Transferencia:** KNX TP: 50 telegramas/s; KNX PL: 6 telegramas/s.\n\n#### Procedimiento para integrar dispositivos con ETS (Software de Configuración KNX)\n\nEl proceso implica:\n1.  Instalar y actualizar el software **ETS5** y su catálogo de productos.\n2.  Crear un nuevo proyecto, especificando el **medio de transmisión (ej. TP)** y el estilo de **direcciones de grupos** (tres niveles: principales, intermedios, reales).\n3.  Crear la **estructura del edificio** (plantas, estancias, cuadros de control).\n4.  **Añadir dispositivos** desde el catálogo (actuadores, pulsadores, fuentes de alimentación) y arrastrarlos a las estancias.\n5.  **Establecer conexiones** entre los dispositivos creando **direcciones de grupo** reales que enlazan los objetos de comunicación de los dispositivos.\n6.  **Configurar parámetros** de los dispositivos (ej. retardos en el apagado de luces en un actuador binario).\n7.  **Programar los dispositivos reales** del proyecto, transfiriendo la dirección individual y la configuración completa (incluyendo parámetros modificados) a cada dispositivo físico, presionando su botón de programación.\n\n#### Control Remoto de Dispositivos (SpaceLynk y Python)\n\nLos apuntes incluyen ejemplos de código Python que interactúan con un servidor SpaceLynk para controlar dispositivos KNX (luces, persianas) y obtener información (nivel de radiación, detección de movimiento de cámara). Utiliza peticiones HTTP GET y parseo XML.\n\n### Ethernet\n\n**Ethernet** es un estándar **IEEE 802** que divide la capa de enlace en dos subcapas: **Control de Enlace Lógico (LLC)** y **Control de Acceso al Medio (MAC)**. Define estándares para la capa física.\n\n#### Formato de la Trama (IEEE 802.3)\n\n*   **Preámbulo (56 bits):** Para sincronización.\n*   **SFD (Start Frame Delimiter):** 10101011, delimita el comienzo.\n*   **Destination address (6 bytes):** Dirección física del destinatario.\n*   **Source address (6 bytes):** Dirección física del emisor.\n*   **Type:** Tipo de datos encapsulados.\n*   **Data (46 a 1500 bytes):** Datos para la capa superior.\n*   **CRC (Cyclic Redundancy Check):** Detección de errores.\n*   **Longitud de la trama:**\n    *   **Mínima (512 bits):** Para detectar colisiones (permite 46 bytes de datos).\n    *   **Máxima (1518 bytes):** Para evitar que un dispositivo monopolice el medio (permite 1500 bytes de datos), sin preámbulo ni SFD.\n\n#### Direccionamiento\n\n*   Cada **tarjeta de interfaz de red (NIC)** tiene una **dirección de enlace, física o MAC** de **6 bytes**.\n*   Pueden ser **unicast, multicast y broadcast** (FF:FF:FF:FF:FF:FF).\n\n#### CSMA/CD (Carrier Sense Multiple Access / Collision Detection)\n\n*   Mecanismo de control de acceso utilizado en las **primeras implementaciones de Ethernet** con **medio compartido** (cable o hub). No se utiliza con conmutadores (switches).\n*   **Funcionamiento:**\n    *   Los dispositivos comparten el medio. Todas las tramas son recibidas por todos, y el dispositivo con la dirección de destino la coge.\n    *   Para reducir colisiones, se **escucha el medio (CSMA)** antes de transmitir.\n    *   **Niveles de energía en el medio:** Cero (libre), Normal (transmisión), Anormal (colisión, doble de lo normal).\n    *   Si se detecta colisión, se **aborta la transmisión** y se reintenta después de un tiempo aleatorio.\n*   **Probabilidad de colisión:** Depende de la velocidad de propagación de la señal y la longitud del cable.\n*   **Tamaño mínimo de la trama (512 bits):** Para asegurar que el último bit se envíe sin colisión. Depende del tiempo de propagación del frame (RTT), que debe ser al menos el doble del tiempo máximo de propagación (Tp) entre los dos dispositivos más alejados. Se calcula con base en latencias de repetidores, ancho de banda y velocidad de la electricidad.\n*   **Acción ante colisión:** Se genera una **señal de 48 bits** para alertar y se espera un tiempo aleatorio.\n\n#### Evolución de Ethernet\n\nEthernet ha evolucionado incrementando el ancho de banda.\n\n#### Ethernet Estándar\n\n*   Denominado **10BASE-X**:\n    *   **10:** 10 Mbps de ancho de banda.\n    *   **BASE:** Transmisión en **banda base**.\n    *   **X:** Distancia máxima (5=500m, 2=186m) o tipo de cable (T=UTP, F=Fibra óptica).\n\n#### Fast Ethernet (100 Mbps)\n\n*   **Objetivos:** Alcanzar **100 Mbs** y ser **compatible** con Ethernet estándar (direcciones MAC, formato/tamaño de trama).\n*   **Subcapa MAC:**\n    *   **Half-duplex:** Envía o recibe. Utiliza **CSMA-CD** (existen colisiones). Usado con **concentradores (hubs)**. Para aumentar velocidad 10 veces, se disminuye la distancia máxima 10 veces para reducir colisiones. Opciones: **100BaseT4**, **100BaseTX**, **100BaseFX**.\n    *   **Full-duplex:** Envía y recibe simultáneamente. **No utiliza CSMA-CD** (no hay colisiones). Usado con **conmutadores (switches)**.\n*   **Autonegociación:** Permite negociar velocidades (10Mbs y 100Mbs).\n\n#### Gigabit Ethernet (1 Gbps)\n\n*   **Objetivos:** Alcanzar **1 Gbs** y ser **compatible** con Fast Ethernet (direcciones MAC, formato/tamaño de trama, autonegociación).\n*   **Subcapa MAC:**\n    *   **Half-duplex:** (En desuso). Para compatibilidad. La longitud máxima de la red depende del tamaño mínimo de la trama (64 B). Soluciones para mantener la longitud de red:\n        *   **Carrier extension:** Incrementar tamaño mínimo de frame a 512 B.\n        *   **Frame Bursting:** Rellenar con otros frames.\n    *   **Full-duplex:** (Utilizada actualmente). Con **conmutadores**. La distancia del cable está determinada por la **atenuación de la señal**.\n\n#### 10 Gigabit Ethernet (10 Gbps)\n\n*   **Objetivos:** Alcanzar **10 Gbs**, ser **compatible** con Fast y Gigabit Ethernet, permitir interconexión de **LAN con MAN o WAN**, y ser compatible con Frame Relay o ATM.\n*   **Subcapa MAC:** Solo permite **Full-duplex**.\n\n#### Estado Actual de Ethernet\n\nEn las **redes Ethernet modernas** (Fast, Gigabit, 10 Gigabit y superiores), se utiliza **full-duplex** con **switches**. Los dispositivos pueden transmitir y recibir simultáneamente sin colisiones, lo que **elimina la necesidad de CSMA/CD**.\n\n## V.2. Ejemplos de WANs Cableadas\n\n### ADSL (Asymmetric Digital Subscriber Line)\n\n**ADSL** es una tecnología de conexión permanente que utiliza las **líneas telefónicas de par trenzado** existentes para transportar datos de banda ancha.\n\n*   **Funcionamiento:**\n    *   Un **módem DSL** convierte la señal Ethernet del usuario en una señal DSL (frecuencias elevadas) a la oficina central.\n    *   Múltiples líneas de suscriptor se multiplexan en un enlace de alta capacidad en el proveedor mediante un **DSLAM** (Digital Subscriber Line Access Multiplexer), que utiliza **TDM** (Time Division Multiplexing).\n    *   Se instalan **microfiltros o splitters** en el cliente para separar las señales de datos de la voz, evitando interferencias.\n*   **Ventajas:** Permite **simultanear voz y datos a bajo coste**.\n*   **Inconvenientes:** **Cobertura limitada** por la calidad y longitud del par (inferior a 5-6 km).\n*   **Velocidades:** Tecnologías DSL actuales logran hasta 8.19 Mbps.\n*   **Fundamentos técnicos de ADSL:**\n    *   **Modulación por Multitono Discreto (DMT):**\n        *   Equivalente a **256 minimodems de 4.3125 KHz**.\n        *   **Asignación de bits a cada subportadora** en función de la relación **S/N** del canal.\n        *   Máximo de **15 bits en ADSL** y **24 bits en ADSL2+** por subportadora.\n        *   **Robustez** ante interferencias y diafonías.\n        *   **Adaptación dinámica** a condiciones cambiantes de la línea.\n        *   **Prestaciones teóricas:** Bajada 14.9 Mbps, Subida 1.5 Mbps.\n        *   **Prestaciones prácticas:** Bajada 8 Mbps, Subida 900 kbps.\n    *   **Codificación por banda espectral:** Utiliza diferentes bandas de frecuencia para voz, subida de datos y bajada de datos.\n    *   **Equipamientos del operador:** **DSLAM**.\n    *   **Factores que influyen en la velocidad:** Calidad y longitud del par telefónico, el operador solo garantiza el **10% de la velocidad nominal**, clima de la red, dimensionamiento de servidores y DSLAMs.\n\n### GPON (Gigabit-capable Passive Optical Network)\n\n**GPON** es una **Red Óptica Pasiva con capacidad de Gigabit**, un conjunto de recomendaciones (G.984.x) para compartir un medio común de fibra óptica para múltiples usuarios.\n\n*   **Terminología:**\n    *   **FTTH (Fiber To The Home):** Red de fibra óptica hasta el hogar. Puede ser punto a punto o punto a multipunto.\n    *   **PON (Passive Optical Network):** Red óptica punto a multipunto sin **elementos activos** entre la **OLT** (Optical Line Terminal, equipo de la central) y la **ONT/ONU** (Optical Network Termination/Unit, equipo de usuario).\n    *   **GPON:** Describe técnicas para compartir la fibra, encapsular información y gestionar la red.\n*   **Transmisión de vídeo:** Es posible transportar TV (CATV, Satélite) mediante **modulación óptica** sobre la longitud de onda de **1550 nm**. La ONT puede tener un puerto de radiofrecuencia.\n*   **Aspectos diferenciales de GPON:**\n    *   **Ancho de banda y distancia:** Supera los límites de xDSL.\n    *   **Economía:** Reduce el **CAPEX** (1 fibra y 1 puerto OLT para muchos usuarios), permite suprimir redes de cobre y coaxial.\n    *   **Calidad de servicio (QoS):** Garantiza el ancho de banda para cada servicio y usuario.\n    *   **Seguridad:** La información viaja **cifrada en AES**.\n    *   **Operación y mantenimiento:** Modelo de gestión que facilita la **administración remota** de las ONTs (teledescarga, parámetros), reduciendo el **OPEX**.\n    *   **Escalabilidad:** Permite evolucionar a **XG-PON** manteniendo la infraestructura de fibra.\n*   **Novedades en GPON:**\n    *   **Mecanismo determinista** para acceso al medio compartido (fibra óptica) que evita colisiones y garantiza el ancho de banda.\n    *   **Sincronización:** Todos los elementos están sincronizados a una **referencia temporal común**. Se utiliza **TDMA** (Time Division Multiple Access) para asignar periodos estrictos de acceso. Un sofisticado método de **ranging y ecualización** asegura el acceso preciso.\n    *   **Mecanismo OAM (Operación, Administración y Mantenimiento):** Facilita la gestión centralizada de ONTs por el operador, estableciendo un punto de demarcación entre la red y el cliente, y gestionando remotamente servicios (ancho de banda, voz, vídeo).\n*   **Asignación del espectro óptico:** Permite coexistencia de GPON, XG-PON, WDM-PON y Video RF.\n*   **Cálculo de atenuación total y distancia máxima:** Requiere no escatimar recursos en la red pasiva, metodologías de instalación y certificación, instrumental adecuado, y prever variaciones a lo largo del tiempo.\n\n---\n\nEste resumen debería ser una herramienta muy útil para repasar y comprender a fondo el Tema V de tus apuntes. ¡Mucho éxito en tu estudio!"
+            }
+        ],
+        "quizzes": [
+            {
+                "id": "8cdea9a1-eafd-4c7e-b0d2-16aa03dd9143",
+                "fecha": "04/04/2026 19:36",
+                "fuentes_usadas": [
+                    "Tema6 TDRC 2024-25.pdf",
+                    "Tema5_TDRC 2024-25_19Nov.pdf"
+                ],
+                "preguntas": [
+                    {
+                        "pregunta": "¿Cuál es la función principal de la UART en la comunicación serial?",
+                        "opciones": [
+                            "A) Convertir bytes en bits secuenciales para la transmisión.",
+                            "B) Convertir bits secuenciales en bytes para la recepción.",
+                            "C) Sincronizar dos dispositivos con frecuencias de reloj idénticas.",
+                            "D) Gestionar la transmisión de datos en paralelo a alta velocidad."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "La UART (Transmisor-Receptor Asíncrono Universal) se encarga de convertir los bits secuenciales transmitidos por el cable en Bytes, y viceversa para la transmisión, aunque la pregunta se centra en la recepción.",
+                        "pista": "Piensa en el flujo de datos cuando llegan por el cable a un dispositivo."
+                    },
+                    {
+                        "pregunta": "¿Qué problema fundamental aborda la inclusión de bits de inicio y parada en la comunicación serial UART?",
+                        "opciones": [
+                            "A) La necesidad de aumentar la velocidad de transmisión.",
+                            "B) Las ligeras diferencias de frecuencia entre los dispositivos, permitiendo la resincronización.",
+                            "C) La gestión de colisiones en redes punto a punto.",
+                            "D) La compatibilidad con diferentes voltajes lógicos entre placas."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "Aunque los dispositivos tengan la misma velocidad de reloj, pueden tener frecuencias ligeramente diferentes, por lo que necesitan incluir bits de inicio y parada en cada byte para ayudar al receptor a resincronizarse.",
+                        "pista": "Se menciona un problema específico relacionado con la sincronización y la frecuencia de los dispositivos."
+                    },
+                    {
+                        "pregunta": "Si la velocidad de transmisión es de 9600 baudios y se asume que 1 baudio equivale a 1 bit/segundo, ¿cuántos caracteres se pueden enviar por segundo teniendo en cuenta la estructura del paquete de comunicación serie (Bit de inicio + 8 bits de datos + 1 bit de parada)?",
+                        "opciones": [
+                            "A) 9600 caracteres/s",
+                            "B) 1200 caracteres/s",
+                            "C) 960 caracteres/s",
+                            "D) 10 caracteres/s"
+                        ],
+                        "correcta": "C",
+                        "explicacion": "Cada carácter requiere 1 bit de inicio + 8 bits de datos + 1 bit de parada = 10 bits. Si la velocidad es de 9600 baudios (bits/segundo), entonces se pueden enviar 9600 / 10 = 960 caracteres por segundo.",
+                        "pista": "Calcula el número total de bits por carácter y divídelo por la velocidad en baudios."
+                    },
+                    {
+                        "pregunta": "¿Cuál de las siguientes afirmaciones sobre la Interfaz SPI (Serial Peripheral Interface) es correcta?",
+                        "opciones": [
+                            "A) Es una interfaz de comunicación asíncrona que no requiere un reloj compartido.",
+                            "B) Utiliza solo dos cables para la transmisión y recepción de datos (TX y RX).",
+                            "C) Permite la comunicación full-duplex y opera de forma síncrona con un reloj generado por el maestro.",
+                            "D) Está optimizada para conexiones de larga distancia (>100 metros) y baja velocidad."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "SPI es una interfaz de comunicación full-duplex, a cuatro hilos, de muy bajo consumo, y es síncrona, utilizando un reloj (SCLK) generado por el maestro.",
+                        "pista": "Recuerda las características clave de SPI, como su modo de operación y el número de cables."
+                    },
+                    {
+                        "pregunta": "¿Cuántas interfaces SPI pueden utilizarse para proyectos de usuario en las placas ESP32, y cómo se denominan?",
+                        "opciones": [
+                            "A) Dos: SPI0 y SPI1.",
+                            "B) Cuatro: SPI0, SPI1, HSPI y VSPI.",
+                            "C) Dos: HSPI y VSPI.",
+                            "D) Tres: SPI0, HSPI y VSPI."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "Las placas ESP32 incluyen 4 interfaces SPI: SPI0, SPI1, SPI2 (conocido como HSPI), y SPI3 (conocido como VSPI). SPI0 y SPI1 se utilizan internamente para la memoria flash y no se pueden utilizar para proyectos de usuario. El usuario puede utilizar HSPI y VSPI.",
+                        "pista": "El texto especifica cuáles SPIs están reservados y cuáles son para el usuario."
+                    },
+                    {
+                        "pregunta": "En una comunicación SPI, ¿cuál es el propósito del pin SS/CS (Slave Select/Chip Select)?",
+                        "opciones": [
+                            "A) Transmitir datos del maestro al esclavo.",
+                            "B) Recibir datos del esclavo al maestro.",
+                            "C) Generar la señal de reloj para la sincronización.",
+                            "D) Seleccionar el dispositivo esclavo con el que el maestro quiere comunicarse."
+                        ],
+                        "correcta": "D",
+                        "explicacion": "El pin CS/SS (Chip Select/Slave Select) se utiliza para seleccionar qué dispositivo esclavo está activo y listo para comunicarse con el maestro, especialmente cuando hay múltiples esclavos en el mismo bus SPI.",
+                        "pista": "El nombre del pin da una clara indicación de su función."
+                    },
+                    {
+                        "pregunta": "¿Cuál es la principal aplicación del Bus CAN (Controller Area Network)?",
+                        "opciones": [
+                            "A) Comunicación serial de alta velocidad entre una PC y una placa.",
+                            "B) Redes de área local (LAN) en entornos de oficina.",
+                            "C) Sistemas de control en la industria automotriz y el control industrial.",
+                            "D) Conexiones de fibra óptica para acceso a Internet."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "El Bus CAN es utilizado principalmente en la industria automotriz, sistemas de control industrial y sistemas de tiempo real donde la alta fiabilidad es crucial, como para la comunicación entre ECUs, sensores y actuadores.",
+                        "pista": "El texto lo vincula directamente con 'Sensores y actuadores' y 'Unidad de control electrónico (ECU)'."
+                    },
+                    {
+                        "pregunta": "En el bus CAN, ¿cómo se logra la resistencia al ruido y cuál es el diferencial de voltaje cuando se transmiten bits de datos?",
+                        "opciones": [
+                            "A) Mediante un solo cable con blindaje, y un diferencial de 5V.",
+                            "B) Utilizando dos cables diferenciales (CAN_H y CAN_L), con un diferencial de 2.5V.",
+                            "C) A través de la modulación de frecuencia, y un diferencial de 3.75V.",
+                            "D) Con un cable de fibra óptica, lo que elimina el ruido eléctrico."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "El bus CAN usa dos cables diferenciales (CAN_H y CAN_L) para mejorar la resistencia al ruido. Cuando se transmiten bits de datos, la línea alta CAN pasa a 3.75V y la baja CAN baja a 1.25V, generando un diferencial de 2.5V entre las líneas.",
+                        "pista": "Recuerda las características físicas del cableado del bus CAN y los voltajes diferenciales."
+                    },
+                    {
+                        "pregunta": "En un mensaje CAN, ¿qué campo define la prioridad de la trama y cómo se resuelve un conflicto cuando varios nodos intentan transmitir al mismo tiempo?",
+                        "opciones": [
+                            "A) El campo SOF, se resuelve mediante un tiempo de espera aleatorio.",
+                            "B) El campo Data, se resuelve por orden alfabético del mensaje.",
+                            "C) El campo CAN ID, donde los mensajes con un ID más bajo tienen mayor prioridad.",
+                            "D) El campo Control, se resuelve por la longitud de los datos (DLC)."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "El CAN ID (11 bits) es el identificador único del mensaje que define la prioridad de la trama. Los mensajes con un ID más bajo tienen mayor prioridad y, en caso de conflicto, el mensaje con el ID más bajo tiene preferencia para acceder al bus.",
+                        "pista": "Busca el campo de la trama CAN que está explícitamente asociado con la 'prioridad'."
+                    },
+                    {
+                        "pregunta": "¿Cuál es el propósito del campo ACK (Acknowledgment) en una trama CAN?",
+                        "opciones": [
+                            "A) Indicar el inicio de la trama y sincronizar los nodos.",
+                            "B) Confirmar que el mensaje ha sido recibido correctamente por al menos un nodo en la red.",
+                            "C) Especificar la longitud del campo de datos (DLC).",
+                            "D) Detectar errores en la transmisión mediante un código de verificación."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "El campo ACK es un campo de confirmación donde otros nodos de la red CAN pueden indicar que han recibido correctamente el mensaje, incluyendo un bit dominante que se coloca cuando al menos un nodo reconoce la recepción correcta.",
+                        "pista": "ACK es una abreviatura común en redes para 'acuse de recibo'."
+                    },
+                    {
+                        "pregunta": "KNX es un protocolo de comunicación estandarizado para edificios inteligentes. ¿Cuál de los siguientes no es un estándar precursor de KNX?",
+                        "opciones": [
+                            "A) European Home Systems (EHS).",
+                            "B) BatiBus.",
+                            "C) Modbus.",
+                            "D) Bus de Instalación Europeo (EIB o Instabus)."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "KNX es el sucesor de tres estándares precursores: European Home Systems (EHS), BatiBus, y Bus de Instalación Europeo (EIB o Instabus). Modbus no se menciona como precursor de KNX en el texto.",
+                        "pista": "Revisa la lista de estándares que KNX reemplazó o sucedió."
+                    },
+                    {
+                        "pregunta": "¿Cuál es la principal ventaja de la topología descentralizada de KNX en comparación con una instalación eléctrica estándar en forma de estrella para viviendas inteligentes?",
+                        "opciones": [
+                            "A) Requiere menos cableado inicial en la vivienda.",
+                            "B) Aumenta la complejidad de la programación y el mantenimiento.",
+                            "C) Reduce exponencialmente el cableado al conectar sensores y actuadores a un cable bus compartido.",
+                            "D) Necesita una unidad central de control para gestionar todos los dispositivos."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "La instalación eléctrica estándar en forma de estrella resulta impracticable para viviendas inteligentes ya que se incrementa el cableado exponencialmente. KNX utiliza una topología descentralizada donde todos los sensores y actuadores están conectados a través de un cable bus, reduciendo el cableado.",
+                        "pista": "El texto compara directamente el cableado en estrella con el enfoque de KNX para viviendas inteligentes."
+                    },
+                    {
+                        "pregunta": "En un sistema KNX-TP (Twisted Pair), ¿cuál es la velocidad de transmisión y cómo se representa un 'cero lógico'?",
+                        "opciones": [
+                            "A) 1200 bit/s, un cero lógico es una señal de 105,6 kHz.",
+                            "B) 9600 bit/s, un cero lógico es una breve disminución de la tensión que luego vuelve a subir.",
+                            "C) 50 telegramas/s, un cero lógico corresponde al estado inactivo del bus.",
+                            "D) 1 Mbps, un cero lógico es un diferencial de 2.5V."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "La señal simétrica se transmite por ambos cables conductores a una velocidad de transmisión de 9600 bit/s. Transmitir un cero lógico significa que la tensión disminuye brevemente y en un máximo de 104 microsegundos vuelve a subir y nivelarse en la tensión del principio.",
+                        "pista": "Busca la sección de KNX-TP y su modo de transmisión de datos."
+                    },
+                    {
+                        "pregunta": "¿Cuál es el método de acceso al bus utilizado en KNX-TP?",
+                        "opciones": [
+                            "A) TDMA (Time Division Multiple Access).",
+                            "B) CSMA/CD (Carrier Sense Multiple Access / Collision Detection).",
+                            "C) CSMA/CA (Carrier Sense Multiple Access / Collision Avoidance).",
+                            "D) Token Ring."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "El procedimiento de acceso al bus en KNX-TP es CSMA/CA (Carrier Sense Multiple Access / Collision Avoidance).",
+                        "pista": "El texto lo menciona explícitamente en la sección de KNX-TP."
+                    },
+                    {
+                        "pregunta": "¿Qué dos métodos de comunicación utiliza el sistema KNX cuando opera sobre Ethernet/IP?",
+                        "opciones": [
+                            "A) Multiplexación y demodulación.",
+                            "B) Tunneling y Routing.",
+                            "C) Conmutación de paquetes y conmutación de circuitos.",
+                            "D) Banda base y banda ancha."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "El sistema KNX usa métodos de comunicación de Ethernet: tunneling (KNXnet/IP tunneling) para acceder al bus desde redes locales o internet (programación), y routing (KNXnet/IP routing) para el intercambio de telegramas a través de Ethernet (acoplar instalaciones KNX TP). Ambos métodos usan el protocolo UDP.",
+                        "pista": "Se especifican dos métodos de comunicación para KNX sobre Ethernet/IP."
+                    },
+                    {
+                        "pregunta": "En el formato de la trama Ethernet (IEEE 802.3), ¿cuál es la longitud mínima requerida y por qué?",
+                        "opciones": [
+                            "A) 1500 bytes para evitar la monopolización del medio.",
+                            "B) 56 bits para la sincronización del preámbulo.",
+                            "C) 512 bits para detectar colisiones cuando se usa CSMA/CD.",
+                            "D) 46 bytes para la carga de datos mínima."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "La longitud mínima de la trama es de 512 bits, establecida por el protocolo de acceso al medio CSMA/CD para asegurar la detección de colisiones, lo que permite una carga de datos de 46 bytes.",
+                        "pista": "El texto explica el cálculo del tamaño mínimo y su relación con la detección de colisiones."
+                    },
+                    {
+                        "pregunta": "¿Cuál es la dirección física de broadcast en Ethernet (IEEE 802.3)?",
+                        "opciones": [
+                            "A) 00:00:00:00:00:00",
+                            "B) FF:FF:FF:FF:FF:FF",
+                            "C) 127.0.0.1",
+                            "D) La dirección IP del router."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "En Ethernet, la dirección de broadcast se representa con todos los bits a uno, lo que en formato hexadecimal es FF:FF:FF:FF:FF:FF.",
+                        "pista": "Se menciona explícitamente en la sección de direccionamiento Ethernet."
+                    },
+                    {
+                        "pregunta": "¿Cuál es el propósito de la señal de 48 bits que se genera en Ethernet cuando se detecta una colisión?",
+                        "opciones": [
+                            "A) Indicar el final de la trama de datos.",
+                            "B) Transmitir los datos perdidos inmediatamente.",
+                            "C) Alertar a todos los dispositivos de la colisión (jam signal) y forzar una espera aleatoria antes de reintentar.",
+                            "D) Solicitar al receptor que confirme la recepción parcial de la trama."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "Si se detecta colisión, se genera una señal de 48 bits (jam signal) para alertar de la colisión y se espera un tiempo aleatorio antes de intentar enviar el frame de nuevo.",
+                        "pista": "Recuerda qué sucede inmediatamente después de una colisión en CSMA/CD."
+                    },
+                    {
+                        "pregunta": "¿Qué característica define el modo Full-duplex en Fast Ethernet y cómo afecta al uso de CSMA-CD?",
+                        "opciones": [
+                            "A) Solo puede enviar o recibir datos a la vez, por lo que utiliza CSMA-CD.",
+                            "B) Se permite enviar y recibir datos simultáneamente, por lo que no se utiliza CSMA-CD.",
+                            "C) Reduce la velocidad de transmisión a 10 Mbps para evitar colisiones.",
+                            "D) Se basa en concentradores (hubs) para gestionar el acceso al medio."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "En el modo Full-duplex, se permite enviar y recibir a la vez. No hay colisiones, por lo que no se utiliza CSMA-CD y se utilizan conmutadores (switches).",
+                        "pista": "Full-duplex implica comunicación bidireccional simultánea. ¿Necesita CSMA/CD en ese escenario?"
+                    },
+                    {
+                        "pregunta": "¿Cuál es uno de los principales objetivos de 10 Gigabit Ethernet en comparación con versiones anteriores?",
+                        "opciones": [
+                            "A) Reducir la distancia máxima de los cables para aumentar la fiabilidad.",
+                            "B) Soportar únicamente el modo Half-duplex para compatibilidad.",
+                            "C) Alcanzar los 10 Gbs y permitir la interconexión de LAN con MAN o WAN.",
+                            "D) Introducir CSMA/CD para mejorar la eficiencia en redes conmutadas."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "Los objetivos de 10 Gigabit Ethernet incluyen alcanzar los 10 Gbs y permitir la interconexión de las LAN con MAN o WAN, manteniendo compatibilidad en otros aspectos pero operando exclusivamente en Full duplex.",
+                        "pista": "Busca los objetivos específicos de la evolución de Ethernet a 10 Gigabit."
+                    },
+                    {
+                        "pregunta": "¿Cuál es el rol del DSLAM en la tecnología ADSL?",
+                        "opciones": [
+                            "A) Convertir la señal Ethernet del usuario en una señal DSL.",
+                            "B) Separar las señales de voz y datos en el domicilio del cliente.",
+                            "C) Multiplexar múltiples líneas de suscriptor en un único enlace de alta capacidad en la oficina central del proveedor.",
+                            "D) Cifrar los datos transmitidos a través de la línea telefónica."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "Múltiples líneas del suscriptor se multiplexan en un único enlace de alta capacidad en el sitio del proveedor mediante un DSLAM (Digital Subscriber Line Access Multiplexer), que incorpora tecnología TDM para agrupar muchas líneas.",
+                        "pista": "El DSLAM se encuentra en la 'oficina central' y su nombre sugiere 'multiplexación'."
+                    },
+                    {
+                        "pregunta": "¿Cuál es la tecnología de modulación fundamental utilizada en ADSL para lograr altas velocidades de transmisión sobre pares telefónicos?",
+                        "opciones": [
+                            "A) QAM (Quadrature Amplitude Modulation).",
+                            "B) FSK (Frequency Shift Keying).",
+                            "C) DMT (Discrete Multitone).",
+                            "D) OFDM (Orthogonal Frequency-Division Multiplexing)."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "Los fundamentos técnicos de ADSL se basan en la modulación por multitono discreto (DMT), que es equivalente a 256 minimodems que asignan bits a cada subportadora según la relación Señal/Ruido (S/N).",
+                        "pista": "La sección 'Fundamentos técnicos de ADSL' menciona explícitamente el nombre de la modulación."
+                    },
+                    {
+                        "pregunta": "¿Qué significa la 'P' en GPON (Gigabit-capable Passive Optical Network)?",
+                        "opciones": [
+                            "A) Prioritaria, indicando alta QoS.",
+                            "B) Punto a punto, para conexión directa.",
+                            "C) Pasiva, indicando que no hay elementos activos entre OLT y ONT.",
+                            "D) Protocolo, refiriéndose al conjunto de normas."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "PON (Passive Optical Network) se refiere a una Red Óptica Pasiva en la que no existen elementos activos entre las instalaciones del operador (OLT) y el equipo terminal de usuario (ONT).",
+                        "pista": "El texto define 'PON' en la sección de GPON."
+                    },
+                    {
+                        "pregunta": "¿Cómo se garantiza la seguridad de la información en una red GPON?",
+                        "opciones": [
+                            "A) Mediante el uso de microfiltros para separar la señal.",
+                            "B) La información en la fibra óptica viaja cifrada en AES.",
+                            "C) A través del uso de la modulación por multitono discreto (DMT).",
+                            "D) La seguridad se basa en la baja probabilidad de interceptación física de la fibra."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "GPON ofrece seguridad porque la información en la fibra óptica viaja cifrada en AES (Advanced Encryption Standard).",
+                        "pista": "Busca las 'Aspectos diferenciales de GPON' y el punto de 'Seguridad'."
+                    },
+                    {
+                        "pregunta": "¿Cuál de las siguientes afirmaciones sobre las bandas de frecuencia WiFi (2.4 GHz y 5 GHz) es correcta?",
+                        "opciones": [
+                            "A) La banda de 2.4 GHz ofrece un menor alcance y tiene menos canales sin solape que la de 5 GHz.",
+                            "B) La banda de 5 GHz tiene más canales sin solape y opera a una mayor velocidad que la de 2.4 GHz.",
+                            "C) La banda de 2.4 GHz es menos saturada debido a su uso exclusivo para redes WiFi.",
+                            "D) Ambas bandas tienen el mismo alcance y número de canales sin solape."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "La banda de 5 GHz ofrece un menor alcance pero opera a una mayor velocidad, y dispone de 24 canales de 20 MHz sin solape. La de 2.4 GHz tiene 14 canales (22 MHz), con solo 4 sin solape (1, 6, 11, 14), y está muy saturada.",
+                        "pista": "Compara las características de alcance, velocidad y canales sin solape de las bandas de 2.4 GHz y 5 GHz."
+                    },
+                    {
+                        "pregunta": "¿Cuál es la principal diferencia entre OFDM y OFDMA en el contexto de las redes inalámbricas?",
+                        "opciones": [
+                            "A) OFDM permite la transmisión simultánea a múltiples usuarios, mientras que OFDMA no.",
+                            "B) OFDMA asigna cada frame a un subcanal, permitiendo la transmisión de múltiples frames simultáneamente, mientras que OFDM transmite cada frame a través del canal completo.",
+                            "C) OFDM utiliza el espectro de 5 GHz, mientras que OFDMA se limita a 2.4 GHz.",
+                            "D) OFDMA es un estándar más antiguo que OFDM y ya no se utiliza."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "En OFDM, cada frame se transmite a través del canal completo. En OFDMA, cada frame se asigna a un subcanal, lo que permite la transmisión de múltiples frames simultáneamente y una mayor capacidad, especialmente para un número elevado de clientes lentos.",
+                        "pista": "Recuerda la capacidad de cada tecnología para manejar múltiples transmisiones y usuarios simultáneamente."
+                    },
+                    {
+                        "pregunta": "¿Qué problema de las redes inalámbricas resuelve la utilización de los frames RTS (Request To Send) y CTS (Clear To Send)?",
+                        "opciones": [
+                            "A) El problema de la estación expuesta.",
+                            "B) La saturación de canales en la banda de 2.4 GHz.",
+                            "C) El problema de la estación oculta, al asegurar que todos los nodos relevantes conozcan la duración de la transmisión.",
+                            "D) La falta de seguridad en la autenticación de dispositivos."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "El uso de los frames RTS y CTS evita la colisión en el problema de la estación oculta, ya que el CTS enviado por el receptor, que incluye la duración de la transmisión de datos, alcanza a todas las estaciones que podrían causar una colisión, evitando así que transmitan.",
+                        "pista": "Se explica cómo RTS/CTS interactúa con las estaciones que no se 'ven' entre sí."
+                    },
+                    {
+                        "pregunta": "¿Cuál fue la principal vulnerabilidad de seguridad del protocolo WEP (Wired Equivalent Privacy) que llevó a su desuso?",
+                        "opciones": [
+                            "A) El uso de claves muy largas que eran difíciles de recordar.",
+                            "B) Su complejidad de implementación en dispositivos de baja potencia.",
+                            "C) Su susceptible a ataques que explotaban la debilidad del flujo de cifrado RC4 y el uso de fuerza bruta.",
+                            "D) No permitía la autenticación de usuarios, solo el cifrado de datos."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "WEP fue demostrado ser inseguro debido a ataques como el de Fluhrer, Mantin y Shamir que aprovechaban que los primeros bytes del flujo de cifrado eran menos aleatorios, el ataque de Klein que permitía inyección de paquetes, y la posibilidad de ataques de fuerza bruta.",
+                        "pista": "El texto detalla por qué WEP 'se ha demostrado ser inseguro'."
+                    },
+                    {
+                        "pregunta": "¿Cuál de los siguientes es un objetivo principal de la tecnología Bluetooth (IEEE 802.15)?",
+                        "opciones": [
+                            "A) Proporcionar acceso inalámbrico de banda ancha para redes metropolitanas (MAN).",
+                            "B) Eliminar la gran cantidad de cables que unen a los dispositivos y reducir el consumo de potencia.",
+                            "C) Establecer redes de área local (LAN) de alta velocidad a larga distancia.",
+                            "D) Ofrecer conexiones seguras con baja tasa de envío de datos y maximización de la vida útil de las baterías para dispositivos IoT."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "Los objetivos de la tecnología Bluetooth incluyen eliminar la gran cantidad de cables que unen a los dispositivos, obtener una tecnología de bajo coste, impulsar las redes de área personal (WPAN) y reducir la potencia consumida.",
+                        "pista": "Busca la sección 'INTRODUCCIÓN' a Bluetooth y sus propósitos."
+                    },
+                    {
+                        "pregunta": "En una red Bluetooth, ¿cuál es la principal diferencia entre una 'piconet' y una 'scatternet'?",
+                        "opciones": [
+                            "A) Una piconet solo puede tener un dispositivo, mientras que una scatternet puede tener varios.",
+                            "B) Una piconet es una red ad-hoc de dos o más unidades que comparten el mismo canal (máximo 8 dispositivos), mientras que una scatternet es la interconexión de varias piconets, permitiendo comunicar más de 8 dispositivos.",
+                            "C) Una piconet utiliza el modo Full-duplex y una scatternet el Half-duplex.",
+                            "D) La piconet se usa para voz y la scatternet para datos."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "Una piconet está formada por un maestro y hasta 7 esclavos (un máximo de 8 dispositivos). Una scatternet es la interconexión de varias piconets, permitiendo que se comuniquen más de 8 dispositivos al unir maestros o esclavos de diferentes piconets.",
+                        "pista": "La diferencia radica en el número y la organización de los dispositivos."
+                    },
+                    {
+                        "pregunta": "¿Cuál es la característica principal de los dispositivos finales (ZED) en una red ZigBee?",
+                        "opciones": [
+                            "A) Actúan como coordinadores de red y controlan todos los caminos de comunicación.",
+                            "B) Interconectan dispositivos separados en la topología de la red para extender el alcance.",
+                            "C) Se comunican solo con su nodo padre (coordinador o router), permanecen dormidos la mayor parte del tiempo y son económicos.",
+                            "D) Son dispositivos de funcionalidad completa (FFD) con alta capacidad de computación y memoria."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "El Dispositivo final (ZigBee End Device, ZED) se comunica con su nodo padre (el coordinador o un router), pero no con otros dispositivos. Está dormido la mayor parte del tiempo, aumentando la vida media de sus baterías, y es barato porque necesita poca memoria.",
+                        "pista": "ZED es por 'End Device', lo que sugiere un rol más limitado y enfocado en el bajo consumo."
+                    }
+                ]
             }
         ]
     }
