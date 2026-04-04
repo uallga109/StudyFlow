@@ -33,6 +33,9 @@ class NuevoCuaderno(BaseModel):
 class PeticionResumen(BaseModel):
     fuentes: list[str]
 
+class PeticionChat(BaseModel):
+    mensaje: str
+
 # 1. Obtener todos
 @app.get("/api/notebooks")
 def obtener_cuadernos():
@@ -108,7 +111,7 @@ def generar_resumen_cuaderno(notebook_id: str, peticion: PeticionResumen):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error en la IA: {str(e)}")
     
-    
+
 # 6. Generar y guardar Cuestionario
 @app.post("/api/notebooks/{notebook_id}/quiz")
 def generar_quiz_cuaderno(notebook_id: str, num_preguntas: int = 10):
@@ -151,3 +154,45 @@ def generar_quiz_cuaderno(notebook_id: str, num_preguntas: int = 10):
         return {"quiz": lista_quiz, "cache": False}
     except Exception as e:
         raise HTTPException(status_code=500, detail="Error generando el test")
+    
+    # 7. Borrar un Cuaderno entero
+@app.delete("/api/notebooks/{notebook_id}")
+def eliminar_cuaderno(notebook_id: str):
+    if not db.borrar_cuaderno(notebook_id):
+        raise HTTPException(status_code=404, detail="Cuaderno no encontrado")
+    return {"mensaje": "Cuaderno eliminado correctamente"}
+
+# 8. Borrar un PDF de un Cuaderno
+@app.delete("/api/notebooks/{notebook_id}/files/{filename}")
+def eliminar_pdf(notebook_id: str, filename: str):
+    if not db.borrar_archivo_de_cuaderno(notebook_id, filename):
+        raise HTTPException(status_code=404, detail="Archivo no encontrado")
+    return {"mensaje": "Archivo eliminado correctamente"}
+
+# 9. Chat Libre con los Apuntes
+@app.post("/api/notebooks/{notebook_id}/chat")
+def chatear_con_cuaderno(notebook_id: str, peticion: PeticionChat):
+    texto_contexto = db.extraer_texto_cuaderno(notebook_id)
+    
+    if not texto_contexto.strip():
+        raise HTTPException(status_code=400, detail="No hay fuentes para consultar. Sube un PDF primero.")
+    
+    # Orden estricta RAG: Solo puede usar el contexto
+    instrucciones = f"""
+    Eres un asistente de estudio experto.
+    Responde a la pregunta del usuario basándote ÚNICA Y EXCLUSIVAMENTE en el siguiente contexto de sus apuntes.
+    Si la respuesta no está en los apuntes, di amablemente "No he encontrado información sobre esto en tus fuentes."
+    Usa formato Markdown para que la respuesta sea fácil de leer.
+    
+    CONTEXTO DE LOS APUNTES:
+    {texto_contexto}
+    
+    PREGUNTA DEL USUARIO:
+    {peticion.mensaje}
+    """
+    
+    try:
+        respuesta = model.generate_content(instrucciones)
+        return {"respuesta": respuesta.text}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

@@ -32,6 +32,16 @@ function Dashboard() {
       .then(data => navigate(`/notebook/${data.id}`));
   };
 
+  // NUEVO: Función para borrar un cuaderno entero
+  const handleBorrarCuaderno = (e, id) => {
+    e.stopPropagation(); // Evita que al hacer clic en borrar, entremos al cuaderno
+    if(window.confirm("¿Seguro que quieres borrar esta asignatura y todos sus PDFs?")) {
+        fetch(`http://localhost:8000/api/notebooks/${id}`, { method: 'DELETE' })
+          .then(() => cargarCuadernos())
+          .catch(err => console.error("Error al borrar:", err));
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#1e1e24] text-gray-200 p-8 font-sans">
       <div className="max-w-7xl mx-auto">
@@ -42,10 +52,16 @@ function Dashboard() {
         </form>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {Object.entries(cuadernos).map(([id, datos]) => (
-            <div key={id} onClick={() => navigate(`/notebook/${id}`)} className="bg-[#2a2a35] border border-transparent hover:border-gray-500 rounded-xl p-6 cursor-pointer transition shadow-sm hover:shadow-md flex flex-col h-40">
+            <div key={id} onClick={() => navigate(`/notebook/${id}`)} className="bg-[#2a2a35] border border-transparent hover:border-gray-500 rounded-xl p-6 cursor-pointer transition shadow-sm hover:shadow-md flex flex-col h-40 relative group">
+              
+              {/* NUEVO: Botón de borrar oculto que aparece al pasar el ratón */}
+              <button onClick={(e) => handleBorrarCuaderno(e, id)} className="absolute top-4 right-4 text-gray-500 hover:text-red-500 opacity-0 group-hover:opacity-100 transition p-1">
+                  🗑️
+              </button>
+
               <div className="flex items-center gap-3 mb-4">
                 <div className="bg-blue-500/20 p-2 rounded-full"><span className="text-xl">📘</span></div>
-                <h3 className="text-lg font-medium truncate">{datos.titulo}</h3>
+                <h3 className="text-lg font-medium truncate pr-6">{datos.titulo}</h3>
               </div>
               <div className="mt-auto text-sm text-gray-400">
                 <p>{datos.creado.split(' ')[0]} • {datos.fuentes?.length || 0} fuentes</p>
@@ -71,8 +87,12 @@ function VistaCuaderno() {
   // CONTROL DE VISTAS ('chat', 'resumen', 'quiz')
   const [vistaActiva, setVistaActiva] = useState('chat');
 
+  // --- ESTADOS DEL CHAT (¡Aquí estaba el fallo!) ---
+  const [historialChat, setHistorialChat] = useState([]);
+  const [mensajeInput, setMensajeInput] = useState("");
+
   // --- ESTADOS DE RESUMEN ---
-  const [resumenActivo, setResumenActivo] = useState(0); // Índice de pestaña
+  const [resumenActivo, setResumenActivo] = useState(0); 
   const [creandoNuevoResumen, setCreandoNuevoResumen] = useState(false);
   const [fuentesSeleccionadas, setFuentesSeleccionadas] = useState([]);
 
@@ -85,6 +105,33 @@ function VistaCuaderno() {
   const [puntuacion, setPuntuacion] = useState(0);
   const [omitidas, setOmitidas] = useState(0);
   const [quizFinalizado, setQuizFinalizado] = useState(false);
+
+  // NUEVO: Función para enviar el mensaje al chat
+  const handleEnviarMensaje = (e) => {
+      e.preventDefault();
+      if (!mensajeInput.trim() || iaPensando) return;
+
+      const mensajeUsuario = mensajeInput;
+      setMensajeInput(""); // Limpiamos el input
+      setHistorialChat(prev => [...prev, { rol: 'user', texto: mensajeUsuario }]);
+      setIaPensando(true);
+
+      fetch(`http://localhost:8000/api/notebooks/${id}/chat`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mensaje: mensajeUsuario })
+      })
+      .then(res => res.json())
+      .then(data => {
+          setHistorialChat(prev => [...prev, { rol: 'ia', texto: data.respuesta }]);
+          setIaPensando(false);
+      })
+      .catch(err => {
+          console.error(err);
+          setHistorialChat(prev => [...prev, { rol: 'ia', texto: "❌ Hubo un error de conexión." }]);
+          setIaPensando(false);
+      });
+  };
 
   const cargarDatosCuaderno = () => {
     fetch(`http://localhost:8000/api/notebooks/${id}`)
@@ -117,6 +164,13 @@ function VistaCuaderno() {
       cargarDatosCuaderno();
     })
     .catch(err => { console.error(err); setSubiendoFichero(false); });
+  };
+
+  const handleBorrarArchivo = (nombreArchivo) => {
+      if(window.confirm(`¿Borrar el archivo ${nombreArchivo}?`)) {
+          fetch(`http://localhost:8000/api/notebooks/${id}/files/${nombreArchivo}`, { method: 'DELETE' })
+            .then(() => cargarDatosCuaderno());
+      }
   };
 
   // --- LÓGICA DE RESÚMENES ---
@@ -214,7 +268,13 @@ function VistaCuaderno() {
                 <input type="file" accept=".pdf" onChange={handleSubirArchivo} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
                 <button className="w-full bg-gray-700 hover:bg-gray-600 p-2 rounded text-sm transition">+ Añadir PDF</button>
             </div>
-            {datos.fuentes?.map((f, i) => <div key={i} className="bg-gray-800 border border-gray-700 p-3 rounded-lg text-sm mb-2 break-words shadow-sm">📄 {f}</div>)}
+            {/* NUEVO: Botón de papelera para cada fuente */}
+            {datos.fuentes?.map((f, i) => (
+                <div key={i} className="bg-gray-800 border border-gray-700 p-3 rounded-lg text-sm mb-2 shadow-sm flex items-center justify-between group">
+                    <span className="truncate flex-1">📄 {f}</span>
+                    <button onClick={() => handleBorrarArchivo(f)} className="text-gray-500 hover:text-red-500 opacity-0 group-hover:opacity-100 transition">❌</button>
+                </div>
+            ))}
         </div>
 
         {/* COL 2: VISTA DINÁMICA CENTRAL */}
@@ -223,10 +283,45 @@ function VistaCuaderno() {
             
             {/* --- VISTA: CHAT --- */}
             {vistaActiva === 'chat' && (
-              <div className="flex items-center justify-center h-full text-gray-500 flex-col">
-                  <span className="text-6xl mb-4">💬</span>
-                  <p>El chat con el documento está en construcción.</p>
-                  <p className="text-sm mt-2">Usa las pestañas superiores para ver los resúmenes o el test.</p>
+              <div className="flex flex-col h-full">
+                  <div className="flex-1 overflow-y-auto space-y-6 pr-2">
+                    {historialChat.length === 0 ? (
+                        <div className="flex items-center justify-center h-full text-gray-500 flex-col">
+                            <span className="text-6xl mb-4">💬</span>
+                            <p>¡Pregúntale a tus apuntes!</p>
+                            <p className="text-sm mt-2">Ej: "¿Cuáles son las causas de la Revolución Francesa?"</p>
+                        </div>
+                    ) : (
+                        historialChat.map((msg, i) => (
+                          <div key={i} className={`flex ${msg.rol === 'user' ? 'justify-end' : 'justify-start'}`}>
+                              <div className={`max-w-[90%] p-4 rounded-2xl shadow-md ${msg.rol === 'user' ? 'bg-blue-600 text-white' : 'bg-[#2a2a35] border border-gray-700'}`}>
+                                  {msg.rol === 'ia' ? (
+                                      <div className="prose prose-invert prose-blue max-w-none text-gray-200">
+                                          <ReactMarkdown>{msg.texto}</ReactMarkdown>
+                                      </div>
+                                  ) : (
+                                      msg.texto
+                                  )}
+                              </div>
+                          </div>
+                        ))
+                    )}
+                    {iaPensando && <div className="text-gray-400 animate-pulse text-sm ml-2">🧠 Analizando fuentes...</div>}
+                  </div>
+
+                  {/* NUEVO: Input de texto funcional */}
+                  <form onSubmit={handleEnviarMensaje} className="mt-4 shrink-0 flex gap-2">
+                      <input 
+                          type="text" 
+                          value={mensajeInput}
+                          onChange={(e) => setMensajeInput(e.target.value)}
+                          placeholder="Pregunta sobre el documento..." 
+                          className="flex-1 bg-[#2a2a35] border border-gray-600 rounded-xl p-4 focus:outline-none focus:border-blue-500 transition"
+                      />
+                      <button type="submit" disabled={!mensajeInput.trim() || iaPensando} className="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 p-4 rounded-xl transition font-bold">
+                          Enviar
+                      </button>
+                  </form>
               </div>
             )}
 
