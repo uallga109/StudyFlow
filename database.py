@@ -4,11 +4,27 @@ import shutil
 from datetime import datetime
 import uuid
 import PyPDF2
+import chromadb
+from chromadb.utils import embedding_functions
+
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 NOTEBOOKS_FILE = os.path.join(DATA_DIR, "notebooks.json")
 FILES_DIR = os.path.join(DATA_DIR, "files")
+
+
+# Inicializamos ChromaDB (creará una carpeta 'chroma_db' en tu proyecto)
+chroma_client = chromadb.PersistentClient(path=os.path.join(DATA_DIR, "chroma_db"))
+# Usamos un modelo de embeddings ligero que corre en tu ordenador
+default_ef = embedding_functions.SentenceTransformerEmbeddingFunction(model_name="all-MiniLM-L6-v2")
+
+# Creamos o cargamos la colección de documentos
+collection = chroma_client.get_or_create_collection(
+    name="estudios_flow", 
+    embedding_function=default_ef
+)
+
 
 def inicializar_base_de_datos():
     if not os.path.exists(DATA_DIR): os.makedirs(DATA_DIR)
@@ -163,3 +179,39 @@ def obtener_info_pdf(notebook_id, fuentes_seleccionadas):
                 total_paginas += len(lector.pages)
             except: pass
     return total_paginas
+
+
+def indexar_pdf(notebook_id, nombre_archivo, texto):
+    """Corta el texto en trozos y los guarda en la base de datos vectorial."""
+    if not texto or len(texto.strip()) < 10:
+        print(f"⚠️ Saltando indexación de {nombre_archivo}: No se detectó texto suficiente.")
+        return
+
+    chunk_size = 1000
+    chunks = [texto[i:i + chunk_size] for i in range(0, len(texto), chunk_size)]
+    
+    documents = []
+    metadatos = []
+    ids = []
+    
+    for i, chunk in enumerate(chunks):
+        if chunk.strip(): # Solo trozos con contenido
+            documents.append(chunk)
+            metadatos.append({
+                "notebook_id": notebook_id,
+                "source": nombre_archivo
+            })
+            ids.append(f"{notebook_id}_{nombre_archivo}_{i}_{uuid.uuid4().hex[:4]}")
+    
+    if documents:
+        collection.add(ids=ids, documents=documents, metadatas=metadatos)
+        print(f"✅ {nombre_archivo} indexado correctamente ({len(documents)} trozos).")
+
+def buscar_contexto(notebook_id, pregunta, n_resultados=4):
+    """Busca los fragmentos más relevantes para una pregunta."""
+    resultados = collection.query(
+        query_texts=[pregunta],
+        n_results=n_resultados,
+        where={"notebook_id": notebook_id}
+    )
+    return resultados
