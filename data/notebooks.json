@@ -2674,8 +2674,636 @@
                 ]
             }
         ],
-        "juego_creado": false,
-        "datos_juego": {},
+        "juego_creado": true,
+        "datos_juego": {
+            "niveles": [
+                {
+                    "id": 1,
+                    "nombre": "Mundo 1: El Calentamiento",
+                    "tipo": "vf",
+                    "preguntas": [
+                        {
+                            "pregunta": "La comunicación serial UART es asíncrona, lo que significa que no necesita un reloj compartido.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "La UART (Transmisor-Receptor Asíncrono Universal) se encarga de convertir bits secuenciales y no requiere un reloj compartido."
+                        },
+                        {
+                            "pregunta": "El protocolo SPI es una interfaz de comunicación half-duplex, lo que implica que solo puede transmitir o recibir a la vez.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "SPI es una interfaz de comunicación full-duplex, lo que significa que puede transmitir y recibir simultáneamente."
+                        },
+                        {
+                            "pregunta": "En el bus CAN, el identificador de mensaje (CAN ID) define la prioridad de la trama, donde un ID más bajo tiene menor prioridad.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "En el bus CAN, los mensajes con un ID más bajo tienen mayor prioridad y preferencia en caso de conflicto."
+                        },
+                        {
+                            "pregunta": "KNX es un protocolo de comunicación estandarizado diseñado principalmente para redes inalámbricas de sensores.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "KNX es un protocolo de comunicación estandarizado para edificios inteligentes, utilizando medios cableados como par trenzado, Powerline o Ethernet/IP, no principalmente inalámbricas de sensores."
+                        },
+                        {
+                            "pregunta": "El formato de la trama Ethernet (IEEE 802.3) incluye un campo de preámbulo de 56 bits para sincronización.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "El preámbulo de 56 bits se utiliza para la sincronización en las tramas Ethernet."
+                        },
+                        {
+                            "pregunta": "Las tecnologías DSL utilizan las líneas telefónicas de par trenzado existentes para transportar datos de banda ancha.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "DSL aprovecha la infraestructura telefónica de par trenzado para ofrecer servicios de banda ancha."
+                        },
+                        {
+                            "pregunta": "En GPON, la transmisión de vídeo es posible sobre la longitud de onda de 1550 nm.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "GPON permite transportar TV (CATV y Satélite) sobre la longitud de onda de 1550 nm mediante modulación óptica."
+                        },
+                        {
+                            "pregunta": "El estándar IEEE 802.11 define las capas físicas y de enlace para las redes cableadas.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "El estándar IEEE 802.11 define las capas físicas y de enlace para las redes INALÁMBRICAS (WiFi)."
+                        },
+                        {
+                            "pregunta": "En redes WiFi 2.4 GHz, los canales 1, 6, 11 y 14 son los únicos que no se solapan, permitiendo hasta cuatro redes sin interferencia significativa.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "En el espectro de 2.4 GHz, los canales 1, 6, 11 y 14 están diseñados para no solaparse, minimizando la interferencia."
+                        },
+                        {
+                            "pregunta": "El protocolo CSMA/CA se utiliza en redes inalámbricas e implementa mecanismos de detección de colisión similares a Ethernet.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "CSMA/CA (Collision Avoidance) no tiene mecanismos para la detección de colisión, solo chequea si el canal está libre y evita colisiones mediante RTS/CTS."
+                        },
+                        {
+                            "pregunta": "La estación oculta es un problema en redes inalámbricas donde dos estaciones fuera del alcance mutuo intentan transmitir a una tercera estación común.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Este es precisamente el problema de la estación oculta, resuelto en parte con RTS/CTS."
+                        },
+                        {
+                            "pregunta": "WEP es el protocolo de seguridad más actual y recomendado para redes WiFi, ofreciendo encriptación AES de 192 bits.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "WEP está en desuso desde 2004 por ser inseguro. WPA3 es el protocolo más actual y utiliza AES de 192 bits."
+                        },
+                        {
+                            "pregunta": "Bluetooth es una tecnología diseñada para redes de área personal (WPAN) que busca alto consumo de potencia para mayor alcance.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "Bluetooth tiene como objetivo reducir el consumo de potencia y operar a bajo coste en WPANs."
+                        },
+                        {
+                            "pregunta": "ZigBee se basa en el estándar IEEE 802.15.4 y está optimizado para aplicaciones que requieren baja tasa de envío de datos y maximización de la vida útil de sus baterías.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "ZigBee es ideal para WPANs con requisitos de bajo consumo y baja tasa de datos."
+                        },
+                        {
+                            "pregunta": "Un horno microondas puede ser una fuente de interferencia para las redes WiFi que operan en la banda de 2.4 GHz.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Los microondas pueden generar ruido en la banda de 2.4 GHz, interfiriendo con las señales WiFi."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nombre": "Mundo 2: El Bosque Rápido",
+                    "tipo": "test3",
+                    "preguntas": [
+                        {
+                            "pregunta": "¿Cuál es la velocidad máxima que puede alcanzar la comunicación serial UART en un Arduino conectado al USB (Tipo B)?",
+                            "opciones": [
+                                "Hasta 115.200 bps",
+                                "Hasta 921.600 bps",
+                                "Hasta 1 Mbps"
+                            ],
+                            "correcta": "Hasta 921.600 bps",
+                            "explicacion": "Arduino, con puerto serie UART conectado al USB (Tipo B), alcanza velocidades hasta 921.600 bps."
+                        },
+                        {
+                            "pregunta": "¿Qué pines de la interfaz SPI se utilizan para la salida del maestro y la entrada del esclavo?",
+                            "opciones": [
+                                "MISO",
+                                "MOSI",
+                                "SCLK"
+                            ],
+                            "correcta": "MOSI",
+                            "explicacion": "MOSI (Master Output Slave Input) se encarga de la salida del maestro y la entrada del esclavo."
+                        },
+                        {
+                            "pregunta": "¿Qué campo de una trama CAN permite a los otros nodos de la red indicar que han recibido correctamente el mensaje?",
+                            "opciones": [
+                                "CRC",
+                                "EOF",
+                                "ACK"
+                            ],
+                            "correcta": "ACK",
+                            "explicacion": "El campo ACK (Acknowledgment) es donde los nodos confirman la recepción correcta del mensaje."
+                        },
+                        {
+                            "pregunta": "¿Cuál es el medio de transmisión más común para el protocolo KNX?",
+                            "opciones": [
+                                "Radiofrecuencia",
+                                "Ethernet/IP",
+                                "Par Trenzado"
+                            ],
+                            "correcta": "Par Trenzado",
+                            "explicacion": "El Par Trenzado (KNX TP) es el medio de transmisión más común en KNX."
+                        },
+                        {
+                            "pregunta": "¿Qué mecanismo de control de acceso se utilizaba en las primeras implementaciones de Ethernet con medio compartido?",
+                            "opciones": [
+                                "CSMA/CA",
+                                "TDMA",
+                                "CSMA/CD"
+                            ],
+                            "correcta": "CSMA/CD",
+                            "explicacion": "Las primeras implementaciones de Ethernet con medios compartidos utilizaban CSMA/CD para controlar el acceso y detectar colisiones."
+                        },
+                        {
+                            "pregunta": "¿Qué tecnología se utiliza en ADSL para la asignación dinámica de bits a cada subportadora según las condiciones de la línea?",
+                            "opciones": [
+                                "TDM",
+                                "DMT",
+                                "SFSK"
+                            ],
+                            "correcta": "DMT",
+                            "explicacion": "La modulación por multitono discreto (DMT) permite la asignación individual y dinámica de bits por subportadora según la calidad de la línea."
+                        },
+                        {
+                            "pregunta": "¿Cuál es el propósito principal de una OLT en una red GPON?",
+                            "opciones": [
+                                "Ser el equipo terminal de usuario",
+                                "Ser el equipo de la central del operador",
+                                "Distribuir la señal de video por RF"
+                            ],
+                            "correcta": "Ser el equipo de la central del operador",
+                            "explicacion": "OLT (Optical Line Terminal) es el equipo de la central del operador en una red GPON."
+                        },
+                        {
+                            "pregunta": "¿Qué tipo de red WiFi permite que las estaciones dentro de un BSS se comuniquen directamente, pero con otros BSS a través de APs?",
+                            "opciones": [
+                                "Ad-hoc",
+                                "Extended Service Set (ESS)",
+                                "Basic Service Set (BSS)"
+                            ],
+                            "correcta": "Extended Service Set (ESS)",
+                            "explicacion": "Un ESS está formado por dos o más BSS con AP, permitiendo la comunicación entre ellos a través de los APs."
+                        },
+                        {
+                            "pregunta": "¿Qué caracteriza a la tecnología MU-MIMO en comparación con SU-MIMO?",
+                            "opciones": [
+                                "Mayor alcance de señal",
+                                "Capacidad de transmitir a múltiples usuarios simultáneamente",
+                                "Menor consumo de energía"
+                            ],
+                            "correcta": "Capacidad de transmitir a múltiples usuarios simultáneamente",
+                            "explicacion": "MU-MIMO (Multiple User MIMO) permite al AP empaquetar y transmitir frames a diferentes clientes en diferentes subcanales simultáneamente."
+                        },
+                        {
+                            "pregunta": "¿Cuál es uno de los objetivos principales de la tecnología Bluetooth?",
+                            "opciones": [
+                                "Lograr una alta velocidad de transmisión de datos (más de 100 Mbps)",
+                                "Eliminar la gran cantidad de cables entre dispositivos",
+                                "Conectar redes de área local (LAN) a largas distancias"
+                            ],
+                            "correcta": "Eliminar la gran cantidad de cables entre dispositivos",
+                            "explicacion": "Uno de los objetivos clave de Bluetooth es reducir el uso de cables y operar en redes de área personal."
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "nombre": "Mundo 3: El Mini-Castillo",
+                    "tipo": "minijefe",
+                    "fase1_conexiones": [
+                        {
+                            "termino": "UART Full-duplex",
+                            "definicion": "Capacidad de transmitir y recibir información simultáneamente."
+                        },
+                        {
+                            "termino": "SPI SCLK",
+                            "definicion": "Línea de reloj serial generada por el maestro para sincronizar la comunicación."
+                        },
+                        {
+                            "termino": "Bus CAN Arbitraje",
+                            "definicion": "Mecanismo por el cual los mensajes con IDs más bajos tienen mayor prioridad y prevalecen en el bus."
+                        },
+                        {
+                            "termino": "KNX Sensores",
+                            "definicion": "Elementos que detectan acciones en el edificio y las convierten en telegramas para el bus."
+                        },
+                        {
+                            "termino": "Ethernet SFD",
+                            "definicion": "Delimitador de comienzo de la trama que sigue al preámbulo para indicar el inicio de los datos."
+                        }
+                    ],
+                    "fase1_huecos": [
+                        {
+                            "frase": "La longitud mínima de la trama Ethernet es de ___ bits, necesaria para detectar colisiones en CSMA/CD.",
+                            "respuesta_correcta": "512"
+                        },
+                        {
+                            "frase": "En la modulación DMT de ADSL, el máximo de bits en ADSL2+ que se pueden asignar por subportadora es de ___ bits.",
+                            "respuesta_correcta": "24"
+                        },
+                        {
+                            "frase": "El protocolo GPON utiliza ___ (Time Division Multiple Access) para asignar períodos estrictos y exclusivos de acceso al medio.",
+                            "respuesta_correcta": "TDMA"
+                        },
+                        {
+                            "frase": "Para evitar el problema de la estación oculta en redes inalámbricas, se utilizan los frames de control RTS y ___.",
+                            "respuesta_correcta": "CTS"
+                        },
+                        {
+                            "frase": "El protocolo Bluetooth L2CAP se encarga de ___ los protocolos superiores al protocolo de banda base.",
+                            "respuesta_correcta": "adaptar"
+                        }
+                    ],
+                    "fase2_test": [
+                        {
+                            "pregunta": "¿Cuál de los siguientes no es un protocolo disponible para la configuración de la comunicación serial UART?",
+                            "opciones": [
+                                "SERIAL_8N1",
+                                "SERIAL_7E2",
+                                "SERIAL_9O1",
+                                "SERIAL_5N1"
+                            ],
+                            "correcta": "SERIAL_9O1",
+                            "explicacion": "Los protocolos de UART especificados en el temario tienen 5, 6, 7 u 8 bits de datos, no 9. (Ejemplos: SERIAL_8N1, SERIAL_7E2, SERIAL_5N1 son válidos)."
+                        },
+                        {
+                            "pregunta": "En la interfaz SPI del ESP32, ¿cuáles de las siguientes interfaces no pueden ser utilizadas por proyectos de usuario?",
+                            "opciones": [
+                                "HSPI y VSPI",
+                                "SPI0 y SPI1",
+                                "SPI2 y SPI3",
+                                "HSPI y SPI0"
+                            ],
+                            "correcta": "SPI0 y SPI1",
+                            "explicacion": "SPI0 y SPI1 se utilizan internamente para la memoria flash y no están disponibles para el usuario."
+                        },
+                        {
+                            "pregunta": "¿Qué componente de la trama CAN especifica la longitud del campo de datos (DLC) y algunos bits de reserva?",
+                            "opciones": [
+                                "SOF",
+                                "RTR",
+                                "Control",
+                                "CRC"
+                            ],
+                            "correcta": "Control",
+                            "explicacion": "El campo Control incluye información adicional como el DLC que especifica la longitud del campo de datos."
+                        },
+                        {
+                            "pregunta": "¿Cuál es la velocidad de transmisión de datos del protocolo KNX Powerline (KNX PL)?",
+                            "opciones": [
+                                "9.600 bit/s",
+                                "1.200 bit/s",
+                                "50 telegramas/s",
+                                "10 Mbps"
+                            ],
+                            "correcta": "1.200 bit/s",
+                            "explicacion": "La velocidad de transmisión en KNX PL asciende a 1.200 bit/s, significativamente menor que KNX TP (9.600 bit/s) o Ethernet."
+                        },
+                        {
+                            "pregunta": "Si un dispositivo Ethernet clásico de 10 Mbps tiene un RTT (Round Trip Time) de 49 x 10^-6 s, ¿cuál es el tamaño mínimo de la trama *calculado* para garantizar la detección de colisiones?",
+                            "opciones": [
+                                "64 bits",
+                                "490 bits",
+                                "512 bits",
+                                "1500 bits"
+                            ],
+                            "correcta": "490 bits",
+                            "explicacion": "El tamaño mínimo de la trama se calcula como el ancho de banda (10 Mbps) multiplicado por el RTT (49 x 10^-6 s), que da 490 bits. Posteriormente se tomó como estándar el siguiente número entero potencia de 2, 512 bits."
+                        },
+                        {
+                            "pregunta": "En ADSL, la máxima prestación práctica de bajada es de 8 Mbps. ¿Cuál es la máxima prestación *teórica* de bajada, considerando 249 canales, 15 bits/símbolo/Hz/canal y 4 KHz?",
+                            "opciones": [
+                                "1.5 Mbps",
+                                "8.19 Mbps",
+                                "14.9 Mbps",
+                                "44.7 Mbps"
+                            ],
+                            "correcta": "14.9 Mbps",
+                            "explicacion": "La máxima prestación teórica de bajada en ADSL es 249 canales x 15 bits/símbolo/Hz/canal x 4 KHz = 14,9 Mbps."
+                        },
+                        {
+                            "pregunta": "¿Qué aspecto diferencial de GPON garantiza el ancho de banda necesario para cada servicio y usuario?",
+                            "opciones": [
+                                "Seguridad mediante cifrado AES",
+                                "Economía por fibra compartida",
+                                "Calidad de Servicio (QoS)",
+                                "Escalabilidad a XG-PON"
+                            ],
+                            "correcta": "Calidad de Servicio (QoS)",
+                            "explicacion": "GPON dispone de un modelo de QoS que garantiza el ancho de banda necesario para cada servicio y usuario."
+                        },
+                        {
+                            "pregunta": "¿Cuál de las siguientes afirmaciones sobre las redes WiFi de 5 GHz es INCORRECTA?",
+                            "opciones": [
+                                "Ofrecen un menor alcance que las de 2.4 GHz.",
+                                "Disponen de 24 canales de 20 MHz sin solape.",
+                                "Operan a una velocidad máxima real de 150 Mbps.",
+                                "Tienen mayor rebote en paredes."
+                            ],
+                            "correcta": "Operan a una velocidad máxima real de 150 Mbps.",
+                            "explicacion": "Las redes de 5 GHz operan a una velocidad máxima real entre 200 Mbps y 1 Gbps, mientras que 150 Mbps es la velocidad real para 2.4 GHz."
+                        },
+                        {
+                            "pregunta": "¿En el protocolo CSMA/CA, ¿qué sucede si una estación no recibe un CTS del receptor después de enviar un RTS?",
+                            "opciones": [
+                                "La estación asume que el canal está libre y transmite los datos directamente.",
+                                "Se considera que hubo una colisión durante el RTS y se reintenta la transmisión.",
+                                "La estación espera un tiempo mayor (DIFS) y reenvía el mismo RTS.",
+                                "La estación envía un ACK para confirmar que ha detectado un error."
+                            ],
+                            "correcta": "Se considera que hubo una colisión durante el RTS y se reintenta la transmisión.",
+                            "explicacion": "Si no se recibe un CTS, se entiende que hubo colisión y se reintenta cuando el canal esté libre."
+                        },
+                        {
+                            "pregunta": "¿Cuál de los siguientes ataques de seguridad de WEP explota que los primeros bytes del flujo de cifrado son menos aleatorios?",
+                            "opciones": [
+                                "Ataque Klein",
+                                "Ataque AlFardan",
+                                "Ataque Fluhrer, Mantin y Shamir",
+                                "Ataque de fuerza bruta de PIN"
+                            ],
+                            "correcta": "Ataque Fluhrer, Mantin y Shamir",
+                            "explicacion": "El ataque Fluhrer, Mantin y Shamir aprovecha la debilidad en la aleatoriedad de los primeros bytes del flujo de cifrado RC4 de WEP."
+                        },
+                        {
+                            "pregunta": "¿Qué afirmación es CORRECTA sobre el protocolo WPS (WiFi Protected Setup)?",
+                            "opciones": [
+                                "Es el método más seguro para configurar redes WiFi avanzadas.",
+                                "No necesita introducir la contraseña WPA/WPA2, pero valida solo 4 dígitos de un PIN de 8.",
+                                "Solo permite la configuración mediante botones físicos (PBS) en el AP y el dispositivo.",
+                                "Ha reemplazado a WiFi Easy Connect en WPA3 debido a sus mejoras de seguridad."
+                            ],
+                            "correcta": "No necesita introducir la contraseña WPA/WPA2, pero valida solo 4 dígitos de un PIN de 8.",
+                            "explicacion": "WPS facilita la configuración sin contraseña, pero su método PIN es vulnerable, validando solo los primeros 4 dígitos, lo que lo hace susceptible a fuerza bruta. WPA3 lo reemplazó con WiFi Easy Connect."
+                        },
+                        {
+                            "pregunta": "¿Qué protocolo Bluetooth es responsable de la gestión del enlace entre dispositivos, la seguridad, el control de paquetes y la potencia de emisión?",
+                            "opciones": [
+                                "L2CAP",
+                                "SDP",
+                                "LMP",
+                                "RFCOMM"
+                            ],
+                            "correcta": "LMP",
+                            "explicacion": "LMP (Link Manager Protocol) se encarga de la gestión del enlace, seguridad, control de paquetes, potencia y piconet."
+                        },
+                        {
+                            "pregunta": "En una red Bluetooth, un enlace SCO (Synchronous Connection-Oriented) se caracteriza por:",
+                            "opciones": [
+                                "Conexión punto a multipunto sin ancho de banda prefijado.",
+                                "Ser utilizado principalmente para transferencia de datos sin requerimientos temporales.",
+                                "No necesitar asegurar la entrega de datos y ser utilizado para comunicaciones de voz.",
+                                "Soportar solo 1 enlace simultáneo con retransmisión de datos."
+                            ],
+                            "correcta": "No necesitar asegurar la entrega de datos y ser utilizado para comunicaciones de voz.",
+                            "explicacion": "Los enlaces SCO son conexiones punto a punto con ancho de banda fijo, no necesitan asegurar la entrega y son ideales para voz. Los ACL son para datos y requieren entrega asegurada."
+                        },
+                        {
+                            "pregunta": "¿Cuál de las siguientes es una ventaja clave de la tecnología ZigBee frente a otras tecnologías inalámbricas?",
+                            "opciones": [
+                                "Altas tasas de transferencia de datos para multimedia",
+                                "Compatibilidad total con Bluetooth para todos los aspectos",
+                                "Larga duración de la batería debido al bajo ciclo de trabajo",
+                                "Mayor cobertura que WiFi en entornos residenciales"
+                            ],
+                            "correcta": "Larga duración de la batería debido al bajo ciclo de trabajo",
+                            "explicacion": "La Detección de Energía (ED) y el bajo ciclo de trabajo en ZigBee proporcionan una larga duración de la batería, lo cual es una ventaja clave para sensores."
+                        },
+                        {
+                            "pregunta": "¿Qué tipo de dispositivo ZigBee requiere memoria y capacidad de computación para controlar la red y los caminos de conexión entre dispositivos?",
+                            "opciones": [
+                                "ZigBee Router (ZR)",
+                                "ZigBee End Device (ZED)",
+                                "Dispositivo de funcionalidad reducida (RFD)",
+                                "Coordinador ZigBee (ZC)"
+                            ],
+                            "correcta": "Coordinador ZigBee (ZC)",
+                            "explicacion": "El Coordinador ZigBee (ZC) es el cerebro de la red, requiriendo más recursos para gestionar la topología y el encaminamiento."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "nombre": "Mundo 4: Las Cavernas del Recuerdo",
+                    "tipo": "palabra_clave",
+                    "preguntas": [
+                        {
+                            "definicion": "Transmisor-Receptor Asíncrono Universal, encargado de convertir bits secuenciales transmitidos por cable en Bytes.",
+                            "respuesta_exacta": "UART"
+                        },
+                        {
+                            "definicion": "Línea de la interfaz SPI por donde el maestro recibe datos del esclavo.",
+                            "respuesta_exacta": "MISO"
+                        },
+                        {
+                            "definicion": "Campo de la trama CAN que indica si la trama es de datos o de solicitud de datos.",
+                            "respuesta_exacta": "RTR"
+                        },
+                        {
+                            "definicion": "Estándar de comunicación estandarizado para edificios inteligentes, sucesor de EIB y BatiBus.",
+                            "respuesta_exacta": "KNX"
+                        },
+                        {
+                            "definicion": "Mecanismo de control de acceso utilizado en las primeras Ethernet que implicaba escuchar el medio y abortar la transmisión en caso de conflicto.",
+                            "respuesta_exacta": "CSMA/CD"
+                        },
+                        {
+                            "definicion": "Técnica de modulación de ADSL equivalente a múltiples minimodems que asigna bits a subportadoras según la calidad de la línea.",
+                            "respuesta_exacta": "DMT"
+                        },
+                        {
+                            "definicion": "Red óptica pasiva donde no existen elementos activos entre las instalaciones del operador y el equipo terminal de usuario.",
+                            "respuesta_exacta": "PON"
+                        },
+                        {
+                            "definicion": "Conjunto de estaciones inalámbricas que, opcionalmente, incluye un punto de acceso (AP) y puede ser Ad-hoc o con infraestructura.",
+                            "respuesta_exacta": "BSS"
+                        },
+                        {
+                            "definicion": "Mecanismo en CSMA/CA que evita colisiones en redes inalámbricas al incluir la duración en tiempo en que se ocupará el canal.",
+                            "respuesta_exacta": "NAV"
+                        },
+                        {
+                            "definicion": "Tecnología inalámbrica IEEE 802.15.4 de redes de área personal con baja tasa de datos y maximización de la vida útil de las baterías.",
+                            "respuesta_exacta": "ZigBee"
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "nombre": "Mundo 5: La Torre de Casos",
+                    "tipo": "casos_practicos",
+                    "preguntas": [
+                        {
+                            "pregunta": "Un ingeniero necesita establecer una comunicación full-duplex de alta velocidad (10 Mbps) y síncrona entre un microcontrolador y tres sensores. Se requiere que el microcontrolador controle cuál sensor se comunica en cada momento. ¿Qué protocolo de red cableada es el más adecuado para esta implementación?",
+                            "opciones": [
+                                "UART en modo multipunto RS-485",
+                                "Bus CAN con un identificador de prioridad",
+                                "Interfaz SPI usando pines CS/SS para cada sensor",
+                                "Ethernet con un conmutador (switch)"
+                            ],
+                            "correcta": "Interfaz SPI usando pines CS/SS para cada sensor",
+                            "explicacion": "La interfaz SPI es full-duplex, síncrona, de alta velocidad y permite múltiples esclavos (sensores) controlados individualmente por el maestro (microcontrolador) usando las líneas CS/SS."
+                        },
+                        {
+                            "pregunta": "En un edificio inteligente que ya cuenta con una instalación eléctrica estándar de 230 V, se desea integrar un sistema de automatización descentralizado para el control de iluminación y persianas sin añadir un cableado extenso. Se busca una solución con una velocidad de transmisión moderada y que sea energéticamente eficiente. ¿Qué tecnología KNX sería la más apropiada?",
+                            "opciones": [
+                                "KNX Twisted Pair (KNX TP)",
+                                "KNX Radio Frequency (KNX RF)",
+                                "KNX Powerline (KNX PL)",
+                                "KNX IP sobre una red Ethernet existente"
+                            ],
+                            "correcta": "KNX Powerline (KNX PL)",
+                            "explicacion": "KNX Powerline (KNX PL) utiliza la red eléctrica existente (230 V) para la transmisión de datos, evitando cableado adicional y siendo adecuado para la automatización en edificios con infraestructura ya hecha, con una velocidad de 1.200 bit/s."
+                        },
+                        {
+                            "pregunta": "Un proveedor de servicios de internet desea ofrecer banda ancha a hogares en una zona rural, aprovechando la infraestructura de fibra óptica compartida ya instalada hasta un punto de distribución cercano a los usuarios, pero sin elementos activos entre su central y los equipos de los clientes. La prioridad es la alta velocidad, seguridad y una gestión remota eficiente de los equipos de usuario. ¿Qué tecnología WAN cableada cumple mejor con estos requisitos?",
+                            "opciones": [
+                                "ADSL utilizando multiplexores DSLAM",
+                                "Ethernet de 10 Gigabit para cada hogar",
+                                "GPON (Gigabit-capable Passive Optical Network)",
+                                "Red de cable coaxial para servicios híbridos"
+                            ],
+                            "correcta": "GPON (Gigabit-capable Passive Optical Network)",
+                            "explicacion": "GPON es una PON (red óptica pasiva) que utiliza una fibra compartida para varios usuarios (reduciendo CAPEX), ofrece alta velocidad (Gigabit), cifrado AES para seguridad y OAM para gestión remota de las ONT/ONU."
+                        },
+                        {
+                            "pregunta": "Un usuario se encuentra en un entorno de oficina donde su red WiFi de 2.4 GHz experimenta interferencias intermitentes y baja velocidad. Al investigar, descubre que hay varios hornos microondas, teléfonos inalámbricos y otros dispositivos en la misma frecuencia. El usuario desea mejorar la experiencia de su red inalámbrica. ¿Cuál sería la recomendación más efectiva basada en la información proporcionada?",
+                            "opciones": [
+                                "Cambiar el canal de su red WiFi a uno no solapado como el 1, 6 o 11.",
+                                "Incrementar la potencia de emisión de su punto de acceso WiFi.",
+                                "Configurar su red WiFi para usar el estándar 802.11b para mayor compatibilidad.",
+                                "Implementar un protocolo WEP para mejorar la seguridad y, por ende, el rendimiento."
+                            ],
+                            "correcta": "Cambiar el canal de su red WiFi a uno no solapado como el 1, 6 o 11.",
+                            "explicacion": "Los dispositivos de 2.4 GHz, como microondas y teléfonos inalámbricos, causan interferencia. Seleccionar un canal WiFi no solapado (1, 6, 11 o 14) es la forma más efectiva de mitigar esta interferencia y mejorar el rendimiento. WEP es inseguro y 802.11b es más lento."
+                        },
+                        {
+                            "pregunta": "Un desarrollador está creando una red de sensores inalámbricos para monitorear la temperatura y humedad en un invernadero grande. La red debe ser de bajo costo, consumir muy poca energía para maximizar la vida útil de las baterías de los sensores, y permitir una topología de malla robusta con muchos nodos. La tasa de datos no es una prioridad alta, pero la fiabilidad sí. ¿Qué tecnología inalámbrica sería la más adecuada para este proyecto?",
+                            "opciones": [
+                                "WiFi (IEEE 802.11) con nodos ESP32",
+                                "Bluetooth LE (IEEE 802.15)",
+                                "ZigBee (IEEE 802.15.4)",
+                                "WiMAX para cobertura de larga distancia"
+                            ],
+                            "correcta": "ZigBee (IEEE 802.15.4)",
+                            "explicacion": "ZigBee está diseñado para redes WPAN con baja tasa de datos, muy bajo consumo de energía (larga vida de batería) y soporta topologías de malla robustas con hasta 65.000 nodos, lo que lo hace ideal para redes de sensores en entornos como un invernadero."
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "nombre": "Mundo 6: El Jefe Final",
+                    "tipo": "feynman",
+                    "preguntas": [
+                        {
+                            "concepto_a_explicar": "Diferencias y aplicaciones entre los enlaces SCO y ACL en Bluetooth.",
+                            "palabras_clave_requeridas": [
+                                "sincrono",
+                                "asincrono",
+                                "voz",
+                                "datos",
+                                "ancho de banda fijo",
+                                "ancho de banda variable",
+                                "retransmision",
+                                "punto a punto",
+                                "punto a multipunto"
+                            ]
+                        },
+                        {
+                            "concepto_a_explicar": "Problemas de la estación oculta y expuesta en redes inalámbricas y cómo se abordan.",
+                            "palabras_clave_requeridas": [
+                                "alcance",
+                                "colision",
+                                "RTS",
+                                "CTS",
+                                "NAV",
+                                "medio",
+                                "simultaneo",
+                                "canal",
+                                "evitar",
+                                "no soluciona"
+                            ]
+                        },
+                        {
+                            "concepto_a_explicar": "La evolución de Ethernet desde su estándar original hasta 10 Gigabit Ethernet, incluyendo los modos de operación y el rol de CSMA/CD.",
+                            "palabras_clave_requeridas": [
+                                "10Mbps",
+                                "100Mbps",
+                                "1Gbps",
+                                "10Gbps",
+                                "half-duplex",
+                                "full-duplex",
+                                "CSMA/CD",
+                                "conmutadores",
+                                "colisiones",
+                                "autonegociacion"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
         "monedas": 0
     },
     "a8c8caef-6366-4c90-9578-d00603f524d8": {

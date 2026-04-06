@@ -8,6 +8,7 @@ import Resumenes from './components/Resumenes';
 import Quiz from './components/Quiz';
 import Flashcards from './components/Flashcards';
 import MapaMental from './components/MapaMental';
+import ModoJuego from './components/ModoJuego';
 
 // ==========================================
 // VISTA PRINCIPAL DEL CUADERNO (El Director de Orquesta)
@@ -78,6 +79,19 @@ function VistaCuaderno() {
 
     if (cargando) return <div className="h-screen bg-[#1e1e24] flex items-center justify-center text-white">Iniciando sistemas...</div>;
 
+
+    // === MODO JUEGO: INMERSIÓN TOTAL ===
+    // Si la vista activa es el juego, bloqueamos las 3 columnas y renderizamos a pantalla completa
+    if (vistaActiva === 'juego') {
+        return (
+            <ModoJuego 
+                datosJuego={datos.datos_juego} 
+                alSalir={() => setVistaActiva('chat')} // Al salir, lo devolvemos al chat por defecto
+            />
+        );
+    }
+
+    // === MODO NORMAL (Tus 3 columnas) ===
     return (
         <div className={`${temaOscuro ? 'dark' : ''} h-screen font-sans flex flex-col overflow-hidden transition-colors duration-300`}>
             {/* Contenedor real con colores de fondo */}
@@ -242,10 +256,23 @@ function VistaCuaderno() {
                                     Aún no
                                 </button>
                                 <button 
-                                    onClick={() => {
+                                    onClick={async () => {
                                         setMostrarModalJuego(false);
-                                        // Aquí llamaremos a la función que crea el juego en el siguiente paso
-                                        console.log("¡Forjando el Mundo!"); 
+                                        // Aquí activaremos una pantalla de carga épica más adelante
+                                        try {
+                                            const res = await fetch(`http://127.0.0.1:8000/api/notebooks/${id}/juego`, {
+                                                method: 'POST'
+                                            });
+                                            if (res.ok) {
+                                                // Recargamos el cuaderno para que React sepa que el juego ya existe
+                                                cargarDatosCuaderno();
+                                                setVistaActiva('juego');
+                                            } else {
+                                                alert("Error al forjar el mundo.");
+                                            }
+                                        } catch (error) {
+                                            console.error(error);
+                                        }
                                     }} 
                                     className="flex-1 px-4 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 transition shadow-lg shadow-purple-500/30"
                                 >

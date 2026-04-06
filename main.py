@@ -405,3 +405,124 @@ def generar_mapa_mental(notebook_id: str, peticion: PeticionMapa):
         import traceback
         print(traceback.format_exc())
         raise HTTPException(status_code=500, detail="Error generando mapa mental")
+    
+    # --- RUTA PARA GENERAR EL MUNDO MARIO (EL JUEGO) ---
+@app.post("/api/notebooks/{notebook_id}/juego")
+def generar_juego(notebook_id: str):
+    try:
+        # 1. Obtenemos el cuaderno para saber qué fuentes tiene
+        cuaderno = db.obtener_cuaderno(notebook_id)
+        if not cuaderno or not cuaderno.get("fuentes"):
+            raise HTTPException(status_code=400, detail="El cuaderno no tiene fuentes para generar el juego.")
+
+        # 2. Extraemos el texto de TODAS las fuentes (es el juego completo)
+        contexto_formateado = db.extraer_texto_cuaderno(notebook_id, cuaderno["fuentes"])
+
+        if not contexto_formateado.strip():
+            raise HTTPException(status_code=400, detail="No se pudo extraer texto de los PDFs.")
+
+       # 3. El Mega-Prompt para Gemini (Diseñador de Niveles)
+        instrucciones = f"""
+        Eres un experto diseñador de videojuegos educativos. Tu misión es leer el siguiente temario y generar un juego de 6 niveles basado ESTRICTAMENTE en la información proporcionada.
+        La dificultad debe ser progresiva, siguiendo la taxonomía de Bloom (desde reconocimiento hasta enseñanza).
+
+        ESTRUCTURA EXACTA DE LOS NIVELES:
+        - Nivel 1 (El Calentamiento): 15 preguntas de Verdadero/Falso. Dificultad media.
+        - Nivel 2 (El Bosque Rápido): 10 preguntas de Tipo Test con solo 3 opciones. Dificultad media-baja.
+        - Nivel 3 (El Mini-Castillo): Tiene 2 fases. 
+            - Fase 1: 5 pares para un "Tablero de conexiones" (término y definición) y 5 frases para "Rellenar huecos".
+            - Fase 2: 15 preguntas de Tipo Test (4 opciones) muy difíciles pensadas para hacerse a contrarreloj.
+        - Nivel 4 (Las Cavernas del Recuerdo): 10 preguntas de respuesta corta exacta. Das la definición y la respuesta es una sola palabra o término clave.
+        - Nivel 5 (La Torre de Casos): 5 escenarios prácticos. Test de 4 opciones donde se aplica la teoría a un problema o situación.
+        - Nivel 6 (El Jefe Final - Técnica Feynman): 3 conceptos troncales del temario. El usuario deberá explicarlos con sus palabras. Proporciona el concepto y una lista de 4-5 palabras clave imprescindibles que el usuario deberá mencionar para ganar.
+
+        REGLA ESTRICTA: Devuelve ÚNICAMENTE un JSON válido con esta estructura exacta (sin markdown extra, solo el JSON puro):
+        {{
+            "niveles": [
+                {{
+                    "id": 1,
+                    "nombre": "Mundo 1: El Calentamiento",
+                    "tipo": "vf",
+                    "preguntas": [
+                        {{"pregunta": "¿El concepto X significa Y?", "opciones": ["Verdadero", "Falso"], "correcta": "Verdadero", "explicacion": "Porque..."}}
+                    ]
+                }},
+                {{
+                    "id": 2,
+                    "nombre": "Mundo 2: El Bosque Rápido",
+                    "tipo": "test3",
+                    "preguntas": [
+                        {{"pregunta": "¿Cuál es la causa de Z?", "opciones": ["A", "B", "C"], "correcta": "B", "explicacion": "Porque..."}}
+                    ]
+                }},
+                {{
+                    "id": 3,
+                    "nombre": "Mundo 3: El Mini-Castillo",
+                    "tipo": "minijefe",
+                    "fase1_conexiones": [
+                        {{"termino": "Concepto", "definicion": "Significado del concepto"}}
+                    ],
+                    "fase1_huecos": [
+                        {{"frase": "La ___ es la parte principal de la célula.", "respuesta_correcta": "mitocondria"}}
+                    ],
+                    "fase2_test": [
+                        {{"pregunta": "Pregunta difícil contrarreloj...", "opciones": ["A", "B", "C", "D"], "correcta": "A", "explicacion": "..."}}
+                    ]
+                }},
+                {{
+                    "id": 4,
+                    "nombre": "Mundo 4: Las Cavernas del Recuerdo",
+                    "tipo": "palabra_clave",
+                    "preguntas": [
+                        {{"definicion": "Proceso por el cual las plantas...", "respuesta_exacta": "fotosintesis"}}
+                    ]
+                }},
+                {{
+                    "id": 5,
+                    "nombre": "Mundo 5: La Torre de Casos",
+                    "tipo": "casos_practicos",
+                    "preguntas": [
+                        {{"pregunta": "Situación práctica detallada... ¿Qué solución aplicas?", "opciones": ["Op1", "Op2", "Op3", "Op4"], "correcta": "Op2", "explicacion": "..."}}
+                    ]
+                }},
+                {{
+                    "id": 6,
+                    "nombre": "Mundo 6: El Jefe Final",
+                    "tipo": "feynman",
+                    "preguntas": [
+                        {{"concepto_a_explicar": "Teoría Celular", "palabras_clave_requeridas": ["unidad", "vida", "preexistente", "organismos"]}}
+                    ]
+                }}
+            ]
+        }}
+
+        CONTEXTO A ANALIZAR:
+        {contexto_formateado}
+        """
+
+        # 4. Llamada a Gemini
+        response = client.models.generate_content(
+            model=MODEL_ID,
+            contents=instrucciones
+        )
+
+        # 5. Limpieza del JSON
+        texto_bruto = response.text
+        inicio = texto_bruto.find('{')
+        fin = texto_bruto.rfind('}') + 1
+        
+        if inicio == -1 or fin == 0:
+            raise ValueError("No se encontró un JSON válido en la respuesta de la IA")
+        
+        datos_juego = json.loads(texto_bruto[inicio:fin])
+        
+        # 6. Guardar en la Base de Datos y "sellar" el cuaderno
+        db.guardar_juego_cuaderno(notebook_id, datos_juego)
+        
+        return {"mensaje": "¡Mundo forjado con éxito!", "juego": datos_juego}
+
+    except Exception as e:
+        print("❌ ERROR GENERANDO JUEGO:")
+        import traceback
+        print(traceback.format_exc())
+        raise HTTPException(status_code=500, detail="Error generando el juego")
