@@ -526,3 +526,24 @@ def generar_juego(notebook_id: str):
         import traceback
         print(traceback.format_exc())
         raise HTTPException(status_code=500, detail="Error generando el juego")
+    
+
+@app.post("/api/notebooks/{notebook_id}/progreso")
+def actualizar_progreso(notebook_id: str, nivel_id: int):
+      # Restamos 1 al nivel_id porque en el JSON el índice empieza en 0
+      exito, monedas, nuevo_nivel = db.actualizar_progreso_juego(notebook_id, nivel_id - 1)
+        
+      if not exito:
+        # Si ya lo había pasado, simplemente devolvemos ok sin subir nivel
+       return {"mensaje": "Nivel ya completado anteriormente"}
+            
+      return {
+            "mensaje": "¡Progreso guardado!",
+            "monedas_totales": monedas,
+            "nivel_actual": nuevo_nivel
+        }
+
+# ESTO TIENE QUE SER OBLIGATORIAMENTE LO ÚLTIMO DEL ARCHIVO
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -277,3 +277,24 @@ def guardar_juego_cuaderno(notebook_id, datos_del_juego):
             json.dump(cuadernos, f, indent=4, ensure_ascii=False)
         return True
     return False
+
+def actualizar_progreso_juego(notebook_id, nivel_completado):
+    cuadernos = listar_cuadernos()
+    if notebook_id in cuadernos:
+        cuaderno = cuadernos[notebook_id]
+        
+        # Obtenemos el nivel actual guardado (por defecto 0)
+        nivel_actual_guardado = cuaderno["datos_juego"].get("nivel_actual", 0)
+        
+        # Solo subimos de nivel si el nivel que acaba de completar es el que le tocaba
+        # Esto evita que si repite el Nivel 1, le siga sumando niveles hacia adelante
+        if nivel_completado == nivel_actual_guardado:
+            cuaderno["datos_juego"]["nivel_actual"] = nivel_actual_guardado + 1
+            # Añadimos una recompensa de 50 monedas por nivel
+            cuaderno["monedas"] = cuaderno.get("monedas", 0) + 50
+            
+            with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
+                json.dump(cuadernos, f, indent=4, ensure_ascii=False)
+            return True, cuaderno["monedas"], cuaderno["datos_juego"]["nivel_actual"]
+            
+    return False, 0, 0

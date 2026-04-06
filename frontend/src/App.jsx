@@ -86,7 +86,10 @@ function VistaCuaderno() {
         return (
             <ModoJuego 
                 datosJuego={datos.datos_juego} 
-                alSalir={() => setVistaActiva('chat')} // Al salir, lo devolvemos al chat por defecto
+                monedas={datos.monedas}
+                alSalir={() => setVistaActiva('chat')}
+                recargarBD={cargarDatosCuaderno} 
+                notebookId={id}
             />
         );
     }

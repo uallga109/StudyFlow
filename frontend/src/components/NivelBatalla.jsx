@@ -1,26 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import RellenarHuecos from './RellenarHuecos';
+import TableroConexiones from './TableroConexiones'; 
+import BatallaJefe from './BatallaJefe'; // ✅ AQUÍ ESTÁ LA LÍNEA QUE FALTABA
 
 export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
-    // 1. RECOLECCIÓN INTELIGENTE DE PREGUNTAS
-    const obtenerPreguntas = () => {
-        if (nivel?.preguntas) return nivel.preguntas;
-        if (nivel?.tipo === 'minijefe' && nivel?.fase2_test) return nivel.fase2_test;
-        return [];
-    };
-    const preguntas = obtenerPreguntas();
+    
+    // 1. RECOLECCIÓN Y BARAJO (SHUFFLE GLOBAL E INTERNO)
+    const preguntas = useMemo(() => {
+        let lista = [];
+        if (nivel?.tipo === 'minijefe') {
+            const conexiones = nivel.fase1_conexiones && nivel.fase1_conexiones.length > 0 
+                ? [{ subtipo: 'conexiones', conexiones: nivel.fase1_conexiones }] 
+                : [];
+            const huecos = (nivel.fase1_huecos || []).map(h => ({ ...h, subtipo: 'hueco' }));
+            const test = (nivel.fase2_test || []).map(t => ({ ...t, subtipo: 'test' }));
+            
+            lista = [...conexiones, ...huecos, ...test];
+        } else {
+            lista = (nivel?.preguntas || []).map(p => ({ ...p, subtipo: nivel.tipo }));
+        }
+
+        // Barajamos las opciones (A,B,C,D o V/F) DENTRO de cada pregunta
+        const listaConOpcionesBarajadas = lista.map(pregunta => {
+            if (pregunta.opciones && Array.isArray(pregunta.opciones)) {
+                return {
+                    ...pregunta,
+                    opciones: [...pregunta.opciones].sort(() => Math.random() - 0.5)
+                };
+            }
+            return pregunta;
+        });
+
+        // Barajamos el orden global de las preguntas
+        return listaConOpcionesBarajadas.sort(() => Math.random() - 0.5);
+    }, [nivel]);
 
     // 2. LÓGICA DE TIEMPO
     const esGlobalTimer = nivel?.tipo === 'minijefe';
-    const TIEMPO_MAXIMO = esGlobalTimer ? 90 : 15; 
+    const TIEMPO_MAXIMO = esGlobalTimer ? 120 : 15; 
     
     const [vidas, setVidas] = useState(3);
     const [indicePregunta, setIndicePregunta] = useState(0);
     const [tiempoRestante, setTiempoRestante] = useState(TIEMPO_MAXIMO);
     
-    // 3. ESTADOS DE LA INTERFAZ Y RESPUESTAS
+    // 3. ESTADOS DE LA INTERFAZ
     const [estadoBatalla, setEstadoBatalla] = useState('jugando'); 
-    const [opcionSeleccionada, setOpcionSeleccionada] = useState(null); // Para Tests
-    const [respuestaEscrita, setRespuestaEscrita] = useState(''); // Para Palabra Clave
+    const [opcionSeleccionada, setOpcionSeleccionada] = useState(null); 
+    const [respuestaEscrita, setRespuestaEscrita] = useState(''); 
 
     const preguntaActual = preguntas[indicePregunta];
 
@@ -55,29 +81,24 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
         }
     };
 
-    // Validación para Botones (Niveles 1, 2, 3, 5)
     const procesarRespuesta = (opcion) => {
         if (estadoBatalla !== 'jugando') return;
         setOpcionSeleccionada(opcion);
-        const esCorrecta = opcion === preguntaActual?.correcta;
-        evaluarAciertoFallo(esCorrecta);
+        evaluarAciertoFallo(opcion === preguntaActual?.correcta);
     };
 
-    // Validación para Palabra Exacta (Nivel 4)
     const procesarRespuestaEscrita = (e) => {
-        e.preventDefault(); // Evita que el formulario recargue la página
+        e.preventDefault(); 
         if (estadoBatalla !== 'jugando' || !respuestaEscrita.trim()) return;
 
-        // NORMALIZADOR PRO: Quita tildes, pasa a minúsculas y quita espacios extra
         const normalizar = (str) => str ? str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim() : "";
-        
         const introducida = normalizar(respuestaEscrita);
         const correcta = normalizar(preguntaActual?.respuesta_exacta);
 
         evaluarAciertoFallo(introducida === correcta);
     };
 
-    const evaluarAciertoFallo = (esCorrecta) => {
+    const evaluarAciertoFallo = (esCorrecta, avanzarAlFallar = true) => {
         if (esCorrecta) {
             setEstadoBatalla('acierto');
             setTimeout(() => avanzarPregunta(), 1500);
@@ -87,14 +108,17 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
             setVidas(nuevasVidas);
             setTimeout(() => {
                 if (nuevasVidas <= 0) setEstadoBatalla('gameover');
-                else avanzarPregunta();
-            }, 2500); 
+                else {
+                    if (avanzarAlFallar) avanzarPregunta();
+                    else setEstadoBatalla('jugando'); 
+                }
+            }, 1200); 
         }
     };
 
     const avanzarPregunta = () => {
         setOpcionSeleccionada(null);
-        setRespuestaEscrita(''); // Limpiamos el input
+        setRespuestaEscrita(''); 
         
         if (!esGlobalTimer) setTiempoRestante(TIEMPO_MAXIMO); 
         
@@ -106,9 +130,16 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
         }
     };
 
-    // --- PANTALLAS FINALES ---
-    if (!preguntaActual && estadoBatalla === 'jugando') return <div className="absolute inset-0 z-50 bg-[#0d0d14] text-white flex items-center justify-center">Cargando arena...</div>;
+    const getRespuestaCorrecta = () => {
+        if (preguntaActual?.subtipo === 'hueco') return preguntaActual.respuesta_correcta;
+        if (preguntaActual?.subtipo === 'palabra_clave') return preguntaActual.respuesta_exacta;
+        if (preguntaActual?.subtipo === 'conexiones') return "Une los conceptos sin equivocarte.";
+        return preguntaActual?.correcta;
+    };
 
+    console.log("🤫 PISTA DEV - La respuesta es:", getRespuestaCorrecta());
+
+    // --- PANTALLAS FINALES ---
     if (estadoBatalla === 'gameover') {
         return (
             <div className="absolute inset-0 bg-red-950/90 z-50 flex flex-col items-center justify-center text-white animate-fade-in backdrop-blur-md">
@@ -132,19 +163,36 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
         );
     }
 
+    // ✅ INTERFAZ ESPECIAL: BATALLA RPG (Nivel 6)
+    if (nivel?.tipo === 'jefe_pokemon' || nivel?.tipo === 'feynman') {
+        return (
+            <div className="absolute inset-0 bg-[#0d0d14] z-50 flex flex-col font-sans select-none overflow-hidden p-8 justify-center">
+                <button onClick={alHuir} className="absolute top-8 left-8 text-sm font-bold text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-xl transition-all z-50">
+                    🏃‍♂️ Huir de la Batalla
+                </button>
+                <BatallaJefe 
+                    nivel={nivel} 
+                    onResultado={(victoria) => {
+                        if (victoria) setEstadoBatalla('victoria');
+                        else setEstadoBatalla('gameover');
+                    }} 
+                />
+            </div>
+        );
+    }
+
+    if (!preguntaActual && estadoBatalla === 'jugando') return <div className="absolute inset-0 z-50 bg-[#0d0d14] text-white flex items-center justify-center">Cargando arena...</div>;
+
     const limitePeligro = esGlobalTimer ? 15 : 5; 
     const enPeligro = tiempoRestante <= limitePeligro && estadoBatalla === 'jugando';
-    const esPalabraClave = nivel.tipo === 'palabra_clave';
 
-    // --- PANTALLA PRINCIPAL DE COMBATE ---
+    // --- PANTALLA PRINCIPAL DE COMBATE (Niveles 1 al 5) ---
     return (
         <div className="absolute inset-0 bg-[#0d0d14] z-50 flex flex-col font-sans select-none overflow-hidden">
-            {/* EFECTOS DE FONDO */}
             <div className={`absolute inset-0 transition-colors duration-500 pointer-events-none 
                 ${estadoBatalla === 'fallo' ? 'bg-red-900/30' : estadoBatalla === 'timeout' ? 'bg-orange-900/30' : estadoBatalla === 'acierto' ? 'bg-green-900/10' : enPeligro ? 'bg-red-900/10 animate-pulse' : 'bg-transparent'}`}>
             </div>
 
-            {/* HUD SUPERIOR */}
             <header className="flex flex-col p-6 bg-black/40 backdrop-blur-md border-b border-white/5 relative z-10 gap-4">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex gap-2 text-2xl bg-black/50 p-3 rounded-2xl border border-white/10 shadow-inner">
@@ -154,11 +202,10 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
                     </div>
                     <div className="flex flex-col items-center">
                         <span className="text-xs font-black text-indigo-400 uppercase tracking-[0.3em]">{nivel.nombre}</span>
-                        <span className="text-sm font-bold text-gray-400 mt-1">Pregunta {indicePregunta + 1} de {preguntas.length}</span>
+                        <span className="text-sm font-bold text-gray-400 mt-1">Fase {indicePregunta + 1} de {preguntas.length}</span>
                     </div>
                     <button onClick={alHuir} className="text-sm font-bold text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-xl transition-all">🏃‍♂️ Rendirse</button>
                 </div>
-                {/* BARRA DE TIEMPO */}
                 <div className="w-full max-w-4xl mx-auto flex items-center gap-4 mt-2">
                     <span className={`text-xl font-black w-10 text-right ${enPeligro ? 'text-red-500 animate-bounce' : 'text-white'}`}>{tiempoRestante}s</span>
                     <div className="flex-1 h-3 bg-gray-800/80 rounded-full overflow-hidden border border-white/5 relative shadow-inner">
@@ -167,70 +214,74 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
                 </div>
             </header>
 
-            {/* ZONA CENTRAL */}
-            <main className="flex-1 flex flex-col items-center justify-center p-8 max-w-4xl mx-auto w-full relative z-10">
-                {/* Caja de Pregunta/Definición */}
-                <div className={`bg-[#1e1e28] border shadow-2xl rounded-3xl p-10 w-full mb-10 text-center relative transition-colors duration-300 ${enPeligro ? 'border-red-500/50 shadow-[0_0_30px_rgba(239,68,68,0.1)]' : 'border-gray-700/50'}`}>
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-indigo-600 text-xs font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-lg">
-                        {esPalabraClave ? 'Adivina la Palabra' : nivel.tipo === 'minijefe' ? 'Minijefe' : 'Pregunta'}
-                    </div>
-                    <h2 className="text-3xl font-bold text-white leading-relaxed mt-4">
-                        {esPalabraClave ? preguntaActual?.definicion : preguntaActual?.pregunta}
-                    </h2>
+            {/* ✅ AQUÍ ESTÁ EL ARREGLO DEL SCROLL PARA PREGUNTAS LARGAS */}
+            <main className="flex-1 overflow-y-auto w-full relative z-10 p-4 md:p-8 custom-scrollbar flex flex-col">
+                <div className="max-w-4xl mx-auto w-full my-auto flex flex-col items-center pb-10">
+                    
+                    {preguntaActual?.subtipo === 'conexiones' ? (
+                        <div className={`bg-[#1e1e28] border shadow-2xl rounded-3xl p-10 w-full mb-10 relative transition-colors duration-300 ${enPeligro ? 'border-red-500/50 shadow-[0_0_30px_rgba(239,68,68,0.1)]' : 'border-gray-700/50'}`}>
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-indigo-600 text-xs font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-lg">
+                                Empareja los Conceptos
+                            </div>
+                            <div className="mt-6">
+                                <TableroConexiones conexiones={preguntaActual.conexiones} disabled={estadoBatalla !== 'jugando'} onResultado={(exito) => evaluarAciertoFallo(exito, false)} />
+                            </div>
+                        </div>
+
+                    ) : preguntaActual?.subtipo === 'hueco' ? (
+                        
+                        <div className={`bg-[#1e1e28] border shadow-2xl rounded-3xl p-10 w-full mb-10 relative transition-colors duration-300 ${enPeligro ? 'border-red-500/50 shadow-[0_0_30px_rgba(239,68,68,0.1)]' : 'border-gray-700/50'}`}>
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-indigo-600 text-xs font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-lg">
+                                Rellenar Huecos
+                            </div>
+                            <div className="mt-4">
+                                <RellenarHuecos frase={preguntaActual.frase} respuestaCorrecta={preguntaActual.respuesta_correcta} disabled={estadoBatalla !== 'jugando'} onResultado={(esCorrecta) => evaluarAciertoFallo(esCorrecta)} />
+                            </div>
+                        </div>
+
+                    ) : (
+
+                        <>
+                            <div className={`bg-[#1e1e28] border shadow-2xl rounded-3xl p-10 w-full mb-10 text-center relative transition-colors duration-300 ${enPeligro ? 'border-red-500/50 shadow-[0_0_30px_rgba(239,68,68,0.1)]' : 'border-gray-700/50'}`}>
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-indigo-600 text-xs font-black uppercase tracking-widest px-4 py-1 rounded-full shadow-lg">
+                                    {preguntaActual?.subtipo === 'palabra_clave' ? 'Adivina la Palabra' : preguntaActual?.subtipo === 'test' ? 'Test Rápido' : 'Pregunta'}
+                                </div>
+                                <h2 className="text-3xl font-bold text-white leading-relaxed mt-4">
+                                    {preguntaActual?.subtipo === 'palabra_clave' ? preguntaActual?.definicion : preguntaActual?.pregunta}
+                                </h2>
+                            </div>
+
+                            {preguntaActual?.subtipo === 'palabra_clave' ? (
+                                <form onSubmit={procesarRespuestaEscrita} className="w-full flex flex-col items-center gap-6">
+                                    <input type="text" value={respuestaEscrita} onChange={(e) => setRespuestaEscrita(e.target.value)} disabled={estadoBatalla !== 'jugando'} placeholder="Escribe la palabra exacta..." autoFocus className={`w-full max-w-2xl bg-[#252532] border-2 rounded-2xl p-6 text-center text-3xl font-bold text-white outline-none transition-all duration-300 ${estadoBatalla === 'acierto' ? 'border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.3)] text-green-400' : estadoBatalla === 'fallo' || estadoBatalla === 'timeout' ? 'border-red-500 shadow-[0_0_30px_rgba(239,68,68,0.3)] text-red-400' : 'border-gray-600 focus:border-indigo-500 focus:shadow-[0_0_30px_rgba(79,70,229,0.3)]'}`} />
+                                    <button type="submit" disabled={estadoBatalla !== 'jugando' || !respuestaEscrita.trim()} className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-gray-700 disabled:text-gray-500 text-white font-black uppercase tracking-widest py-4 px-12 rounded-2xl shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all transform hover:scale-105">Confirmar</button>
+                                </form>
+                            ) : (
+                                <div className={`grid gap-4 w-full ${nivel.tipo === 'vf' ? 'grid-cols-2' : 'grid-cols-1 md:grid-cols-2'}`}>
+                                    {preguntaActual?.opciones?.map((opcion, i) => {
+                                        let coloresClase = "bg-[#252532] hover:bg-[#2d2d3d] border-gray-600 text-gray-200"; 
+                                        if (estadoBatalla !== 'jugando') {
+                                            if (opcion === preguntaActual?.correcta) coloresClase = "bg-green-600/20 border-green-500 text-green-300 ring-2 ring-green-500/50 shadow-[0_0_20px_rgba(34,197,94,0.3)]";
+                                            else if (opcion === opcionSeleccionada) coloresClase = "bg-red-600/20 border-red-500 text-red-300 ring-2 ring-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.3)]";
+                                            else coloresClase = "bg-[#1a1a24] border-transparent text-gray-600 opacity-50"; 
+                                        }
+                                        return <button key={i} disabled={estadoBatalla !== 'jugando'} onClick={() => procesarRespuesta(opcion)} className={`p-6 rounded-2xl border-2 transition-all duration-300 text-left font-bold text-lg flex items-center gap-4 ${coloresClase}`}><span className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${estadoBatalla !== 'jugando' && opcion === preguntaActual?.correcta ? 'bg-green-500 text-white' : 'bg-black/30'}`}>{['A', 'B', 'C', 'D'][i]}</span>{opcion}</button>;
+                                    })}
+                                </div>
+                            )}
+                        </>
+                    )}
+
+                    {(estadoBatalla === 'fallo' || estadoBatalla === 'timeout') && preguntaActual?.subtipo !== 'conexiones' && (
+                        <div className="w-full mt-8 p-6 bg-red-950/40 border border-red-900/50 rounded-2xl animate-fade-in">
+                            <span className="text-red-400 font-black block mb-2 uppercase text-sm tracking-widest">
+                                {estadoBatalla === 'timeout' ? (esGlobalTimer ? '⏰ ¡EL CASTILLO SE HA DERRUMBADO!' : '⏰ ¡TIEMPO AGOTADO!') : '💥 ¡GOLPE CRÍTICO!'} 
+                                - Respuesta Correcta: {getRespuestaCorrecta()}
+                            </span>
+                            {preguntaActual?.explicacion && <p className="text-red-200/80">{preguntaActual.explicacion}</p>}
+                        </div>
+                    )}
                 </div>
-
-                {/* INTERFAZ DINÁMICA: Botones vs Input de Texto */}
-                {esPalabraClave ? (
-                    <form onSubmit={procesarRespuestaEscrita} className="w-full flex flex-col items-center gap-6">
-                        <input 
-                            type="text"
-                            value={respuestaEscrita}
-                            onChange={(e) => setRespuestaEscrita(e.target.value)}
-                            disabled={estadoBatalla !== 'jugando'}
-                            placeholder="Escribe la palabra o concepto exacto..."
-                            autoFocus
-                            className={`w-full max-w-2xl bg-[#252532] border-2 rounded-2xl p-6 text-center text-3xl font-bold text-white outline-none transition-all duration-300
-                                ${estadoBatalla === 'acierto' ? 'border-green-500 shadow-[0_0_30px_rgba(34,197,94,0.3)] text-green-400' : 
-                                  estadoBatalla === 'fallo' || estadoBatalla === 'timeout' ? 'border-red-500 shadow-[0_0_30px_rgba(239,68,68,0.3)] text-red-400' : 
-                                  'border-gray-600 focus:border-indigo-500 focus:shadow-[0_0_30px_rgba(79,70,229,0.3)]'}`}
-                        />
-                        <button 
-                            type="submit"
-                            disabled={estadoBatalla !== 'jugando' || !respuestaEscrita.trim()}
-                            className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-gray-700 disabled:text-gray-500 text-white font-black uppercase tracking-widest py-4 px-12 rounded-2xl shadow-[0_0_20px_rgba(79,70,229,0.4)] transition-all transform hover:scale-105"
-                        >
-                            Confirmar
-                        </button>
-                    </form>
-                ) : (
-                    <div className={`grid gap-4 w-full ${nivel.tipo === 'vf' ? 'grid-cols-2' : 'grid-cols-1 md:grid-cols-2'}`}>
-                        {preguntaActual?.opciones?.map((opcion, i) => {
-                            let coloresClase = "bg-[#252532] hover:bg-[#2d2d3d] border-gray-600 text-gray-200"; 
-                            if (estadoBatalla !== 'jugando') {
-                                if (opcion === preguntaActual?.correcta) coloresClase = "bg-green-600/20 border-green-500 text-green-300 ring-2 ring-green-500/50 shadow-[0_0_20px_rgba(34,197,94,0.3)]";
-                                else if (opcion === opcionSeleccionada) coloresClase = "bg-red-600/20 border-red-500 text-red-300 ring-2 ring-red-500/50 shadow-[0_0_20px_rgba(239,68,68,0.3)]";
-                                else coloresClase = "bg-[#1a1a24] border-transparent text-gray-600 opacity-50"; 
-                            }
-                            return (
-                                <button key={i} disabled={estadoBatalla !== 'jugando'} onClick={() => procesarRespuesta(opcion)} className={`p-6 rounded-2xl border-2 transition-all duration-300 text-left font-bold text-lg flex items-center gap-4 ${coloresClase}`}>
-                                    <span className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${estadoBatalla !== 'jugando' && opcion === preguntaActual?.correcta ? 'bg-green-500 text-white' : 'bg-black/30'}`}>{['A', 'B', 'C', 'D'][i]}</span>
-                                    {opcion}
-                                </button>
-                            );
-                        })}
-                    </div>
-                )}
-
-                {/* Paneles de Error o Timeout */}
-                {(estadoBatalla === 'fallo' || estadoBatalla === 'timeout') && (
-                    <div className="w-full mt-8 p-6 bg-red-950/40 border border-red-900/50 rounded-2xl animate-fade-in">
-                        <span className="text-red-400 font-black block mb-2 uppercase text-sm tracking-widest">
-                            {estadoBatalla === 'timeout' ? (esGlobalTimer ? '⏰ ¡EL CASTILLO SE HA DERRUMBADO!' : '⏰ ¡TIEMPO AGOTADO!') : '💥 ¡GOLPE CRÍTICO!'} 
-                            - Respuesta Correcta: {esPalabraClave ? preguntaActual?.respuesta_exacta : preguntaActual?.correcta}
-                        </span>
-                        {preguntaActual?.explicacion && <p className="text-red-200/80">{preguntaActual.explicacion}</p>}
-                    </div>
-                )}
             </main>
         </div>
     );
