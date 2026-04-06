@@ -40,7 +40,28 @@ def listar_cuadernos():
 
 def obtener_cuaderno(notebook_id):
     cuadernos = listar_cuadernos()
-    return cuadernos.get(notebook_id)
+    cuaderno = cuadernos.get(notebook_id)
+    
+    # MIGRACIÓN SILENCIOSA: Si es un cuaderno antiguo o nuevo, le añadimos las variables del juego
+    if cuaderno:
+        modificado = False
+        if "juego_creado" not in cuaderno:
+            cuaderno["juego_creado"] = False
+            modificado = True
+        if "datos_juego" not in cuaderno:
+            cuaderno["datos_juego"] = {}
+            modificado = True
+        if "monedas" not in cuaderno:
+            cuaderno["monedas"] = 0
+            modificado = True
+            
+        # Si le faltaba algo, guardamos los cambios en el JSON
+        if modificado:
+            cuadernos[notebook_id] = cuaderno
+            with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
+                json.dump(cuadernos, f, indent=4, ensure_ascii=False)
+                
+    return cuaderno
 
 def crear_cuaderno(titulo):
     cuadernos = listar_cuadernos()
@@ -51,7 +72,12 @@ def crear_cuaderno(titulo):
         "creado": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "fuentes": [],
         "resumenes": [],
-        "quizzes": []  # <--- NUEVO: Historial de exámenes vacío
+        "quizzes": [],
+        "flashcards": [],
+        "mapas": [],
+        "juego_creado": False,
+        "datos_juego": {},
+        "monedas": 0
     }
     cuadernos[id_unico] = nuevo_cuaderno
     with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
@@ -215,3 +241,39 @@ def buscar_contexto(notebook_id, pregunta, n_resultados=4):
         where={"notebook_id": notebook_id}
     )
     return resultados
+
+def guardar_flashcards_cuaderno(notebook_id, mazo_nuevo):
+    cuadernos = listar_cuadernos()
+    if notebook_id in cuadernos:
+        if "flashcards" not in cuadernos[notebook_id]:
+            cuadernos[notebook_id]["flashcards"] = []
+        
+        cuadernos[notebook_id]["flashcards"].append(mazo_nuevo)
+        with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(cuadernos, f, indent=4, ensure_ascii=False)
+        return True
+    return False
+
+def guardar_mapa_cuaderno(notebook_id, mapa_nuevo):
+    cuadernos = listar_cuadernos()
+    if notebook_id in cuadernos:
+        if "mapas" not in cuadernos[notebook_id]:
+            cuadernos[notebook_id]["mapas"] = []
+            
+        cuadernos[notebook_id]["mapas"].append(mapa_nuevo)
+        with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(cuadernos, f, indent=4, ensure_ascii=False)
+        return True
+    return False
+
+def guardar_juego_cuaderno(notebook_id, datos_del_juego):
+    """Guarda el mapa generado y bloquea el cuaderno marcando juego_creado = True"""
+    cuadernos = listar_cuadernos()
+    if notebook_id in cuadernos:
+        cuadernos[notebook_id]["juego_creado"] = True
+        cuadernos[notebook_id]["datos_juego"] = datos_del_juego
+        
+        with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(cuadernos, f, indent=4, ensure_ascii=False)
+        return True
+    return False

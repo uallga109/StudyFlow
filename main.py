@@ -318,60 +318,90 @@ def generar_flashcards(notebook_id: str, peticion: PeticionFlashcards):
             raise ValueError("No se encontró un JSON válido en la respuesta de la IA")
         
         texto_limpio = texto_bruto[inicio:fin]
-        return json.loads(texto_limpio)
-
+        data_limpia = json.loads(texto_limpio)
+        nuevo_mazo = {
+            "id": str(uuid.uuid4()),
+            "fecha": datetime.now().strftime("%d/%m/%Y %H:%M"),
+            "fuentes_usadas": peticion.fuentes,
+            "tarjetas": data_limpia["flashcards"]
+        }
+        db.guardar_flashcards_cuaderno(notebook_id, nuevo_mazo)
+        return nuevo_mazo
+    
     except Exception as e:
         print("❌ ERROR FLASHCARDS:")
         import traceback
         print(traceback.format_exc())
         raise HTTPException(status_code=500, detail="Error generando flashcards")
 
-@app.post("/api/notebooks/{notebook_id}/mapa-mental")
-def generar_mapa_mental(notebook_id: str, peticion: PeticionMapaMental):
-    try:
-        # 1. Buscamos el contexto general
-        busqueda = db.buscar_contexto(notebook_id, "esquema general, conceptos clave y su jerarquía")
-        
-        contexto_formateado = ""
-        if busqueda and 'documents' in busqueda and len(busqueda['documents']) > 0 and len(busqueda['documents'][0]) > 0:
-            for frag in busqueda['documents'][0]:
-                contexto_formateado += f"\n{frag}\n"
+# --- RUTA PARA EL MAPA MENTAL ---
+class PeticionMapa(BaseModel):
+    fuentes: list[str]
 
-        # 2. Instrucciones estilo NotebookLM
+@app.post("/api/notebooks/{notebook_id}/mapamental")
+def generar_mapa_mental(notebook_id: str, peticion: PeticionMapa):
+    try:
+        # 1. Extraemos el texto usando nuestra función fiable
+        contexto_formateado = db.extraer_texto_cuaderno(notebook_id, peticion.fuentes)
+
+        if not contexto_formateado or not contexto_formateado.strip():
+            raise HTTPException(status_code=400, detail="No hay texto en las fuentes.")
+
+       # 2. Las instrucciones para Gemini (Solo estructura lógica)
         instrucciones = f"""
-        Eres un sistema experto en organizar conocimiento, similar a NotebookLM.
-        Basándote en el contexto, genera un Mapa Mental o Guía de Estudio jerárquica.
-        
-        REGLA ESTRICTA: Devuelve ÚNICAMENTE un JSON válido con esta estructura:
+        Eres un experto creando mapas mentales. Analiza el siguiente texto y extrae los conceptos principales.
+        Crea un mapa mental estructurado en forma de árbol:
+        - 1 Nivel Raíz (El Tema Principal, su id DEBE ser "root").
+        - Niveles secundarios (Subtemas).
+        - Niveles terciarios (Detalles).
+
+        Devuelve ÚNICAMENTE un JSON con dos listas: "nodos" y "lineas".
+        NO incluyas coordenadas (position), solo la etiqueta (label) y el id.
+
+        Ejemplo exacto del formato JSON requerido:
         {{
-            "tema_principal": "Título central de los apuntes",
-            "resumen_global": "Un párrafo muy breve de lo que trata",
-            "ramas": [
-                {{
-                    "concepto": "Concepto principal 1",
-                    "explicacion": "Breve definición",
-                    "sub_ramas": ["Subconcepto A", "Subconcepto B"]
-                }},
-                {{
-                    "concepto": "Concepto principal 2",
-                    "explicacion": "Breve definición",
-                    "sub_ramas": ["Subconcepto C"]
-                }}
+            "nodos": [
+                {{"id": "root", "data": {{"label": "Tema Central"}}, "type": "input", "style": {{"background": "#3b82f6", "color": "white", "fontWeight": "bold", "borderRadius": "8px"}}}},
+                {{"id": "2", "data": {{"label": "Subtema 1"}}}},
+                {{"id": "3", "data": {{"label": "Subtema 2"}}}}
+            ],
+            "lineas": [
+                {{"id": "e-root-2", "source": "root", "target": "2", "animated": true}},
+                {{"id": "e-root-3", "source": "root", "target": "3", "animated": true}}
             ]
         }}
 
-        CONTEXTO:
+        CONTEXTO A ANALIZAR:
         {contexto_formateado}
         """
-        
+
+        # 3. Llamada a Gemini
         response = client.models.generate_content(
             model=MODEL_ID,
             contents=instrucciones
         )
-        
-        texto_limpio = response.text.replace("```json", "").replace("```", "").strip()
-        return json.loads(texto_limpio)
 
+        # 4. Limpieza del JSON
+        texto_bruto = response.text
+        inicio = texto_bruto.find('{')
+        fin = texto_bruto.rfind('}') + 1
+        
+        if inicio == -1 or fin == 0:
+            raise ValueError("No se encontró un JSON válido en la respuesta de la IA")
+        
+        data_mapa = json.loads(texto_bruto[inicio:fin])
+        nuevo_mapa = {
+            "id": str(uuid.uuid4()),
+            "fecha": datetime.now().strftime("%d/%m/%Y %H:%M"),
+            "fuentes_usadas": peticion.fuentes,
+            "nodos": data_mapa["nodos"],
+            "lineas": data_mapa["lineas"]
+        }
+        db.guardar_mapa_cuaderno(notebook_id, nuevo_mapa)
+        return nuevo_mapa
+    
     except Exception as e:
-        print(f"❌ ERROR MAPA MENTAL: {str(e)}")
+        print("❌ ERROR MAPA MENTAL:")
+        import traceback
+        print(traceback.format_exc())
         raise HTTPException(status_code=500, detail="Error generando mapa mental")

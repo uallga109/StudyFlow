@@ -20,6 +20,9 @@ function VistaCuaderno() {
     
     // Controlador de Vistas
     const [vistaActiva, setVistaActiva] = useState('chat');
+
+    //Estado para el moodal del juego
+    const [mostrarModalJuego, setMostrarModalJuego] = useState(false);
     
     // Estado compartido para todas las herramientas
     const [fuentesSeleccionadas, setFuentesSeleccionadas] = useState([]);
@@ -155,8 +158,26 @@ function VistaCuaderno() {
                             {vistaActiva === 'chat' && <Chat id={id} />}
                             {vistaActiva === 'resumen' && <Resumenes id={id} datos={datos} fuentesSeleccionadas={fuentesSeleccionadas} setFuentesSeleccionadas={setFuentesSeleccionadas} toggleFuente={toggleFuente} recargarBD={cargarDatosCuaderno} />}
                             {vistaActiva === 'quiz' && <Quiz id={id} datos={datos} fuentesSeleccionadas={fuentesSeleccionadas} setFuentesSeleccionadas={setFuentesSeleccionadas} toggleFuente={toggleFuente} recargarBD={cargarDatosCuaderno} />}
-                            {vistaActiva === 'flashcards' && <Flashcards id={id} datos={datos} fuentesSeleccionadas={fuentesSeleccionadas} setFuentesSeleccionadas={setFuentesSeleccionadas} toggleFuente={toggleFuente} />}
-                            {vistaActiva === 'mapamental' && <MapaMental id={id} datos={datos} fuentesSeleccionadas={fuentesSeleccionadas} setFuentesSeleccionadas={setFuentesSeleccionadas} toggleFuente={toggleFuente} />}
+                            {vistaActiva === 'flashcards' && 
+                                <Flashcards 
+                                    id={id} 
+                                    datos={datos} 
+                                    fuentesSeleccionadas={fuentesSeleccionadas} 
+                                    setFuentesSeleccionadas={setFuentesSeleccionadas} 
+                                    toggleFuente={toggleFuente} 
+                                    recargarBD={cargarDatosCuaderno} 
+                                />
+                            }
+                            {vistaActiva === 'mapamental' && 
+                                <MapaMental 
+                                    id={id} 
+                                    datos={datos} 
+                                    fuentesSeleccionadas={fuentesSeleccionadas} 
+                                    setFuentesSeleccionadas={setFuentesSeleccionadas} 
+                                    toggleFuente={toggleFuente} 
+                                    recargarBD={cargarDatosCuaderno} 
+                                />
+                            }
                         </div>
                     </div>
 
@@ -177,11 +198,64 @@ function VistaCuaderno() {
                                 <button onClick={() => setVistaActiva('mapamental')} className={`text-left px-4 py-3 rounded-xl font-medium transition flex items-center gap-3 ${vistaActiva === 'mapamental' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800'}`}>
                                     <span>🧠</span> Mapa Mental
                                 </button>
+                                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                                    <button 
+                                        onClick={() => {
+                                            // Si el juego ya está creado, vamos directo. Si no, mostramos el aviso.
+                                            if (datos.juego_creado) {
+                                                setVistaActiva('juego');
+                                            } else {
+                                                setMostrarModalJuego(true);
+                                            }
+                                        }} 
+                                        className={`w-full text-left px-4 py-4 rounded-xl font-bold transition-all flex items-center gap-3 shadow-lg ${vistaActiva === 'juego' ? 'bg-purple-600 text-white ring-2 ring-purple-400/50' : 'bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white'}`}
+                                    >
+                                        <span className="text-xl">🎮</span> Modo Aventura
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {/* MODAL ÉPICO DEL PUNTO DE NO RETORNO */}
+            {mostrarModalJuego && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fade-in">
+                    <div className="bg-white dark:bg-[#1e1e24] border border-gray-200 dark:border-gray-700 rounded-3xl p-8 max-w-md w-full shadow-2xl relative overflow-hidden">
+                        {/* Decoración de fondo */}
+                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 to-purple-600"></div>
+                        
+                        <div className="flex flex-col items-center text-center mt-2">
+                            <span className="text-6xl mb-6">⚔️</span>
+                            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">El Punto de No Retorno</h2>
+                            <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                                Estás a punto de forjar el mapa de tu aventura. Si aceptas, la Inteligencia Artificial analizará todos los PDFs actuales para crear los niveles.
+                                <br/><br/>
+                                <strong className="text-red-500 dark:text-red-400">⚠️ Importante:</strong> Una vez creado el juego, no podrás añadir nuevos apuntes a este mundo.
+                            </p>
+                            
+                            <div className="flex gap-3 w-full mt-2">
+                                <button 
+                                    onClick={() => setMostrarModalJuego(false)} 
+                                    className="flex-1 px-4 py-3 rounded-xl font-bold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+                                >
+                                    Aún no
+                                </button>
+                                <button 
+                                    onClick={() => {
+                                        setMostrarModalJuego(false);
+                                        // Aquí llamaremos a la función que crea el juego en el siguiente paso
+                                        console.log("¡Forjando el Mundo!"); 
+                                    }} 
+                                    className="flex-1 px-4 py-3 rounded-xl font-bold text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 transition shadow-lg shadow-purple-500/30"
+                                >
+                                    ¡Estoy listo!
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

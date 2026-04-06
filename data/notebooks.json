@@ -428,6 +428,2262 @@
                     }
                 ]
             }
-        ]
+        ],
+        "mapas": [
+            {
+                "id": "0c2bccf4-fd4c-4db5-9034-ac43a69a2af1",
+                "fecha": "06/04/2026 11:14",
+                "fuentes_usadas": [
+                    "Tema6 TDRC 2024-25.pdf"
+                ],
+                "nodos": [
+                    {
+                        "id": "root",
+                        "data": {
+                            "label": "Redes Inalámbricas"
+                        },
+                        "type": "input",
+                        "style": {
+                            "background": "#3b82f6",
+                            "color": "white",
+                            "fontWeight": "bold",
+                            "borderRadius": "8px"
+                        }
+                    },
+                    {
+                        "id": "sub1",
+                        "data": {
+                            "label": "1. Introducción"
+                        }
+                    },
+                    {
+                        "id": "sub2",
+                        "data": {
+                            "label": "2. MAC"
+                        }
+                    },
+                    {
+                        "id": "sub3",
+                        "data": {
+                            "label": "3. Frame y tipos de frame"
+                        }
+                    },
+                    {
+                        "id": "sub4",
+                        "data": {
+                            "label": "4. Direccionamiento"
+                        }
+                    },
+                    {
+                        "id": "sub5",
+                        "data": {
+                            "label": "5. Estación oculta y estación expuesta"
+                        }
+                    },
+                    {
+                        "id": "sub6",
+                        "data": {
+                            "label": "6. Seguridad y configuración"
+                        }
+                    },
+                    {
+                        "id": "sub7",
+                        "data": {
+                            "label": "7. Acceso inalámbrico de banda ancha"
+                        }
+                    },
+                    {
+                        "id": "sub8",
+                        "data": {
+                            "label": "8. Bluetooth"
+                        }
+                    },
+                    {
+                        "id": "sub9",
+                        "data": {
+                            "label": "9. ZigBee"
+                        }
+                    },
+                    {
+                        "id": "sub10",
+                        "data": {
+                            "label": "10. Interferencias inalámbricas"
+                        }
+                    },
+                    {
+                        "id": "det1_1",
+                        "data": {
+                            "label": "Espectro Radioeléctrico"
+                        }
+                    },
+                    {
+                        "id": "det1_2",
+                        "data": {
+                            "label": "Demanda de conexión"
+                        }
+                    },
+                    {
+                        "id": "det1_3",
+                        "data": {
+                            "label": "Estándar IEEE 802.11"
+                        }
+                    },
+                    {
+                        "id": "det1_4",
+                        "data": {
+                            "label": "Estándares WiFi"
+                        }
+                    },
+                    {
+                        "id": "det1_5",
+                        "data": {
+                            "label": "Estándar 802.11 (Bandas)"
+                        }
+                    },
+                    {
+                        "id": "det1_6",
+                        "data": {
+                            "label": "Arquitectura de Red 802.11"
+                        }
+                    },
+                    {
+                        "id": "det1_1_1",
+                        "data": {
+                            "label": "Sin licencia"
+                        }
+                    },
+                    {
+                        "id": "det1_1_2",
+                        "data": {
+                            "label": "Con licencia"
+                        }
+                    },
+                    {
+                        "id": "det1_1_3",
+                        "data": {
+                            "label": "TDT"
+                        }
+                    },
+                    {
+                        "id": "det1_4_1",
+                        "data": {
+                            "label": "SISO"
+                        }
+                    },
+                    {
+                        "id": "det1_4_2",
+                        "data": {
+                            "label": "MIMO (SU-MIMO, MU-MIMO)"
+                        }
+                    },
+                    {
+                        "id": "det1_4_3",
+                        "data": {
+                            "label": "OFDMA vs OFDM"
+                        }
+                    },
+                    {
+                        "id": "det1_6_1",
+                        "data": {
+                            "label": "BSS (Basic Service Set)"
+                        }
+                    },
+                    {
+                        "id": "det1_6_2",
+                        "data": {
+                            "label": "ESS (Extended Service Set)"
+                        }
+                    },
+                    {
+                        "id": "det1_6_3",
+                        "data": {
+                            "label": "Tipos de estaciones"
+                        }
+                    },
+                    {
+                        "id": "det2_1",
+                        "data": {
+                            "label": "CSMA/CA (Acceso al Medio)"
+                        }
+                    },
+                    {
+                        "id": "det2_2",
+                        "data": {
+                            "label": "Mecanismo CSMA/CA"
+                        }
+                    },
+                    {
+                        "id": "det2_3",
+                        "data": {
+                            "label": "NAV (Vector de asignación de red)"
+                        }
+                    },
+                    {
+                        "id": "det2_2_1",
+                        "data": {
+                            "label": "RTS (Request To Send)"
+                        }
+                    },
+                    {
+                        "id": "det2_2_2",
+                        "data": {
+                            "label": "CTS (Clear To Send)"
+                        }
+                    },
+                    {
+                        "id": "det2_2_3",
+                        "data": {
+                            "label": "SIFS / DIFS"
+                        }
+                    },
+                    {
+                        "id": "det2_2_4",
+                        "data": {
+                            "label": "ACK (Acknowledgment)"
+                        }
+                    },
+                    {
+                        "id": "det3_1",
+                        "data": {
+                            "label": "Fragmentación"
+                        }
+                    },
+                    {
+                        "id": "det3_2",
+                        "data": {
+                            "label": "Estructura Frame 802.11"
+                        }
+                    },
+                    {
+                        "id": "det3_3",
+                        "data": {
+                            "label": "Tipos de frames"
+                        }
+                    },
+                    {
+                        "id": "det3_2_1",
+                        "data": {
+                            "label": "FC (Frame Control)"
+                        }
+                    },
+                    {
+                        "id": "det3_2_2",
+                        "data": {
+                            "label": "Duración (D)"
+                        }
+                    },
+                    {
+                        "id": "det3_2_3",
+                        "data": {
+                            "label": "Direcciones (4 de 6 bytes)"
+                        }
+                    },
+                    {
+                        "id": "det3_2_4",
+                        "data": {
+                            "label": "SC (Sequence Control)"
+                        }
+                    },
+                    {
+                        "id": "det3_2_5",
+                        "data": {
+                            "label": "Frame Body"
+                        }
+                    },
+                    {
+                        "id": "det3_2_6",
+                        "data": {
+                            "label": "FCS (CRC-32)"
+                        }
+                    },
+                    {
+                        "id": "det3_3_1",
+                        "data": {
+                            "label": "Administración"
+                        }
+                    },
+                    {
+                        "id": "det3_3_2",
+                        "data": {
+                            "label": "Datos"
+                        }
+                    },
+                    {
+                        "id": "det3_3_3",
+                        "data": {
+                            "label": "Control (RTS, CTS, ACK)"
+                        }
+                    },
+                    {
+                        "id": "det4_1",
+                        "data": {
+                            "label": "Campos To DS y From DS"
+                        }
+                    },
+                    {
+                        "id": "det4_1_1",
+                        "data": {
+                            "label": "Dir 1: Siguiente dispositivo"
+                        }
+                    },
+                    {
+                        "id": "det4_1_2",
+                        "data": {
+                            "label": "Dir 2: Dispositivo anterior"
+                        }
+                    },
+                    {
+                        "id": "det4_1_3",
+                        "data": {
+                            "label": "Dir 3: Estación receptora final"
+                        }
+                    },
+                    {
+                        "id": "det4_1_4",
+                        "data": {
+                            "label": "Dir 4: Estación fuente original"
+                        }
+                    },
+                    {
+                        "id": "det5_1",
+                        "data": {
+                            "label": "Estación oculta (Problema y Solución)"
+                        }
+                    },
+                    {
+                        "id": "det5_2",
+                        "data": {
+                            "label": "Estación expuesta (Problema)"
+                        }
+                    },
+                    {
+                        "id": "det6_1",
+                        "data": {
+                            "label": "Protocolos de Seguridad"
+                        }
+                    },
+                    {
+                        "id": "det6_2",
+                        "data": {
+                            "label": "WEP (Wired Equivalent Privacy)"
+                        }
+                    },
+                    {
+                        "id": "det6_3",
+                        "data": {
+                            "label": "WPA/WPA2 (WiFi Protected Access)"
+                        }
+                    },
+                    {
+                        "id": "det6_4",
+                        "data": {
+                            "label": "Configuración de un PA"
+                        }
+                    },
+                    {
+                        "id": "det6_5",
+                        "data": {
+                            "label": "WPS (WiFi Protected Setup)"
+                        }
+                    },
+                    {
+                        "id": "det6_1_1",
+                        "data": {
+                            "label": "WPA3 (192 bits, WiFi Easy Connect)"
+                        }
+                    },
+                    {
+                        "id": "det6_1_2",
+                        "data": {
+                            "label": "WPA2 (AES)"
+                        }
+                    },
+                    {
+                        "id": "det6_2_1",
+                        "data": {
+                            "label": "Algoritmo RC4"
+                        }
+                    },
+                    {
+                        "id": "det6_2_2",
+                        "data": {
+                            "label": "Inseguro (Ataques: Fluhrer, Klein, Fuerza bruta)"
+                        }
+                    },
+                    {
+                        "id": "det6_3_1",
+                        "data": {
+                            "label": "Proceso de intercambio de claves (4 mensajes)"
+                        }
+                    },
+                    {
+                        "id": "det6_3_2",
+                        "data": {
+                            "label": "Claves (PMK, GMK, PTK, GTK)"
+                        }
+                    },
+                    {
+                        "id": "det6_5_1",
+                        "data": {
+                            "label": "Facilita configuración"
+                        }
+                    },
+                    {
+                        "id": "det6_5_2",
+                        "data": {
+                            "label": "Métodos (PBS, PIN, NFC, USB)"
+                        }
+                    },
+                    {
+                        "id": "det6_5_3",
+                        "data": {
+                            "label": "Problema de seguridad (PIN por fuerza bruta)"
+                        }
+                    },
+                    {
+                        "id": "det7_1",
+                        "data": {
+                            "label": "Tecnología Inalámbrica (Espectro sin licencia)"
+                        }
+                    },
+                    {
+                        "id": {
+                            "label": "Ejemplos de acceso"
+                        }
+                    },
+                    {
+                        "id": "det7_3",
+                        "data": {
+                            "label": "Configuración ESP32"
+                        }
+                    },
+                    {
+                        "id": "det7_2_1",
+                        "data": {
+                            "label": "WiFi municipal"
+                        }
+                    },
+                    {
+                        "id": "det7_2_2",
+                        "data": {
+                            "label": "WiMAX"
+                        }
+                    },
+                    {
+                        "id": "det7_2_3",
+                        "data": {
+                            "label": "Satélite"
+                        }
+                    },
+                    {
+                        "id": "det7_3_1",
+                        "data": {
+                            "label": "Modo Estación (Cliente)"
+                        }
+                    },
+                    {
+                        "id": "det7_3_2",
+                        "data": {
+                            "label": "Modo Punto de Acceso (AP)"
+                        }
+                    },
+                    {
+                        "id": "det7_3_3",
+                        "data": {
+                            "label": "Modo WIFI_AP_STA"
+                        }
+                    },
+                    {
+                        "id": "det7_3_1_1",
+                        "data": {
+                            "label": "Funciones Cliente (WiFi.mode, scanNetworks, begin, etc.)"
+                        }
+                    },
+                    {
+                        "id": "det7_3_2_1",
+                        "data": {
+                            "label": "Funciones AP (WiFi.mode, softAP, softAPConfig, etc.)"
+                        }
+                    },
+                    {
+                        "id": "det7_3_2_2",
+                        "data": {
+                            "label": "No comunicación entre clientes de AP"
+                        }
+                    },
+                    {
+                        "id": "det8_1",
+                        "data": {
+                            "label": "Introducción Bluetooth (IEEE 802.15)"
+                        }
+                    },
+                    {
+                        "id": "det8_2",
+                        "data": {
+                            "label": "Características de versiones"
+                        }
+                    },
+                    {
+                        "id": "det8_3",
+                        "data": {
+                            "label": "Redes Bluetooth"
+                        }
+                    },
+                    {
+                        "id": "det8_4",
+                        "data": {
+                            "label": "Pila de Protocolos Bluetooth"
+                        }
+                    },
+                    {
+                        "id": "det8_5",
+                        "data": {
+                            "label": "Perfiles Bluetooth"
+                        }
+                    },
+                    {
+                        "id": "det8_6",
+                        "data": {
+                            "label": "Bluetooth LE (Baja energía)"
+                        }
+                    },
+                    {
+                        "id": "det8_1_1",
+                        "data": {
+                            "label": "Objetivos"
+                        }
+                    },
+                    {
+                        "id": "det8_1_2",
+                        "data": {
+                            "label": "Especificaciones técnicas"
+                        }
+                    },
+                    {
+                        "id": "det8_2_1",
+                        "data": {
+                            "label": "HS (High Speed Protocol)"
+                        }
+                    },
+                    {
+                        "id": "det8_2_2",
+                        "data": {
+                            "label": "LE (Low Energy Protocol)"
+                        }
+                    },
+                    {
+                        "id": "det8_3_1",
+                        "data": {
+                            "label": "Picored o Piconet (Maestro, Esclavos)"
+                        }
+                    },
+                    {
+                        "id": "det8_3_2",
+                        "data": {
+                            "label": "Scatternet"
+                        }
+                    },
+                    {
+                        "id": "det8_4_1",
+                        "data": {
+                            "label": "Capa Física (Canal de Radio)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_2",
+                        "data": {
+                            "label": "Capa Banda Base"
+                        }
+                    },
+                    {
+                        "id": "det8_4_3",
+                        "data": {
+                            "label": "Gestor de Enlace (LMP)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_4",
+                        "data": {
+                            "label": "L2CAP (Control Lógico y Adaptación)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_5",
+                        "data": {
+                            "label": "SDP (Descubrimiento de Servicios)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_6",
+                        "data": {
+                            "label": "RFCOMM (Comunicación RF)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_1_1",
+                        "data": {
+                            "label": "79 frecuencias, slots de 625 us"
+                        }
+                    },
+                    {
+                        "id": "det8_4_1_2",
+                        "data": {
+                            "label": "Transmisión (Maestro/Esclavo)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_2_1",
+                        "data": {
+                            "label": "Orientado a paquetes y fragmentación"
+                        }
+                    },
+                    {
+                        "id": "det8_4_2_2",
+                        "data": {
+                            "label": "Estructura paquete (Código Acceso, Cabecera, Carga útil)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_2_3",
+                        "data": {
+                            "label": "Establecimiento de conexiones (Inquiry, Paging)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_3_1",
+                        "data": {
+                            "label": "Formato de paquete LMP"
+                        }
+                    },
+                    {
+                        "id": "det8_4_3_2",
+                        "data": {
+                            "label": "Tipos de enlaces (SCO, ACL)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_3_3",
+                        "data": {
+                            "label": "Gestión (seguridad, control, potencia, QoS)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_3_4",
+                        "data": {
+                            "label": "Establecimiento de Conexión (Primitivas)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_4_1",
+                        "data": {
+                            "label": "Adapta protocolos superiores"
+                        }
+                    },
+                    {
+                        "id": "det8_4_4_2",
+                        "data": {
+                            "label": "Multiplexación de protocolos"
+                        }
+                    },
+                    {
+                        "id": "det8_4_4_3",
+                        "data": {
+                            "label": "Formato de paquetes L2CAP"
+                        }
+                    },
+                    {
+                        "id": "det8_4_4_4",
+                        "data": {
+                            "label": "Segmentación y reensamblado"
+                        }
+                    },
+                    {
+                        "id": "det8_4_4_5",
+                        "data": {
+                            "label": "Calidad de Servicio (QoS)"
+                        }
+                    },
+                    {
+                        "id": "det8_4_5_1",
+                        "data": {
+                            "label": "Mecanismo de descubrimiento"
+                        }
+                    },
+                    {
+                        "id": "det8_4_6_1",
+                        "data": {
+                            "label": "Emular puertos serie"
+                        }
+                    },
+                    {
+                        "id": "det8_4_6_2",
+                        "data": {
+                            "label": "Tipos de dispositivos RFCOMM"
+                        }
+                    },
+                    {
+                        "id": "det8_5_1",
+                        "data": {
+                            "label": "Ventajas (Modularidad, interoperabilidad)"
+                        }
+                    },
+                    {
+                        "id": "det8_5_2",
+                        "data": {
+                            "label": "Tipos de perfiles (GAP, SDAP, SPP, GOEP)"
+                        }
+                    },
+                    {
+                        "id": "det8_6_1",
+                        "data": {
+                            "label": "Bluetooth 4.2"
+                        }
+                    },
+                    {
+                        "id": "det8_6_2",
+                        "data": {
+                            "label": "Tráfico reducido a 40 canales"
+                        }
+                    },
+                    {
+                        "id": "det8_6_3",
+                        "data": {
+                            "label": "Comunicación con balizas periódicas"
+                        }
+                    },
+                    {
+                        "id": "det8_6_4",
+                        "data": {
+                            "label": "Aplicaciones (Localización en interiores)"
+                        }
+                    },
+                    {
+                        "id": "det9_1",
+                        "data": {
+                            "label": "Arquitectura ZigBee (IEEE 802.15.4)"
+                        }
+                    },
+                    {
+                        "id": "det9_2",
+                        "data": {
+                            "label": "Características"
+                        }
+                    },
+                    {
+                        "id": "det9_3",
+                        "data": {
+                            "label": "Ventajas"
+                        }
+                    },
+                    {
+                        "id": "det9_4",
+                        "data": {
+                            "label": "Inconvenientes"
+                        }
+                    },
+                    {
+                        "id": "det9_5",
+                        "data": {
+                            "label": "Interferencias ZigBee y WiFi"
+                        }
+                    },
+                    {
+                        "id": "det9_6",
+                        "data": {
+                            "label": "Roles de Dispositivos ZigBee"
+                        }
+                    },
+                    {
+                        "id": "det9_7",
+                        "data": {
+                            "label": "Tipos de Funcionalidad ZigBee"
+                        }
+                    },
+                    {
+                        "id": "det9_8",
+                        "data": {
+                            "label": "Topologías de Red ZigBee"
+                        }
+                    },
+                    {
+                        "id": "det9_9",
+                        "data": {
+                            "label": "Aplicaciones de ZigBee"
+                        }
+                    },
+                    {
+                        "id": "det9_1_1",
+                        "data": {
+                            "label": "Estándar WPAN, baja tasa, larga batería"
+                        }
+                    },
+                    {
+                        "id": "det9_1_2",
+                        "data": {
+                            "label": "Pila de protocolos (física, MAC, red, aplicación)"
+                        }
+                    },
+                    {
+                        "id": "det9_1_3",
+                        "data": {
+                            "label": "Canales (2.4GHz, 868MHz, 915MHz)"
+                        }
+                    },
+                    {
+                        "id": "det9_2_1",
+                        "data": {
+                            "label": "Velocidades (20-250 kB/s)"
+                        }
+                    },
+                    {
+                        "id": "det9_2_2",
+                        "data": {
+                            "label": "Topologías soportadas"
+                        }
+                    },
+                    {
+                        "id": "det9_2_3",
+                        "data": {
+                            "label": "Bajo consumo"
+                        }
+                    },
+                    {
+                        "id": "det9_2_4",
+                        "data": {
+                            "label": "Alcance (10m-75m)"
+                        }
+                    },
+                    {
+                        "id": "det9_2_5",
+                        "data": {
+                            "label": "Bandas libres ISM"
+                        }
+                    },
+                    {
+                        "id": "det9_2_6",
+                        "data": {
+                            "label": "Hasta 255 nodos (transceiver dormido)"
+                        }
+                    },
+                    {
+                        "id": "det9_2_7",
+                        "data": {
+                            "label": "Acceso de canal CSMA/CA"
+                        }
+                    },
+                    {
+                        "id": "det9_2_8",
+                        "data": {
+                            "label": "Escalabilidad de red"
+                        }
+                    },
+                    {
+                        "id": "det9_2_9",
+                        "data": {
+                            "label": "Fragmentación de mensajes"
+                        }
+                    },
+                    {
+                        "id": "det9_2_10",
+                        "data": {
+                            "label": "Agilidad de frecuencia"
+                        }
+                    },
+                    {
+                        "id": "det9_3_1",
+                        "data": {
+                            "label": "Conexiones P2P y P2MP"
+                        }
+                    },
+                    {
+                        "id": "det9_3_2",
+                        "data": {
+                            "label": "Direccionamiento 16/64 bits"
+                        }
+                    },
+                    {
+                        "id": "det9_3_3",
+                        "data": {
+                            "label": "Reduce tiempos de espera"
+                        }
+                    },
+                    {
+                        "id": "det9_3_4",
+                        "data": {
+                            "label": "Detección de Energía (larga duración batería)"
+                        }
+                    },
+                    {
+                        "id": "det9_3_5",
+                        "data": {
+                            "label": "Múltiples topologías (hasta 65.000 nodos)"
+                        }
+                    },
+                    {
+                        "id": "det9_3_6",
+                        "data": {
+                            "label": "Seguridad (128-bit AES)"
+                        }
+                    },
+                    {
+                        "id": "det9_3_7",
+                        "data": {
+                            "label": "Costo y complejidad de construcción"
+                        }
+                    },
+                    {
+                        "id": "det9_4_1",
+                        "data": {
+                            "label": "Baja tasa de transferencia"
+                        }
+                    },
+                    {
+                        "id": "det9_4_2",
+                        "data": {
+                            "label": "Manejo de textos pequeños"
+                        }
+                    },
+                    {
+                        "id": "det9_4_3",
+                        "data": {
+                            "label": "Incompatible con Bluetooth"
+                        }
+                    },
+                    {
+                        "id": "det9_4_4",
+                        "data": {
+                            "label": "Menor cobertura (WPAN)"
+                        }
+                    },
+                    {
+                        "id": "det9_5_1",
+                        "data": {
+                            "label": "Solape de canales"
+                        }
+                    },
+                    {
+                        "id": "det9_5_2",
+                        "data": {
+                            "label": "Selección de canales WiFi no superpuestos"
+                        }
+                    },
+                    {
+                        "id": "det9_6_1",
+                        "data": {
+                            "label": "Coordinador ZigBee (ZC)"
+                        }
+                    },
+                    {
+                        "id": "det9_6_2",
+                        "data": {
+                            "label": "Router ZigBee (ZR)"
+                        }
+                    },
+                    {
+                        "id": "det9_6_3",
+                        "data": {
+                            "label": "Dispositivo final (ZED)"
+                        }
+                    },
+                    {
+                        "id": "det9_7_1",
+                        "data": {
+                            "label": "Dispositivo de funcionalidad completa (FFD)"
+                        }
+                    },
+                    {
+                        "id": "det9_7_2",
+                        "data": {
+                            "label": "Dispositivo de funcionalidad reducida (RFD)"
+                        }
+                    },
+                    {
+                        "id": "det9_8_1",
+                        "data": {
+                            "label": "Estrella"
+                        }
+                    },
+                    {
+                        "id": "det9_8_2",
+                        "data": {
+                            "label": "Rejilla (Malla)"
+                        }
+                    },
+                    {
+                        "id": "det9_8_3",
+                        "data": {
+                            "label": "Punto a punto"
+                        }
+                    },
+                    {
+                        "id": "det9_8_4",
+                        "data": {
+                            "label": "Árbol"
+                        }
+                    },
+                    {
+                        "id": "det10_1",
+                        "data": {
+                            "label": "Espectro de Frecuencia WiFi"
+                        }
+                    },
+                    {
+                        "id": "det10_2",
+                        "data": {
+                            "label": "Fuentes de interferencia WiFi"
+                        }
+                    },
+                    {
+                        "id": "det10_3",
+                        "data": {
+                            "label": "Nivel de señal para minimizar"
+                        }
+                    },
+                    {
+                        "id": "det10_1_1",
+                        "data": {
+                            "label": "802.11b"
+                        }
+                    },
+                    {
+                        "id": "det10_1_2",
+                        "data": {
+                            "label": "802.11g"
+                        }
+                    },
+                    {
+                        "id": "det10_1_3",
+                        "data": {
+                            "label": "802.11a"
+                        }
+                    },
+                    {
+                        "id": "det10_1_4",
+                        "data": {
+                            "label": "802.11n"
+                        }
+                    },
+                    {
+                        "id": "det10_1_5",
+                        "data": {
+                            "label": "802.11ac"
+                        }
+                    },
+                    {
+                        "id": "det10_2_1",
+                        "data": {
+                            "label": "Bluetooth"
+                        }
+                    },
+                    {
+                        "id": "det10_2_2",
+                        "data": {
+                            "label": "Teléfono inalámbrico"
+                        }
+                    },
+                    {
+                        "id": "det10_2_3",
+                        "data": {
+                            "label": "Microondas"
+                        }
+                    },
+                    {
+                        "id": "det10_2_4",
+                        "data": {
+                            "label": "Transmisor A/V cámaras seguridad"
+                        }
+                    },
+                    {
+                        "id": "det10_2_5",
+                        "data": {
+                            "label": "ZigBee"
+                        }
+                    },
+                    {
+                        "id": "det10_2_6",
+                        "data": {
+                            "label": "Ratón inalámbrico"
+                        }
+                    },
+                    {
+                        "id": "det10_2_7",
+                        "data": {
+                            "label": "Auriculares inalámbricos"
+                        }
+                    },
+                    {
+                        "id": "det10_2_8",
+                        "data": {
+                            "label": "Sensores de movimiento"
+                        }
+                    },
+                    {
+                        "id": "det10_2_9",
+                        "data": {
+                            "label": "Sistema de audio analógico"
+                        }
+                    },
+                    {
+                        "id": "det10_2_10",
+                        "data": {
+                            "label": "Subwoofer analógico"
+                        }
+                    },
+                    {
+                        "id": "det10_2_11",
+                        "data": {
+                            "label": "Instrumentos musicales"
+                        }
+                    },
+                    {
+                        "id": "det10_2_12",
+                        "data": {
+                            "label": "Inhibidor de señales"
+                        }
+                    },
+                    {
+                        "id": "det10_2_13",
+                        "data": {
+                            "label": "Interferencia genérica"
+                        }
+                    },
+                    {
+                        "id": "det10_2_14",
+                        "data": {
+                            "label": "Monitor de vigilancia de bebés"
+                        }
+                    },
+                    {
+                        "id": "det10_2_15",
+                        "data": {
+                            "label": "Controlador de drones"
+                        }
+                    }
+                ],
+                "lineas": [
+                    {
+                        "id": "e-root-sub1",
+                        "source": "root",
+                        "target": "sub1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-root-sub2",
+                        "source": "root",
+                        "target": "sub2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-root-sub3",
+                        "source": "root",
+                        "target": "sub3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-root-sub4",
+                        "source": "root",
+                        "target": "sub4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-root-sub5",
+                        "source": "root",
+                        "target": "sub5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-root-sub6",
+                        "source": "root",
+                        "target": "sub6",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-root-sub7",
+                        "source": "root",
+                        "target": "sub7",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-root-sub8",
+                        "source": "root",
+                        "target": "sub8",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-root-sub9",
+                        "source": "root",
+                        "target": "sub9",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-root-sub10",
+                        "source": "root",
+                        "target": "sub10",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub1-det1_1",
+                        "source": "sub1",
+                        "target": "det1_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub1-det1_2",
+                        "source": "sub1",
+                        "target": "det1_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub1-det1_3",
+                        "source": "sub1",
+                        "target": "det1_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub1-det1_4",
+                        "source": "sub1",
+                        "target": "det1_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub1-det1_5",
+                        "source": "sub1",
+                        "target": "det1_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub1-det1_6",
+                        "source": "sub1",
+                        "target": "det1_6",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det1_1-det1_1_1",
+                        "source": "det1_1",
+                        "target": "det1_1_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det1_1-det1_1_2",
+                        "source": "det1_1",
+                        "target": "det1_1_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det1_1-det1_1_3",
+                        "source": "det1_1",
+                        "target": "det1_1_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det1_4-det1_4_1",
+                        "source": "det1_4",
+                        "target": "det1_4_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det1_4-det1_4_2",
+                        "source": "det1_4",
+                        "target": "det1_4_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det1_4-det1_4_3",
+                        "source": "det1_4",
+                        "target": "det1_4_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det1_6-det1_6_1",
+                        "source": "det1_6",
+                        "target": "det1_6_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det1_6-det1_6_2",
+                        "source": "det1_6",
+                        "target": "det1_6_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det1_6-det1_6_3",
+                        "source": "det1_6",
+                        "target": "det1_6_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub2-det2_1",
+                        "source": "sub2",
+                        "target": "det2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub2-det2_2",
+                        "source": "sub2",
+                        "target": "det2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub2-det2_3",
+                        "source": "sub2",
+                        "target": "det2_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det2_2-det2_2_1",
+                        "source": "det2_2",
+                        "target": "det2_2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det2_2-det2_2_2",
+                        "source": "det2_2",
+                        "target": "det2_2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det2_2-det2_2_3",
+                        "source": "det2_2",
+                        "target": "det2_2_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det2_2-det2_2_4",
+                        "source": "det2_2",
+                        "target": "det2_2_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub3-det3_1",
+                        "source": "sub3",
+                        "target": "det3_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub3-det3_2",
+                        "source": "sub3",
+                        "target": "det3_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub3-det3_3",
+                        "source": "sub3",
+                        "target": "det3_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det3_2-det3_2_1",
+                        "source": "det3_2",
+                        "target": "det3_2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det3_2-det3_2_2",
+                        "source": "det3_2",
+                        "target": "det3_2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det3_2-det3_2_3",
+                        "source": "det3_2",
+                        "target": "det3_2_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det3_2-det3_2_4",
+                        "source": "det3_2",
+                        "target": "det3_2_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det3_2-det3_2_5",
+                        "source": "det3_2",
+                        "target": "det3_2_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det3_2-det3_2_6",
+                        "source": "det3_2",
+                        "target": "det3_2_6",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det3_3-det3_3_1",
+                        "source": "det3_3",
+                        "target": "det3_3_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det3_3-det3_3_2",
+                        "source": "det3_3",
+                        "target": "det3_3_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det3_3-det3_3_3",
+                        "source": "det3_3",
+                        "target": "det3_3_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub4-det4_1",
+                        "source": "sub4",
+                        "target": "det4_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det4_1-det4_1_1",
+                        "source": "det4_1",
+                        "target": "det4_1_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det4_1-det4_1_2",
+                        "source": "det4_1",
+                        "target": "det4_1_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det4_1-det4_1_3",
+                        "source": "det4_1",
+                        "target": "det4_1_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det4_1-det4_1_4",
+                        "source": "det4_1",
+                        "target": "det4_1_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub5-det5_1",
+                        "source": "sub5",
+                        "target": "det5_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub5-det5_2",
+                        "source": "sub5",
+                        "target": "det5_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub6-det6_1",
+                        "source": "sub6",
+                        "target": "det6_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub6-det6_2",
+                        "source": "sub6",
+                        "target": "det6_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub6-det6_3",
+                        "source": "sub6",
+                        "target": "det6_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub6-det6_4",
+                        "source": "sub6",
+                        "target": "det6_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub6-det6_5",
+                        "source": "sub6",
+                        "target": "det6_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det6_1-det6_1_1",
+                        "source": "det6_1",
+                        "target": "det6_1_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det6_1-det6_1_2",
+                        "source": "det6_1",
+                        "target": "det6_1_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det6_2-det6_2_1",
+                        "source": "det6_2",
+                        "target": "det6_2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det6_2-det6_2_2",
+                        "source": "det6_2",
+                        "target": "det6_2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det6_3-det6_3_1",
+                        "source": "det6_3",
+                        "target": "det6_3_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det6_3-det6_3_2",
+                        "source": "det6_3",
+                        "target": "det6_3_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det6_5-det6_5_1",
+                        "source": "det6_5",
+                        "target": "det6_5_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det6_5-det6_5_2",
+                        "source": "det6_5",
+                        "target": "det6_5_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det6_5-det6_5_3",
+                        "source": "det6_5",
+                        "target": "det6_5_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub7-det7_1",
+                        "source": "sub7",
+                        "target": "det7_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub7-det7_2",
+                        "source": "sub7",
+                        "target": "det7_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub7-det7_3",
+                        "source": "sub7",
+                        "target": "det7_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det7_2-det7_2_1",
+                        "source": "det7_2",
+                        "target": "det7_2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det7_2-det7_2_2",
+                        "source": "det7_2",
+                        "target": "det7_2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det7_2-det7_2_3",
+                        "source": "det7_2",
+                        "target": "det7_2_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det7_3-det7_3_1",
+                        "source": "det7_3",
+                        "target": "det7_3_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det7_3-det7_3_2",
+                        "source": "det7_3",
+                        "target": "det7_3_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det7_3-det7_3_3",
+                        "source": "det7_3",
+                        "target": "det7_3_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det7_3_1-det7_3_1_1",
+                        "source": "det7_3_1",
+                        "target": "det7_3_1_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det7_3_2-det7_3_2_1",
+                        "source": "det7_3_2",
+                        "target": "det7_3_2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det7_3_2-det7_3_2_2",
+                        "source": "det7_3_2",
+                        "target": "det7_3_2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub8-det8_1",
+                        "source": "sub8",
+                        "target": "det8_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub8-det8_2",
+                        "source": "sub8",
+                        "target": "det8_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub8-det8_3",
+                        "source": "sub8",
+                        "target": "det8_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub8-det8_4",
+                        "source": "sub8",
+                        "target": "det8_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub8-det8_5",
+                        "source": "sub8",
+                        "target": "det8_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub8-det8_6",
+                        "source": "sub8",
+                        "target": "det8_6",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_1-det8_1_1",
+                        "source": "det8_1",
+                        "target": "det8_1_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_1-det8_1_2",
+                        "source": "det8_1",
+                        "target": "det8_1_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_2-det8_2_1",
+                        "source": "det8_2",
+                        "target": "det8_2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_2-det8_2_2",
+                        "source": "det8_2",
+                        "target": "det8_2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_3-det8_3_1",
+                        "source": "det8_3",
+                        "target": "det8_3_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_3-det8_3_2",
+                        "source": "det8_3",
+                        "target": "det8_3_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4-det8_4_1",
+                        "source": "det8_4",
+                        "target": "det8_4_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4-det8_4_2",
+                        "source": "det8_4",
+                        "target": "det8_4_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4-det8_4_3",
+                        "source": "det8_4",
+                        "target": "det8_4_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4-det8_4_4",
+                        "source": "det8_4",
+                        "target": "det8_4_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4-det8_4_5",
+                        "source": "det8_4",
+                        "target": "det8_4_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4-det8_4_6",
+                        "source": "det8_4",
+                        "target": "det8_4_6",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_1-det8_4_1_1",
+                        "source": "det8_4_1",
+                        "target": "det8_4_1_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_1-det8_4_1_2",
+                        "source": "det8_4_1",
+                        "target": "det8_4_1_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_2-det8_4_2_1",
+                        "source": "det8_4_2",
+                        "target": "det8_4_2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_2-det8_4_2_2",
+                        "source": "det8_4_2",
+                        "target": "det8_4_2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_2-det8_4_2_3",
+                        "source": "det8_4_2",
+                        "target": "det8_4_2_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_3-det8_4_3_1",
+                        "source": "det8_4_3",
+                        "target": "det8_4_3_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_3-det8_4_3_2",
+                        "source": "det8_4_3",
+                        "target": "det8_4_3_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_3-det8_4_3_3",
+                        "source": "det8_4_3",
+                        "target": "det8_4_3_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_3-det8_4_3_4",
+                        "source": "det8_4_3",
+                        "target": "det8_4_3_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_4-det8_4_4_1",
+                        "source": "det8_4_4",
+                        "target": "det8_4_4_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_4-det8_4_4_2",
+                        "source": "det8_4_4",
+                        "target": "det8_4_4_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_4-det8_4_4_3",
+                        "source": "det8_4_4",
+                        "target": "det8_4_4_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_4-det8_4_4_4",
+                        "source": "det8_4_4",
+                        "target": "det8_4_4_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_4-det8_4_4_5",
+                        "source": "det8_4_4",
+                        "target": "det8_4_4_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_5-det8_4_5_1",
+                        "source": "det8_4_5",
+                        "target": "det8_4_5_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_6-det8_4_6_1",
+                        "source": "det8_4_6",
+                        "target": "det8_4_6_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_4_6-det8_4_6_2",
+                        "source": "det8_4_6",
+                        "target": "det8_4_6_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_5-det8_5_1",
+                        "source": "det8_5",
+                        "target": "det8_5_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_5-det8_5_2",
+                        "source": "det8_5",
+                        "target": "det8_5_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_6-det8_6_1",
+                        "source": "det8_6",
+                        "target": "det8_6_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_6-det8_6_2",
+                        "source": "det8_6",
+                        "target": "det8_6_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_6-det8_6_3",
+                        "source": "det8_6",
+                        "target": "det8_6_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det8_6-det8_6_4",
+                        "source": "det8_6",
+                        "target": "det8_6_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub9-det9_1",
+                        "source": "sub9",
+                        "target": "det9_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub9-det9_2",
+                        "source": "sub9",
+                        "target": "det9_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub9-det9_3",
+                        "source": "sub9",
+                        "target": "det9_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub9-det9_4",
+                        "source": "sub9",
+                        "target": "det9_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub9-det9_5",
+                        "source": "sub9",
+                        "target": "det9_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub9-det9_6",
+                        "source": "sub9",
+                        "target": "det9_6",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub9-det9_7",
+                        "source": "sub9",
+                        "target": "det9_7",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub9-det9_8",
+                        "source": "sub9",
+                        "target": "det9_8",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub9-det9_9",
+                        "source": "sub9",
+                        "target": "det9_9",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_1-det9_1_1",
+                        "source": "det9_1",
+                        "target": "det9_1_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_1-det9_1_2",
+                        "source": "det9_1",
+                        "target": "det9_1_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_1-det9_1_3",
+                        "source": "det9_1",
+                        "target": "det9_1_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_1",
+                        "source": "det9_2",
+                        "target": "det9_2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_2",
+                        "source": "det9_2",
+                        "target": "det9_2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_3",
+                        "source": "det9_2",
+                        "target": "det9_2_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_4",
+                        "source": "det9_2",
+                        "target": "det9_2_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_5",
+                        "source": "det9_2",
+                        "target": "det9_2_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_6",
+                        "source": "det9_2",
+                        "target": "det9_2_6",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_7",
+                        "source": "det9_2",
+                        "target": "det9_2_7",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_8",
+                        "source": "det9_2",
+                        "target": "det9_2_8",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_9",
+                        "source": "det9_2",
+                        "target": "det9_2_9",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_2-det9_2_10",
+                        "source": "det9_2",
+                        "target": "det9_2_10",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_3-det9_3_1",
+                        "source": "det9_3",
+                        "target": "det9_3_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_3-det9_3_2",
+                        "source": "det9_3",
+                        "target": "det9_3_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_3-det9_3_3",
+                        "source": "det9_3",
+                        "target": "det9_3_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_3-det9_3_4",
+                        "source": "det9_3",
+                        "target": "det9_3_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_3-det9_3_5",
+                        "source": "det9_3",
+                        "target": "det9_3_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_3-det9_3_6",
+                        "source": "det9_3",
+                        "target": "det9_3_6",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_3-det9_3_7",
+                        "source": "det9_3",
+                        "target": "det9_3_7",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_4-det9_4_1",
+                        "source": "det9_4",
+                        "target": "det9_4_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_4-det9_4_2",
+                        "source": "det9_4",
+                        "target": "det9_4_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_4-det9_4_3",
+                        "source": "det9_4",
+                        "target": "det9_4_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_4-det9_4_4",
+                        "source": "det9_4",
+                        "target": "det9_4_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_5-det9_5_1",
+                        "source": "det9_5",
+                        "target": "det9_5_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_5-det9_5_2",
+                        "source": "det9_5",
+                        "target": "det9_5_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_6-det9_6_1",
+                        "source": "det9_6",
+                        "target": "det9_6_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_6-det9_6_2",
+                        "source": "det9_6",
+                        "target": "det9_6_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_6-det9_6_3",
+                        "source": "det9_6",
+                        "target": "det9_6_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_7-det9_7_1",
+                        "source": "det9_7",
+                        "target": "det9_7_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_7-det9_7_2",
+                        "source": "det9_7",
+                        "target": "det9_7_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_8-det9_8_1",
+                        "source": "det9_8",
+                        "target": "det9_8_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_8-det9_8_2",
+                        "source": "det9_8",
+                        "target": "det9_8_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_8-det9_8_3",
+                        "source": "det9_8",
+                        "target": "det9_8_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det9_8-det9_8_4",
+                        "source": "det9_8",
+                        "target": "det9_8_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub10-det10_1",
+                        "source": "sub10",
+                        "target": "det10_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub10-det10_2",
+                        "source": "sub10",
+                        "target": "det10_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-sub10-det10_3",
+                        "source": "sub10",
+                        "target": "det10_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_1-det10_1_1",
+                        "source": "det10_1",
+                        "target": "det10_1_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_1-det10_1_2",
+                        "source": "det10_1",
+                        "target": "det10_1_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_1-det10_1_3",
+                        "source": "det10_1",
+                        "target": "det10_1_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_1-det10_1_4",
+                        "source": "det10_1",
+                        "target": "det10_1_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_1-det10_1_5",
+                        "source": "det10_1",
+                        "target": "det10_1_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_1",
+                        "source": "det10_2",
+                        "target": "det10_2_1",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_2",
+                        "source": "det10_2",
+                        "target": "det10_2_2",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_3",
+                        "source": "det10_2",
+                        "target": "det10_2_3",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_4",
+                        "source": "det10_2",
+                        "target": "det10_2_4",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_5",
+                        "source": "det10_2",
+                        "target": "det10_2_5",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_6",
+                        "source": "det10_2",
+                        "target": "det10_2_6",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_7",
+                        "source": "det10_2",
+                        "target": "det10_2_7",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_8",
+                        "source": "det10_2",
+                        "target": "det10_2_8",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_9",
+                        "source": "det10_2",
+                        "target": "det10_2_9",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_10",
+                        "source": "det10_2",
+                        "target": "det10_2_10",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_11",
+                        "source": "det10_2",
+                        "target": "det10_2_11",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_12",
+                        "source": "det10_2",
+                        "target": "det10_2_12",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_13",
+                        "source": "det10_2",
+                        "target": "det10_2_13",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_14",
+                        "source": "det10_2",
+                        "target": "det10_2_14",
+                        "animated": true
+                    },
+                    {
+                        "id": "e-det10_2-det10_2_15",
+                        "source": "det10_2",
+                        "target": "det10_2_15",
+                        "animated": true
+                    }
+                ]
+            }
+        ],
+        "juego_creado": false,
+        "datos_juego": {},
+        "monedas": 0
+    },
+    "a8c8caef-6366-4c90-9578-d00603f524d8": {
+        "id": "a8c8caef-6366-4c90-9578-d00603f524d8",
+        "titulo": "prueba 3",
+        "creado": "2026-04-05 17:47:34",
+        "fuentes": [],
+        "resumenes": [],
+        "quizzes": []
     }
 }
