@@ -3,7 +3,7 @@ import RellenarHuecos from './RellenarHuecos';
 import TableroConexiones from './TableroConexiones'; 
 import BatallaJefe from './BatallaJefe'; // ✅ AQUÍ ESTÁ LA LÍNEA QUE FALTABA
 
-export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
+export default function NivelBatalla({ nivel, alHuir, alCompletar, modoHardcore, vidasGlobales, onPerderVida }) {
     
     // 1. RECOLECCIÓN Y BARAJO (SHUFFLE GLOBAL E INTERNO)
     const preguntas = useMemo(() => {
@@ -36,10 +36,15 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
     }, [nivel]);
 
     // 2. LÓGICA DE TIEMPO
-    const esGlobalTimer = nivel?.tipo === 'minijefe';
-    const TIEMPO_MAXIMO = esGlobalTimer ? 120 : 15; 
+    const esMiniJefe = nivel?.tipo === 'minijefe';
+    const esJefeFinal = nivel?.tipo === 'jefe_pokemon' || nivel?.tipo === 'feynman';
+    const esGlobalTimer = esMiniJefe || esJefeFinal;
+    const TIEMPO_MAXIMO = esJefeFinal ? 300 : (esMiniJefe ? 120 : 15); 
     
-    const [vidas, setVidas] = useState(3);
+    // SISTEMA DE VIDAS (Híbrido)
+    const [vidasLocales, setVidasLocales] = useState(3);
+    const vidas = modoHardcore ? vidasGlobales : vidasLocales; // La vida actual depende del modo
+    
     const [indicePregunta, setIndicePregunta] = useState(0);
     const [tiempoRestante, setTiempoRestante] = useState(TIEMPO_MAXIMO);
     
@@ -104,8 +109,17 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
             setTimeout(() => avanzarPregunta(), 1500);
         } else {
             setEstadoBatalla('fallo');
-            const nuevasVidas = vidas - 1;
-            setVidas(nuevasVidas);
+            
+            // LOGICA DE DAÑO: Depende del modo
+            let nuevasVidas;
+            if (modoHardcore) {
+                onPerderVida(); // Informa a ModoJuego de la pérdida global
+                nuevasVidas = vidasGlobales - 1; 
+            } else {
+                setVidasLocales(prev => prev - 1);
+                nuevasVidas = vidasLocales - 1;
+            }
+
             setTimeout(() => {
                 if (nuevasVidas <= 0) setEstadoBatalla('gameover');
                 else {
@@ -158,7 +172,7 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
                 <span className="text-8xl mb-6 drop-shadow-[0_0_20px_rgba(250,204,21,1)]">🏆</span>
                 <h2 className="text-5xl font-black text-yellow-400 mb-4 drop-shadow-[0_0_15px_rgba(250,204,21,0.8)]">¡NIVEL DESPEJADO!</h2>
                 <p className="text-xl text-indigo-200 mb-10">Has dominado los conceptos de esta zona.</p>
-                <button onClick={() => alCompletar(nivel.id)} className="bg-yellow-500 hover:bg-yellow-400 text-yellow-950 font-black py-4 px-10 rounded-2xl shadow-[0_0_30px_rgba(250,204,21,0.6)] transition-all transform hover:scale-105 z-10">Continuar la Aventura</button>
+                <button onClick={() => alCompletar(nivel.id, vidas)} className="bg-yellow-500 hover:bg-yellow-400 text-yellow-950 font-black py-4 px-10 rounded-2xl shadow-[0_0_30px_rgba(250,204,21,0.6)] transition-all transform hover:scale-105 z-10">Continuar la Aventura</button>
             </div>
         );
     }
@@ -172,6 +186,7 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
                 </button>
                 <BatallaJefe 
                     nivel={nivel} 
+                    tiempoRestante={tiempoRestante}
                     onResultado={(victoria) => {
                         if (victoria) setEstadoBatalla('victoria');
                         else setEstadoBatalla('gameover');
@@ -196,9 +211,14 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar }) {
             <header className="flex flex-col p-6 bg-black/40 backdrop-blur-md border-b border-white/5 relative z-10 gap-4">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex gap-2 text-2xl bg-black/50 p-3 rounded-2xl border border-white/10 shadow-inner">
-                        {[1, 2, 3].map((v) => (
-                            <span key={v} className={`transition-all duration-300 ${vidas >= v ? 'drop-shadow-[0_0_8px_rgba(239,68,68,0.8)]' : 'opacity-20 grayscale scale-75'}`}>❤️</span>
-                        ))}
+                        {[...Array(modoHardcore ? 5 : 3)].map((_, i) => {
+                            const v = i + 1;
+                            return (
+                                <span key={v} className={`text-2xl transition-all duration-300 ${vidas >= v ? 'drop-shadow-[0_0_12px_rgba(239,68,68,1)] scale-110' : 'opacity-20 grayscale scale-75'}`}>
+                                    ❤️
+                                </span>
+                            );
+                        })}
                     </div>
                     <div className="flex flex-col items-center">
                         <span className="text-xs font-black text-indigo-400 uppercase tracking-[0.3em]">{nivel.nombre}</span>

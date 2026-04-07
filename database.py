@@ -266,35 +266,71 @@ def guardar_mapa_cuaderno(notebook_id, mapa_nuevo):
         return True
     return False
 
-def guardar_juego_cuaderno(notebook_id, datos_del_juego):
-    """Guarda el mapa generado y bloquea el cuaderno marcando juego_creado = True"""
+def guardar_juego_cuaderno(notebook_id, datos_del_juego, mapa_id):
+    """Guarda el juego, asigna el mapa aleatorio e inicializa progreso"""
     cuadernos = listar_cuadernos()
     if notebook_id in cuadernos:
         cuadernos[notebook_id]["juego_creado"] = True
+        
+        # Inyectamos el mapa y el nivel inicial
+        datos_del_juego["mapa_id"] = mapa_id
+        datos_del_juego["nivel_actual"] = 0
+        
         cuadernos[notebook_id]["datos_juego"] = datos_del_juego
         
+        # Inicializamos monedas si no existen
+        if "monedas" not in cuadernos[notebook_id]:
+            cuadernos[notebook_id]["monedas"] = 0
+            
         with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
             json.dump(cuadernos, f, indent=4, ensure_ascii=False)
         return True
     return False
 
-def actualizar_progreso_juego(notebook_id, nivel_completado):
+# En database.py
+def actualizar_progreso_juego(notebook_id, nivel_completado, vidas_restantes, modo_hardcore):
     cuadernos = listar_cuadernos()
     if notebook_id in cuadernos:
         cuaderno = cuadernos[notebook_id]
+        datos = cuaderno["datos_juego"]
+        nivel_actual_guardado = datos.get("nivel_actual", 0)
         
-        # Obtenemos el nivel actual guardado (por defecto 0)
-        nivel_actual_guardado = cuaderno["datos_juego"].get("nivel_actual", 0)
+        # 💰 1. CÁLCULO DE RECOMPENSA
+        recompensa_potencial = 0
+        if modo_hardcore:
+            # Modo Hardcore (Vidas de 5)
+            if vidas_restantes >= 5: recompensa_potencial = 50
+            elif vidas_restantes == 4: recompensa_potencial = 30
+            elif vidas_restantes == 3: recompensa_potencial = 15
+            else: recompensa_potencial = 0 # Si quedan 2 o 1, no hay premio
+        else:
+            # Modo Normal (Vidas de 3)
+            if vidas_restantes == 3: recompensa_potencial = 50
+            elif vidas_restantes == 2: recompensa_potencial = 30
+            elif vidas_restantes == 1: recompensa_potencial = 15
+            else: recompensa_potencial = 0
+            
+        # 🛡️ 2. SISTEMA ANTI-FARMEO
+        if "max_monedas_nivel" not in datos:
+            datos["max_monedas_nivel"] = {}
+            
+        nivel_str = str(nivel_completado)
+        monedas_previas = datos["max_monedas_nivel"].get(nivel_str, 0)
         
-        # Solo subimos de nivel si el nivel que acaba de completar es el que le tocaba
-        # Esto evita que si repite el Nivel 1, le siga sumando niveles hacia adelante
+        monedas_a_sumar = 0
+        if recompensa_potencial > monedas_previas:
+            monedas_a_sumar = recompensa_potencial - monedas_previas
+            datos["max_monedas_nivel"][nivel_str] = recompensa_potencial
+            
+        # Sumamos al monedero global
+        cuaderno["monedas"] = cuaderno.get("monedas", 0) + monedas_a_sumar
+        
+        # 🚀 3. AVANCE DE NIVEL
         if nivel_completado == nivel_actual_guardado:
-            cuaderno["datos_juego"]["nivel_actual"] = nivel_actual_guardado + 1
-            # Añadimos una recompensa de 50 monedas por nivel
-            cuaderno["monedas"] = cuaderno.get("monedas", 0) + 50
+            datos["nivel_actual"] = nivel_actual_guardado + 1
             
-            with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
-                json.dump(cuadernos, f, indent=4, ensure_ascii=False)
-            return True, cuaderno["monedas"], cuaderno["datos_juego"]["nivel_actual"]
+        with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(cuadernos, f, indent=4, ensure_ascii=False)
             
+        return True, monedas_a_sumar, datos["nivel_actual"]
     return False, 0, 0

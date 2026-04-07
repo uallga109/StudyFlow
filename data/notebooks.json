@@ -4060,8 +4060,745 @@
         "id": "a8c8caef-6366-4c90-9578-d00603f524d8",
         "titulo": "prueba 3",
         "creado": "2026-04-05 17:47:34",
-        "fuentes": [],
+        "fuentes": [
+            "TAR_tema4_vlan.pdf"
+        ],
         "resumenes": [],
-        "quizzes": []
+        "quizzes": [],
+        "juego_creado": true,
+        "datos_juego": {
+            "niveles": [
+                {
+                    "id": 1,
+                    "nombre": "Mundo 1: El Calentamiento",
+                    "tipo": "vf",
+                    "preguntas": [
+                        {
+                            "pregunta": "Una LAN (Red de Área Local) está diseñada para conectar dispositivos a través de grandes áreas geográficas como continentes.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "Una LAN está diseñada para conectar dispositivos dentro de un área geográfica limitada, como una casa, oficina o campus universitario."
+                        },
+                        {
+                            "pregunta": "Cuando se configura un switch por primera vez, todos sus puertos pertenecen por defecto a la VLAN 1.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Sí, la VLAN 1 es la VLAN predeterminada a la que se asignan todos los puertos de un switch Cisco en su configuración inicial."
+                        },
+                        {
+                            "pregunta": "La segmentación con VLANs permite que las tramas de difusión se reenvíen a todos los dispositivos conectados a cualquier puerto del switch, independientemente de la VLAN.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "La segmentación de VLANs limita el reenvío de tramas de difusión solamente dentro de la VLAN específica de origen, controlando así el impacto en la red."
+                        },
+                        {
+                            "pregunta": "Una de las ventajas principales de las VLAN es que simplifica la administración de la red y mejora la seguridad.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Las VLANs ofrecen flexibilidad, mejoran la seguridad al aislar grupos de usuarios y simplifican la administración de la red."
+                        },
+                        {
+                            "pregunta": "Para que dispositivos en diferentes VLANs se comuniquen entre sí, no es necesario un router, ya que el switch de Capa 2 puede manejarlo.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "Los switches de Capa 2 no pueden reenviar tráfico entre VLANs sin la ayuda de un router o un switch de Capa 3 que proporcione servicios de enrutamiento."
+                        },
+                        {
+                            "pregunta": "Un enlace troncal de VLAN transporta tráfico de múltiples VLANs entre switches.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Los enlaces troncales están diseñados específicamente para llevar el tráfico de varias VLANs entre dispositivos de red como switches o routers."
+                        },
+                        {
+                            "pregunta": "El estándar IEEE 802.1Q añade una etiqueta de 4 bytes a la trama Ethernet para identificar a qué VLAN pertenece cada paquete.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "El protocolo 802.1Q es el mecanismo estándar para el etiquetado de VLAN, insertando una etiqueta de 4 bytes con la información del ID de VLAN."
+                        },
+                        {
+                            "pregunta": "La VLAN predeterminada para los switches Cisco es la VLAN 1, y esta no se puede eliminar ni cambiar de nombre.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "VLAN 1 es una VLAN especial en los switches Cisco que no puede ser modificada en cuanto a su nombre o eliminada."
+                        },
+                        {
+                            "pregunta": "La VLAN nativa está configurada para transportar tráfico generado por usuarios.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "La VLAN nativa maneja el tráfico sin etiquetar en un enlace troncal 802.1Q. La VLAN de datos es la que transporta el tráfico generado por usuarios."
+                        },
+                        {
+                            "pregunta": "Se recomienda configurar la VLAN nativa como una VLAN sin utilizar, independiente de la VLAN 1, por motivos de seguridad.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Es una práctica recomendada de seguridad para evitar posibles vulnerabilidades al mezclar el tráfico nativo con el tráfico de usuarios o gestión."
+                        },
+                        {
+                            "pregunta": "La VLAN de administración es aquella que se configura para acceder a las capacidades de administración de un switch.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "La VLAN de administración permite gestionar el switch de forma remota a través de protocolos como HTTP, Telnet, SSH o SNMP."
+                        },
+                        {
+                            "pregunta": "El tráfico VoIP requiere ancho de banda garantizado y baja latencia, por lo que a menudo utiliza una VLAN de voz dedicada.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "La tecnología VoIP es sensible al factor tiempo y necesita calidad de servicio (QoS) y una VLAN separada para garantizar la calidad de voz."
+                        },
+                        {
+                            "pregunta": "Las VLAN de rango extendido (1006 a 4096) almacenan su configuración en el archivo vlan.dat en la memoria flash.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "Las VLAN de rango extendido almacenan su configuración en la configuración en ejecución (NVRAM), no en el archivo vlan.dat."
+                        },
+                        {
+                            "pregunta": "Cuando se elimina una VLAN, los puertos que le estaban asignados vuelven automáticamente a la VLAN 1 por defecto.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "Si se elimina una VLAN, los puertos asignados a ella quedan en un estado inactivo a nivel lógico hasta que se reasignan o se recrea la VLAN."
+                        },
+                        {
+                            "pregunta": "Los puertos troncales en un switch pertenecen a una VLAN específica para asegurar el aislamiento entre redes.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "Los puertos troncales no pertenecen a una VLAN específica; su propósito es actuar como un conducto común, manteniendo el aislamiento lógico entre redes mediante el etiquetado."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nombre": "Mundo 2: El Bosque Rápido",
+                    "tipo": "test3",
+                    "preguntas": [
+                        {
+                            "pregunta": "¿Cuál es una función principal de una LAN?",
+                            "opciones": [
+                                "Conectar dispositivos a nivel mundial.",
+                                "Permitir que dispositivos en un área limitada compartan recursos.",
+                                "Aislar completamente todos los dispositivos entre sí."
+                            ],
+                            "correcta": "Permitir que dispositivos en un área limitada compartan recursos.",
+                            "explicacion": "Una LAN está diseñada para interconectar dispositivos en un área geográfica restringida para compartir datos y periféricos."
+                        },
+                        {
+                            "pregunta": "¿Qué ocurre con una trama de difusión cuando se configuran VLANs en un switch?",
+                            "opciones": [
+                                "Se reenvía a todos los puertos del switch, sin importar la VLAN.",
+                                "Se reenvía solamente dentro de la VLAN específica de origen.",
+                                "Se descarta automáticamente por seguridad."
+                            ],
+                            "correcta": "Se reenvía solamente dentro de la VLAN específica de origen.",
+                            "explicacion": "Las VLANs segmentan la red de forma lógica, limitando los dominios de difusión a los miembros de cada VLAN."
+                        },
+                        {
+                            "pregunta": "¿Cuál de las siguientes es una ventaja clave de usar VLANs?",
+                            "opciones": [
+                                "Incrementa la complejidad de la administración de red.",
+                                "Reduce la flexibilidad en la ubicación de estaciones de trabajo.",
+                                "Mejora la seguridad y facilita el control del tráfico."
+                            ],
+                            "correcta": "Mejora la seguridad y facilita el control del tráfico.",
+                            "explicacion": "Las VLANs permiten agrupar lógicamente dispositivos, lo que mejora la seguridad al aislar grupos y facilita la gestión del tráfico de red."
+                        },
+                        {
+                            "pregunta": "¿Qué tipo de VLAN es la que se asigna a todos los puertos de switch después del arranque inicial de un switch Cisco con configuración predeterminada?",
+                            "opciones": [
+                                "VLAN de datos",
+                                "VLAN nativa",
+                                "VLAN predeterminada"
+                            ],
+                            "correcta": "VLAN predeterminada",
+                            "explicacion": "La VLAN 1 es la VLAN predeterminada y todos los puertos del switch son asignados a ella por defecto tras el arranque inicial."
+                        },
+                        {
+                            "pregunta": "¿Qué tipo de VLAN es la que se usa para dividir la red en grupos de usuarios o dispositivos y transportar el tráfico generado por ellos?",
+                            "opciones": [
+                                "VLAN de voz",
+                                "VLAN de administración",
+                                "VLAN de datos"
+                            ],
+                            "correcta": "VLAN de datos",
+                            "explicacion": "Las VLAN de datos están configuradas para transportar el tráfico de usuario, segmentando la red en grupos lógicos."
+                        },
+                        {
+                            "pregunta": "¿Cuál es la función principal de la etiqueta 802.1Q en una trama Ethernet?",
+                            "opciones": [
+                                "Indicar la dirección MAC de destino.",
+                                "Identificar la VLAN a la que pertenece el paquete.",
+                                "Asegurar la integridad de la capa física."
+                            ],
+                            "correcta": "Identificar la VLAN a la que pertenece el paquete.",
+                            "explicacion": "La etiqueta 802.1Q (que incluye el VID) es crucial para que los switches puedan distinguir a qué VLAN pertenece cada trama en un enlace troncal."
+                        },
+                        {
+                            "pregunta": "¿Qué sucede con el tráfico que no proviene de una VLAN (tráfico sin etiquetar) cuando pasa por un puerto troncal 802.1Q?",
+                            "opciones": [
+                                "Se descarta inmediatamente.",
+                                "Se coloca en la VLAN nativa.",
+                                "Se etiqueta con un ID de VLAN aleatorio."
+                            ],
+                            "correcta": "Se coloca en la VLAN nativa.",
+                            "explicacion": "El estándar 802.1Q dirige todo el tráfico sin etiquetar que llega a un puerto troncal hacia la VLAN nativa, que por defecto es la VLAN 1."
+                        },
+                        {
+                            "pregunta": "¿Qué característica es esencial para el tráfico de Voz sobre IP (VoIP) que una VLAN de voz ayuda a garantizar?",
+                            "opciones": [
+                                "El uso mínimo de ancho de banda.",
+                                "Una demora inferior a 150 ms a través de la red.",
+                                "La eliminación de toda prioridad de transmisión."
+                            ],
+                            "correcta": "Una demora inferior a 150 ms a través de la red.",
+                            "explicacion": "El tráfico VoIP es sensible a la latencia y requiere una calidad de servicio (QoS) que garantice una demora mínima para una comunicación fluida."
+                        },
+                        {
+                            "pregunta": "En los switches Catalyst, ¿dónde se almacena la configuración de las VLAN de rango normal (1 a 1005)?",
+                            "opciones": [
+                                "En la configuración en ejecución (NVRAM).",
+                                "En el archivo vlan.dat (memoria flash).",
+                                "Directamente en la CPU del switch."
+                            ],
+                            "correcta": "En el archivo vlan.dat (memoria flash).",
+                            "explicacion": "Las VLAN de rango normal se guardan persistentemente en el archivo vlan.dat, ubicado en la memoria flash del switch."
+                        },
+                        {
+                            "pregunta": "¿Cuál es el método de enrutamiento entre VLAN que utiliza una sola interfaz física de router con múltiples subinterfaces lógicas, una por cada VLAN?",
+                            "opciones": [
+                                "Enrutamiento entre VLAN heredado.",
+                                "Router-on-a-stick.",
+                                "Enrutamiento con switch de capa 3."
+                            ],
+                            "correcta": "Router-on-a-stick.",
+                            "explicacion": "El método 'router-on-a-stick' aprovecha una única interfaz física de router multiplexándola en varias subinterfaces para diferentes VLANs."
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "nombre": "Mundo 3: El Mini-Castillo",
+                    "tipo": "minijefe",
+                    "fase1_conexiones": [
+                        {
+                            "termino": "VLAN 1",
+                            "definicion": "VLAN predeterminada en switches Cisco que no puede ser eliminada ni renombrada."
+                        },
+                        {
+                            "termino": "Enlace Troncal",
+                            "definicion": "Enlace entre switches que transporta tráfico de múltiples VLANs, extendiendo la segmentación lógica."
+                        },
+                        {
+                            "termino": "IEEE 802.1Q",
+                            "definicion": "Estándar de protocolo que inserta una etiqueta de 4 bytes en las tramas Ethernet para identificar la VLAN."
+                        },
+                        {
+                            "termino": "Router-on-a-stick",
+                            "definicion": "Método de enrutamiento entre VLAN que usa una interfaz física de router dividida en subinterfaces lógicas."
+                        },
+                        {
+                            "termino": "SVI (Switch Virtual Interface)",
+                            "definicion": "Interfaz virtual configurada en un switch multicapa (Capa 3) que proporciona procesamiento de Capa 3 para una VLAN."
+                        }
+                    ],
+                    "fase1_huecos": [
+                        {
+                            "frase": "Cuando se configura un switch por primera vez y se carga su configuración predeterminada, todos los puertos del switch se asignan a la VLAN ___ por defecto, formando parte del mismo dominio de difusión.",
+                            "respuesta_correcta": "1"
+                        },
+                        {
+                            "frase": "El protocolo IEEE 802.1Q añade una etiqueta de 4 bytes a la trama Ethernet que incluye un campo denominado VID (VLAN ID), el cual puede soportar hasta ___ identificadores de VLAN diferentes.",
+                            "respuesta_correcta": "4096"
+                        },
+                        {
+                            "frase": "Por razones de seguridad, se recomienda configurar la VLAN ___ como una VLAN sin utilizar, distinta de la VLAN 1 y de otras VLANs activas, para el tráfico sin etiquetar que pasa por un enlace troncal.",
+                            "respuesta_correcta": "nativa"
+                        },
+                        {
+                            "frase": "Para los switches Catalyst, las VLANs de rango extendido, que van desde el número 1006 hasta el 4096, almacenan su configuración en la ___ en lugar del archivo vlan.dat.",
+                            "respuesta_correcta": "configuración en ejecución"
+                        },
+                        {
+                            "frase": "El comando `ip routing` en un switch de capa 3 es fundamental para ___ el intercambio de tráfico entre diferentes VLANs que tienen sus respectivas Interfaces Virtuales de Switch (SVIs) configuradas.",
+                            "respuesta_correcta": "habilitar"
+                        }
+                    ],
+                    "fase2_test": [
+                        {
+                            "pregunta": "¿Cuál de los siguientes campos de la etiqueta 802.1Q es un identificador de 1 bit que habilita las tramas Token Ring para ser transportadas a través de enlaces Ethernet?",
+                            "opciones": [
+                                "TPID",
+                                "Pri",
+                                "CFI",
+                                "VID"
+                            ],
+                            "correcta": "CFI",
+                            "explicacion": "El CFI (Canonical Format Indicator) es un bit en la etiqueta 802.1Q utilizado para la compatibilidad con tramas Token Ring."
+                        },
+                        {
+                            "pregunta": "En un switch Cisco, si se elimina una VLAN pero los puertos previamente asignados a ella no se reasignan, ¿qué estado adoptan estos puertos?",
+                            "opciones": [
+                                "Vuelven a la VLAN 1 automáticamente.",
+                                "Entran en un estado inactivo a nivel lógico.",
+                                "Se asignan a la VLAN nativa por defecto.",
+                                "Permanecen activos pero sin capacidad de enviar tráfico."
+                            ],
+                            "correcta": "Entran en un estado inactivo a nivel lógico.",
+                            "explicacion": "Al eliminar una VLAN, los puertos asociados a ella quedan en un estado inactivo hasta que se reasignan a otra VLAN activa o se recrea la VLAN original."
+                        },
+                        {
+                            "pregunta": "¿Qué método de enrutamiento entre VLAN es la solución más escalable para organizaciones medianas y grandes, utilizando conmutadores de Capa 3?",
+                            "opciones": [
+                                "Enrutamiento entre VLAN heredado.",
+                                "Router-on-a-stick.",
+                                "Conmutador de nivel 3 con interfaces virtuales conmutadas (SVIs).",
+                                "Enrutamiento basado en software en Capa 2."
+                            ],
+                            "correcta": "Conmutador de nivel 3 con interfaces virtuales conmutadas (SVIs).",
+                            "explicacion": "Los switches de Capa 3 con SVIs son la solución más escalable y eficiente para grandes redes debido a su capacidad de enrutamiento basado en hardware."
+                        },
+                        {
+                            "pregunta": "¿Cuál es una desventaja principal del enrutamiento entre VLAN utilizando un conmutador de Capa 3 comparado con el router-on-a-stick?",
+                            "opciones": [
+                                "Es más lento debido al procesamiento por software.",
+                                "Requiere enlaces externos del switch al router.",
+                                "Los switches de Capa 3 son más caros.",
+                                "Latencia mucho mayor debido a la necesidad de salir del switch."
+                            ],
+                            "correcta": "Los switches de Capa 3 son más caros.",
+                            "explicacion": "Aunque ofrecen muchas ventajas, el costo es la principal desventaja de los switches de Capa 3 en comparación con la solución router-on-a-stick."
+                        },
+                        {
+                            "pregunta": "Según las prácticas recomendadas de seguridad, ¿qué acción se debe tomar con la VLAN de administración en un switch Cisco?",
+                            "opciones": [
+                                "Mantenerla como VLAN 1 para facilitar la configuración.",
+                                "Asignarle la misma VLAN ID que la VLAN nativa.",
+                                "Configurar la VLAN de administración para que sea diferente de la VLAN 1 predeterminada.",
+                                "Eliminarla después de la configuración inicial."
+                            ],
+                            "correcta": "Configurar la VLAN de administración para que sea diferente de la VLAN 1 predeterminada.",
+                            "explicacion": "Cambiar la VLAN de administración de la VLAN 1 es una medida de seguridad importante para evitar accesos no autorizados."
+                        },
+                        {
+                            "pregunta": "Si un switch de Capa 3 necesita que otros dispositivos de Capa 3 puedan acceder a sus VLAN, ¿qué debe configurarse para anunciar las VLAN?",
+                            "opciones": [
+                                "Solo interfaces virtuales de switch (SVIs).",
+                                "Enrutamiento estático o dinámico.",
+                                "Exclusivamente el protocolo Spanning Tree.",
+                                "Solo puertos de acceso en modo dinámico."
+                            ],
+                            "correcta": "Enrutamiento estático o dinámico.",
+                            "explicacion": "Para que las VLANs de un switch de Capa 3 sean accesibles desde otros dispositivos de Capa 3, sus rutas deben anunciarse mediante protocolos de enrutamiento."
+                        },
+                        {
+                            "pregunta": "Cuando se configura una subinterfaz en un router para el método router-on-a-stick, ¿qué comando se utiliza para configurar la subinterfaz para responder al tráfico encapsulado 802.1Q de un VLAN ID específico?",
+                            "opciones": [
+                                "ip address",
+                                "interface gigabitEthernet",
+                                "encapsulation dot1q vlan_id [native]",
+                                "switchport mode trunk"
+                            ],
+                            "correcta": "encapsulation dot1q vlan_id [native]",
+                            "explicacion": "El comando `encapsulation dot1q` es esencial para que la subinterfaz del router sepa qué VLAN ID debe procesar en un enlace troncal."
+                        },
+                        {
+                            "pregunta": "Un puerto enrutado en un switch de Capa 3 se crea deshabilitando la entidad de puerto de conmutación en un puerto de Capa 2. ¿Qué comando específico logra esto?",
+                            "opciones": [
+                                "switchport mode access",
+                                "no switchport",
+                                "switchport trunk encapsulation dot1q",
+                                "ip routing"
+                            ],
+                            "correcta": "no switchport",
+                            "explicacion": "El comando `no switchport` convierte un puerto de Capa 2 en un puerto enrutado de Capa 3, permitiendo asignarle una dirección IP directamente."
+                        },
+                        {
+                            "pregunta": "¿Cuál de las siguientes afirmaciones es correcta con respecto a las tramas que pertenecen a la VLAN nativa en un enlace troncal 802.1Q?",
+                            "opciones": [
+                                "Siempre se etiquetan con el ID de la VLAN nativa.",
+                                "No se etiquetan.",
+                                "Se etiquetan solo si el puerto está configurado en modo acceso.",
+                                "Se descartan si no hay una VLAN de datos configurada."
+                            ],
+                            "correcta": "No se etiquetan.",
+                            "explicacion": "Las tramas de la VLAN nativa en un enlace troncal 802.1Q se envían sin etiquetar, a diferencia del tráfico de otras VLANs que sí lleva la etiqueta 802.1Q."
+                        },
+                        {
+                            "pregunta": "Para habilitar el enrutamiento inter-VLAN en un conmutador de capa 3 para IPv4, ¿qué comando de configuración global debe ejecutarse?",
+                            "opciones": [
+                                "interface vlan [vlan-id]",
+                                "switchport mode trunk",
+                                "ip routing",
+                                "encapsulation dot1q"
+                            ],
+                            "correcta": "ip routing",
+                            "explicacion": "El comando `ip routing` es un requisito fundamental para activar las capacidades de enrutamiento de Capa 3 en un switch."
+                        },
+                        {
+                            "pregunta": "¿Cuál es la principal ventaja de usar EtherChannels de Capa 2 como enlaces troncales entre switches para el enrutamiento inter-VLAN con switches de Capa 3?",
+                            "opciones": [
+                                "Reducir la complejidad de la configuración.",
+                                "Aumentar el ancho de banda.",
+                                "Disminuir el número de VLANs soportadas.",
+                                "Eliminar la necesidad de etiquetado 802.1Q."
+                            ],
+                            "correcta": "Aumentar el ancho de banda.",
+                            "explicacion": "Los EtherChannels permiten agrupar múltiples enlaces físicos en uno lógico, lo que incrementa el ancho de banda y la redundancia."
+                        },
+                        {
+                            "pregunta": "¿Qué ocurre si un puerto de switch que debería ser parte de una VLAN específica no puede comunicarse y, al verificar, se encuentra que la VLAN a la que estaba asignado fue eliminada?",
+                            "opciones": [
+                                "El puerto se asigna automáticamente a la VLAN nativa.",
+                                "El puerto entra en estado inactivo hasta que la VLAN se recrea o el puerto se reasigna.",
+                                "El puerto comienza a enviar tráfico sin etiquetar.",
+                                "El switch crea automáticamente una nueva VLAN con el mismo ID."
+                            ],
+                            "correcta": "El puerto entra en estado inactivo hasta que la VLAN se recrea o el puerto se reasigna.",
+                            "explicacion": "Si una VLAN se elimina, los puertos asociados a ella quedan en un estado 'down' lógico y no pueden funcionar hasta que se resuelva la asignación."
+                        },
+                        {
+                            "pregunta": "Cuando se verifica la conectividad en una configuración router-on-a-stick, además de `ping`, ¿qué comando es útil para mostrar las interfaces IP configuradas en el router y su estado?",
+                            "opciones": [
+                                "show vlan brief",
+                                "show interface trunk",
+                                "show ip interface brief",
+                                "show running-config interface"
+                            ],
+                            "correcta": "show ip interface brief",
+                            "explicacion": "El comando `show ip interface brief` proporciona un resumen conciso de todas las interfaces IP, incluyendo subinterfaces, sus direcciones IP y estado."
+                        },
+                        {
+                            "pregunta": "Si un host con configuración IP correcta no puede hacer ping a su puerta de enlace predeterminada, ¿cuál de los siguientes comandos sería el más relevante para diagnosticar un posible problema de asignación de puerto de acceso del switch a la VLAN?",
+                            "opciones": [
+                                "show ip route",
+                                "show interfaces switchport",
+                                "show interfaces trunk",
+                                "show version"
+                            ],
+                            "correcta": "show interfaces switchport",
+                            "explicacion": "Este comando muestra el modo operativo del puerto y a qué VLAN de acceso está asignado, lo que es clave para verificar la configuración del host."
+                        },
+                        {
+                            "pregunta": "El método de 'router-on-a-stick' para el enrutamiento entre VLAN no es escalable más allá de aproximadamente:",
+                            "opciones": [
+                                "5 VLANs",
+                                "100 VLANs",
+                                "50 VLANs",
+                                "250 VLANs"
+                            ],
+                            "correcta": "50 VLANs",
+                            "explicacion": "El router-on-a-stick tiene limitaciones de escalabilidad debido al rendimiento de la única interfaz física que maneja todo el tráfico inter-VLAN, siendo óptimo para un número limitado de VLANs."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "nombre": "Mundo 4: Las Cavernas del Recuerdo",
+                    "tipo": "palabra_clave",
+                    "preguntas": [
+                        {
+                            "definicion": "Una infraestructura de red diseñada para conectar dispositivos dentro de un área geográfica limitada, permitiéndoles compartir recursos y tener acceso a internet.",
+                            "respuesta_exacta": "LAN"
+                        },
+                        {
+                            "definicion": "Proceso de reenviar el tráfico de la red de una VLAN a otra, que requiere un router o un conmutador de capa 3.",
+                            "respuesta_exacta": "Enrutamiento entre VLAN"
+                        },
+                        {
+                            "definicion": "El protocolo estándar que inserta una etiqueta de 4 bytes en la trama Ethernet para identificar a qué VLAN pertenece cada paquete.",
+                            "respuesta_exacta": "IEEE 802.1Q"
+                        },
+                        {
+                            "definicion": "Un tipo de VLAN configurada para transportar el tráfico generado por los usuarios, a veces también llamada VLAN de usuario.",
+                            "respuesta_exacta": "VLAN de datos"
+                        },
+                        {
+                            "definicion": "La VLAN a la que se asignan todos los puertos de un switch Cisco después del arranque inicial si se carga la configuración predeterminada.",
+                            "respuesta_exacta": "VLAN 1"
+                        },
+                        {
+                            "definicion": "Un enlace que transporta el tráfico de múltiples VLANs entre switches, permitiendo la extensión de la segmentación lógica a través de la red física.",
+                            "respuesta_exacta": "Enlace troncal"
+                        },
+                        {
+                            "definicion": "El componente de la etiqueta 802.1Q que identifica el ID de la VLAN.",
+                            "respuesta_exacta": "VID"
+                        },
+                        {
+                            "definicion": "Un método de enrutamiento entre VLAN que utiliza una única interfaz física de router con múltiples subinterfaces lógicas, una para cada VLAN.",
+                            "respuesta_exacta": "Router-on-a-stick"
+                        },
+                        {
+                            "definicion": "Una interfaz virtual configurada en un switch multicapa (Capa 3) que proporciona el procesamiento de Capa 3 para una VLAN específica.",
+                            "respuesta_exacta": "SVI"
+                        },
+                        {
+                            "definicion": "Un identificador de 1 bit dentro de la etiqueta 802.1Q que facilita el transporte de tramas Token Ring a través de enlaces Ethernet.",
+                            "respuesta_exacta": "CFI"
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "nombre": "Mundo 5: La Torre de Casos",
+                    "tipo": "casos_practicos",
+                    "preguntas": [
+                        {
+                            "pregunta": "Eres el administrador de red de una pequeña empresa con 15 empleados y 3 departamentos (Ventas, Marketing, TI). Deseas segmentar la red para mejorar la seguridad y controlar los dominios de difusión. Tienes un switch de Capa 2 y un router con una única interfaz Gigabit Ethernet libre. ¿Cuál es el método de enrutamiento entre VLAN más adecuado para esta configuración inicial, considerando el tamaño de la red?",
+                            "opciones": [
+                                "Enrutamiento entre VLAN heredado, utilizando múltiples interfaces físicas del router.",
+                                "Implementar un switch de Capa 3 para manejar el enrutamiento.",
+                                "Configurar el router-on-a-stick utilizando la interfaz Gigabit Ethernet disponible del router.",
+                                "No es necesario ningún enrutamiento entre VLAN; el switch de Capa 2 es suficiente."
+                            ],
+                            "correcta": "Configurar el router-on-a-stick utilizando la interfaz Gigabit Ethernet disponible del router.",
+                            "explicacion": "Para una red pequeña y mediana (hasta ~50 VLANs), el router-on-a-stick es una solución eficiente que aprovecha una única interfaz física para múltiples VLANs lógicas."
+                        },
+                        {
+                            "pregunta": "Has configurado un nuevo switch Cisco Catalyst y quieres asegurar que el tráfico de gestión del switch (Telnet, SSH) se realice a través de una VLAN dedicada y segura. Actualmente, la VLAN de administración predeterminada es la VLAN 1. ¿Qué acción deberías tomar para mejorar la seguridad?",
+                            "opciones": [
+                                "Mantener la VLAN 1 como VLAN de administración, ya que es la predeterminada y fiable.",
+                                "Eliminar la VLAN 1 para forzar la creación de una nueva VLAN de administración.",
+                                "Configurar una nueva VLAN (ej. VLAN 99) como VLAN de administración y asignar una SVI con una dirección IP a esa VLAN.",
+                                "Configurar todos los puertos del switch como enlaces troncales para aislar el tráfico de gestión."
+                            ],
+                            "correcta": "Configurar una nueva VLAN (ej. VLAN 99) como VLAN de administración y asignar una SVI con una dirección IP a esa VLAN.",
+                            "explicacion": "Por motivos de seguridad, se recomienda cambiar la VLAN de administración de la VLAN 1 predeterminada a una VLAN sin usar, asignándole una interfaz virtual de switch (SVI) con una dirección IP."
+                        },
+                        {
+                            "pregunta": "Un usuario se queja de que su teléfono IP Cisco (que usa VoIP) experimenta cortes intermitentes y mala calidad de voz. El teléfono está conectado a un puerto de un switch que también conecta su PC. Sabes que el tráfico de VoIP es sensible a la latencia y requiere prioridad. ¿Qué tipo de configuración de VLAN se debería revisar o implementar en el puerto del switch al que está conectado el teléfono para mejorar la calidad del servicio?",
+                            "opciones": [
+                                "Asegurarse de que el puerto esté en la VLAN predeterminada (VLAN 1).",
+                                "Configurar el puerto como parte de una VLAN de datos estándar.",
+                                "Implementar una VLAN de voz dedicada y configurar el puerto con la característica `switchport voice vlan`.",
+                                "Configurar el puerto como un enlace troncal para permitir todo el tráfico."
+                            ],
+                            "correcta": "Implementar una VLAN de voz dedicada y configurar el puerto con la característica `switchport voice vlan`.",
+                            "explicacion": "El tráfico VoIP requiere una VLAN de voz específica (`switchport voice vlan`) para garantizar calidad de servicio (QoS), ancho de banda y baja latencia, elementos críticos para la calidad de la llamada."
+                        },
+                        {
+                            "pregunta": "Estás implementando un enrutamiento entre VLAN utilizando un switch de Capa 3. Has creado las VLANs, las SVIs con sus direcciones IP y has asignado los puertos de acceso. Sin embargo, los hosts en diferentes VLANs aún no pueden comunicarse entre sí. ¿Cuál es el paso crucial que probablemente se ha olvidado y que es necesario para habilitar el enrutamiento inter-VLAN en el switch de Capa 3?",
+                            "opciones": [
+                                "Configurar el puerto conectado al router como enlace troncal.",
+                                "Habilitar el protocolo OSPF en el switch de Capa 3.",
+                                "Ejecutar el comando de configuración global `ip routing`.",
+                                "Configurar una VLAN nativa diferente a la VLAN 1."
+                            ],
+                            "correcta": "Ejecutar el comando de configuración global `ip routing`.",
+                            "explicacion": "El comando `ip routing` es esencial para activar las capacidades de enrutamiento de Capa 3 en el switch, permitiendo la comunicación entre las VLANs a través de sus SVIs."
+                        },
+                        {
+                            "pregunta": "Necesitas conectar dos switches entre sí para que transporten el tráfico de la VLAN 10 (Ventas) y la VLAN 20 (Marketing). Por defecto, la VLAN nativa es la VLAN 1 en ambos switches. Para mayor seguridad, te gustaría que el tráfico sin etiquetar (que por defecto iría a la VLAN nativa) no sea la VLAN 1, sino una VLAN no utilizada (VLAN 99). ¿Qué configuración se debería aplicar al enlace entre los switches para lograr esto?",
+                            "opciones": [
+                                "Configurar el enlace como puerto de acceso en VLAN 10.",
+                                "Configurar el enlace como un puerto enrutado con una dirección IP.",
+                                "Configurar el enlace como un enlace troncal y especificar `switchport trunk native vlan 99`.",
+                                "Deshabilitar completamente el etiquetado 802.1Q en el enlace."
+                            ],
+                            "correcta": "Configurar el enlace como un enlace troncal y especificar `switchport trunk native vlan 99`.",
+                            "explicacion": "Para que el enlace transporte múltiples VLANs, debe ser un troncal. Para cambiar la VLAN nativa de la predeterminada VLAN 1 a una VLAN específica (VLAN 99) por seguridad, se usa el comando `switchport trunk native vlan`."
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "nombre": "Mundo 6: La Ciudadela Cósmica",
+                    "tipo": "jefe_pokemon",
+                    "ataque_vf": [
+                        {
+                            "pregunta": "El método de enrutamiento entre VLAN heredado es altamente escalable porque aprovecha eficientemente un número limitado de interfaces físicas en el router.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "El enrutamiento entre VLAN heredado no es escalable ya que requiere una interfaz física por cada VLAN, lo que agota rápidamente la capacidad del router."
+                        },
+                        {
+                            "pregunta": "Cuando un switch recalcula la secuencia de verificación de trama (FCS) después de añadir una etiqueta 802.1Q, es para asegurar la integridad de los datos de la trama modificada.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Cualquier modificación en la trama, como añadir una etiqueta 802.1Q, requiere un nuevo cálculo de la FCS para mantener la integridad de la trama en tránsito."
+                        },
+                        {
+                            "pregunta": "En versiones modernas del IOS de Cisco (ej. 15.x para Catalyst 2960), es posible tener más de una SVI de administración activa en el switch.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Aunque en el pasado solo se permitía una SVI activa, las versiones más recientes del IOS de Cisco permiten tener múltiples SVIs de administración activas."
+                        },
+                        {
+                            "pregunta": "Si una trama sin etiquetar llega a un enlace troncal y no hay puertos asociados a la VLAN nativa ni otros enlaces troncales, la trama se descartará.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "En ausencia de un destino válido para el tráfico sin etiquetar, como puertos asignados a la VLAN nativa, el switch descartará la trama."
+                        },
+                        {
+                            "pregunta": "Las VLAN de rango normal (1 a 1005) incluyen VLANs reservadas por el sistema (1002 a 1005) que no pueden ser utilizadas para tráfico de usuario normal.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Las VLANs 1002 a 1005 están reservadas por el sistema para tecnologías obsoletas y no deben ser utilizadas por el administrador."
+                        }
+                    ],
+                    "ataque_test": [
+                        {
+                            "pregunta": "¿Cuál de las siguientes es una característica principal que distingue el enrutamiento inter-VLAN con un switch de Capa 3 del método router-on-a-stick?",
+                            "opciones": [
+                                "El switch de Capa 3 siempre requiere enlaces externos al router para cada VLAN.",
+                                "El enrutamiento en un switch de Capa 3 se realiza por software, lo que lo hace más lento.",
+                                "El switch de Capa 3 utiliza conmutación basada en hardware para lograr mayores velocidades de procesamiento de paquetes.",
+                                "El router-on-a-stick permite un mayor número de VLANs escalables en comparación con el switch de Capa 3."
+                            ],
+                            "correcta": "El switch de Capa 3 utiliza conmutación basada en hardware para lograr mayores velocidades de procesamiento de paquetes.",
+                            "explicacion": "La principal ventaja de los switches de Capa 3 es que realizan el switching y el enrutamiento a nivel de hardware, lo que resulta en un rendimiento mucho más rápido que el enrutamiento basado en software de un router."
+                        },
+                        {
+                            "pregunta": "Si un administrador de red necesita configurar VLANs de rango extendido (1006 a 4096), ¿dónde se guardará su configuración de manera persistente?",
+                            "opciones": [
+                                "En el archivo vlan.dat en la memoria flash.",
+                                "Directamente en la RAM del switch, perdiéndose al reiniciar.",
+                                "En la configuración en ejecución (running configuration) que se guarda en la NVRAM.",
+                                "En un servidor TFTP remoto, cargándose al arrancar."
+                            ],
+                            "correcta": "En la configuración en ejecución (running configuration) que se guarda en la NVRAM.",
+                            "explicacion": "Las VLAN de rango extendido no se almacenan en el archivo vlan.dat, sino en la configuración en ejecución del switch, lo que requiere guardarla en la NVRAM para persistencia."
+                        },
+                        {
+                            "pregunta": "Al crear una subinterfaz en un router para 'router-on-a-stick', ¿qué pasa si la interfaz física principal a la que pertenecen las subinterfaces está deshabilitada (`shutdown`)?",
+                            "opciones": [
+                                "Las subinterfaces permanecen activas, pero sin conectividad.",
+                                "Solo la subinterfaz nativa permanece activa.",
+                                "Todas las subinterfaces asociadas también se deshabilitan.",
+                                "El router entra en un estado de error y requiere un reinicio."
+                            ],
+                            "correcta": "Todas las subinterfaces asociadas también se deshabilitan.",
+                            "explicacion": "La interfaz física es el punto de anclaje para todas las subinterfaces lógicas; si la interfaz física se deshabilita, todas sus subinterfaces también se caen."
+                        },
+                        {
+                            "pregunta": "¿Qué comando es más adecuado para verificar la configuración de las VLAN permitidas en un enlace troncal específico si se sospecha de un problema de conectividad con ciertas VLAN?",
+                            "opciones": [
+                                "show vlan brief",
+                                "show interfaces switchport",
+                                "show interfaces trunk",
+                                "show ip interface brief"
+                            ],
+                            "correcta": "show interfaces trunk",
+                            "explicacion": "El comando `show interfaces trunk` es crucial para ver qué VLANs están permitidas y activas en cada enlace troncal, lo que ayuda a identificar si una VLAN no está siendo transportada."
+                        },
+                        {
+                            "pregunta": "Para un escenario de resolución de problemas en un router-on-a-stick, si se sospecha de configuraciones incorrectas de la subinterfaz, ¿qué comando de la CLI del router se puede filtrar para mostrar solo la información relevante de las subinterfaces?",
+                            "opciones": [
+                                "show running-config | section interface",
+                                "show ip route | include subinterface",
+                                "show interfaces | include Gig|802.1Q",
+                                "show vlan brief | exclude 1"
+                            ],
+                            "correcta": "show interfaces | include Gig|802.1Q",
+                            "explicacion": "El comando `show interfaces` genera mucha información, pero se puede filtrar usando `include Gig|802.1Q` para mostrar solo las líneas relevantes a las interfaces Gigabit y el etiquetado 802.1Q de las subinterfaces."
+                        }
+                    ],
+                    "ataque_huecos": [
+                        {
+                            "frase": "Una red VLAN permite que los administradores de red organicen las LAN de forma ___, en lugar de física, lo que facilita el traslado, adición y control del tráfico de estaciones de trabajo.",
+                            "respuesta_correcta": "lógica"
+                        },
+                        {
+                            "frase": "Aunque la VLAN 1 es la VLAN de administración predeterminada en los switches Cisco, por seguridad, se aconseja asignar una dirección IP y una máscara de subred a una Interfaz Virtual de Switch (SVI) de una VLAN ___ para gestión.",
+                            "respuesta_correcta": "diferente"
+                        },
+                        {
+                            "frase": "El campo 'Tipo' o TPID en la etiqueta IEEE 802.1Q tiene un valor ___ para las tramas Ethernet, indicando que la trama incluye la etiqueta de VLAN.",
+                            "respuesta_correcta": "fijo"
+                        },
+                        {
+                            "frase": "Al configurar un puerto de switch de Capa 2 para convertirlo en una interfaz de Capa 3, se utiliza el comando ___ en el modo de configuración de interfaz, lo que lo convierte en un puerto enrutado.",
+                            "respuesta_correcta": "no switchport"
+                        },
+                        {
+                            "frase": "Cuando se elimina una VLAN con el comando `no vlan id`, los puertos asignados a ella quedan en un estado inactivo hasta que se reasignan a otra VLAN o la VLAN ___.",
+                            "respuesta_correcta": "se recrea"
+                        }
+                    ],
+                    "ataque_palabra": [
+                        {
+                            "definicion": "El campo en la etiqueta 802.1Q que especifica la prioridad de usuario del tráfico, impactando en la Calidad de Servicio (QoS).",
+                            "respuesta_exacta": "Pri"
+                        },
+                        {
+                            "definicion": "El archivo en la memoria flash de un switch Cisco donde se almacena la configuración de las VLANs de rango normal (1-1005).",
+                            "respuesta_exacta": "vlan.dat"
+                        },
+                        {
+                            "definicion": "El término para un puerto de switch de Capa 2 que ha sido convertido en una interfaz de Capa 3 al deshabilitar sus capacidades de conmutación.",
+                            "respuesta_exacta": "puerto enrutado"
+                        },
+                        {
+                            "definicion": "El proceso por el cual el switch añade la etiqueta 802.1Q al enviar una trama por el troncal y la elimina antes de entregarla al dispositivo final en un puerto de acceso.",
+                            "respuesta_exacta": "etiquetado dinámico"
+                        },
+                        {
+                            "definicion": "Una opción de enrutamiento inter-VLAN obsoleta que utilizaba un router con múltiples interfaces físicas, una por cada VLAN, y que no escalaba bien.",
+                            "respuesta_exacta": "enrutamiento heredado"
+                        }
+                    ]
+                }
+            ],
+            "mapa_id": "mapa_05_helado",
+            "nivel_actual": 5
+        },
+        "monedas": 250
     }
 }

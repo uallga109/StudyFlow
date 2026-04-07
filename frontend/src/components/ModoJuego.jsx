@@ -58,32 +58,72 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
     const [nivelJugando, setNivelJugando] = useState(null); 
     const [transicion, setTransicion] = useState(null);
 
-    const handleKeyDown = useCallback((e) => {
-        if (nivelJugando !== null || transicion !== null) return; 
+    
 
-        if (e.key === 'ArrowRight' || e.key.toLowerCase() === 'd') {
-            setNivelHover((prev) => Math.min(prev + 1, niveles.length - 1));
-        } else if (e.key === 'ArrowLeft' || e.key.toLowerCase() === 'a') {
-            setNivelHover((prev) => Math.max(prev - 1, 0));
-        } else if (e.key === 'Enter') {
-            if (nivelHover <= nivelDesbloqueado) {
-                const biomaElegido = mapaActual.biomas[nivelHover];
-                setTransicion({ 
-                    fase: 'intro', 
-                    bioma: biomaElegido, 
-                    dataNivel: niveles[nivelHover],
-                    esBoss: nivelHover === 5 
-                });
-            }
-        } else if (e.key === 'Escape') {
-            alSalir();
-        }
-    }, [niveles, nivelHover, nivelJugando, transicion, alSalir, nivelDesbloqueado, mapaActual]);
+    const [modoHardcore, setModoHardcore] = useState(false);
+    const [vidasGlobales, setVidasGlobales] = useState(5);
+
+    // Función para activar el reto
+    const activarSendaMaestro = () => {
+        setModoHardcore(true);
+        setVidasGlobales(5);
+        setNivelHover(0); // Te mandamos al inicio visualmente
+        // Opcional: Podrías forzar a que nivelJugando sea niveles[0] de inmediato
+    };
 
     useEffect(() => {
+        if (modoHardcore && vidasGlobales <= 0) {
+            // Pantalla de "Fracaso Absoluto"
+            alert("HAS FRACASADO EN LA SENDA. VUELVE AL INICIO.");
+            setModoHardcore(false);
+            setNivelJugando(null);
+            setTransicion(null);
+            // Aquí podrías incluso resetear el progreso en la BD si quieres ser muy cruel
+        }
+    }, [vidasGlobales, modoHardcore]);
+
+    const [enTienda, setEnTienda] = useState(false);
+    // 🎮 CONTROLADOR DE MOVIMIENTO 2D (Teclado)
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            // Si estamos en medio de un combate o intro, ignoramos el mapa
+            if (transicion || nivelJugando) return;
+
+            if (e.key === 'a' || e.key === 'ArrowLeft' || e.key === 'A') {
+                setEnTienda(false); // Bajamos al camino principal al movernos
+                setNivelHover((prev) => Math.max(0, prev - 1));
+            } else if (e.key === 'd' || e.key === 'ArrowRight' || e.key === 'D') {
+                setEnTienda(false); // Bajamos al camino principal al movernos
+                setNivelHover((prev) => Math.min(niveles.length - 1, prev + 1));
+            } else if (e.key === 'w' || e.key === 'ArrowUp' || e.key === 'W') {
+                // Subir a la tienda (Solo si estamos en el Nivel 3 y está desbloqueada)
+                if (nivelHover === 2 && nivelDesbloqueado >= 3) {
+                    setEnTienda(true);
+                }
+            } else if (e.key === 's' || e.key === 'ArrowDown' || e.key === 'S') {
+                // Bajar al camino principal
+                if (enTienda) setEnTienda(false);
+            } else if (e.key === 'Enter') {
+                if (enTienda) {
+                    alert("Abriendo tienda... (Próximamente)");
+                    // setMostrandoTienda(true);
+                } else {
+                    // Lógica corregida para el Enter
+                    const isLocked = modoHardcore ? false : nivelHover > nivelDesbloqueado; 
+                    
+                    if (!isLocked) {
+                        const biomaId = mapaActual.biomas[nivelHover];
+                        const tituloEpico = nombresBiomas[biomaId] || "Territorio Inexplorado";
+                        const isBoss = nivelHover === niveles.length - 1;
+                        setTransicion({ fase: 'intro', bioma: biomaId, dataNivel: { ...niveles[nivelHover], nombre: tituloEpico }, esBoss: isBoss });
+                    }
+                }
+            }
+        };
+
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [handleKeyDown]);
+    }, [transicion, nivelJugando, nivelHover, nivelDesbloqueado, enTienda, modoHardcore, niveles, mapaActual]);
 
     // ==========================================
     // 🎬 PANTALLA 1: INTRODUCCIÓN DEL ENEMIGO
@@ -158,13 +198,28 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
         return (
             <NivelBatalla 
                 nivel={nivelJugando} 
-                alHuir={() => setNivelJugando(null)} 
-                alCompletar={(idNivel) => {
+                modoHardcore={modoHardcore}
+                vidasGlobales={vidasGlobales}
+                onPerderVida={() => setVidasGlobales(prev => prev - 1)}
+                alHuir={() => {
+                    if (modoHardcore) setModoHardcore(false);
                     setNivelJugando(null);
+                }} 
+                alCompletar={(idNivel) => {
+                    // 1. CERRAMOS EL NIVEL (Para salir de la pantalla del trofeo)
+                    setNivelJugando(null);
+                    
+                    // 2. Si ganamos el jefe final, quitamos el modo hardcore
+                    if (nivelHover === 5 && modoHardcore) {
+                        setModoHardcore(false);
+                    }
+                    
+                    // 3. LLAMAMOS A LA PANTALLA ÉPICA DE VICTORIA (Outro)
                     setTransicion({ 
                         fase: 'outro', 
                         bioma: mapaActual.biomas[nivelHover], 
-                        idNivelGuardar: idNivel 
+                        idNivelGuardar: idNivel,
+                        vidas: vidasSobrantes
                     });
                 }}
             />
@@ -203,13 +258,31 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                         El camino hacia el siguiente nivel está abierto.
                     </p>
                     
-                    <div className="relative group cursor-pointer" onClick={async () => {
+                    <div className="relative group cursor-pointer" 
+                    onClick={async () => {
+                        // 1. SOLO GUARDAMOS EN LA BD SI ESTAMOS EN MODO NORMAL
+                        if (!modoHardcore) {
                             try {
-                                const res = await fetch(`http://127.0.0.1:8000/api/notebooks/${notebookId}/progreso?nivel_id=${transicion.idNivelGuardar}`, { method: 'POST' });
+                                const res = await fetch(`http://127.0.0.1:8000/api/notebooks/${notebookId}/progreso?nivel_id=${transicion.idNivelGuardar}&vidas=${transicion.vidas}&hardcore=${modoHardcore}`, { method: 'POST' });
                                 if (res.ok && recargarBD) await recargarBD();
                             } catch (error) { console.error("Error al guardar progreso:", error); }
-                            setTransicion(null);
-                        }}>
+                        }
+                        
+                        // 2. 🚀 AVANCE AUTOMÁTICO AL SIGUIENTE NODO
+                        if (nivelHover < niveles.length - 1) {
+                            // Movemos la "cámara" y desbloqueamos el siguiente nivel
+                            setNivelHover(prev => prev + 1);
+                        } else {
+                            // Hemos completado el Jefe Final (Nivel 6)
+                            if (modoHardcore) {
+                                alert("🏆 ¡HAS DEMOSTRADO TU VALÍA! LA SENDA DEL MAESTRO HA SIDO CONQUISTADA.");
+                                setModoHardcore(false);
+                            }
+                        }
+                        
+                        // 3. Cerramos la pantalla épica
+                        setTransicion(null);
+                    }}>
                         <div className={`absolute inset-0 ${estilo.botonBrillo} blur-md scale-110 transition-all duration-300`}></div>
                         
                         <button className={`relative bg-gradient-to-b ${estilo.botonBg} border-y ${estilo.botonBorde} text-white font-serif font-black py-5 px-16 shadow-[0_15px_30px_rgba(0,0,0,0.9)] transition-all transform group-hover:scale-105 uppercase tracking-[0.2em] text-lg [clip-path:polygon(1.5rem_0%,calc(100%-1.5rem)_0%,100%_50%,calc(100%-1.5rem)_100%,1.5rem_100%,0%_50%)]`}>
@@ -229,20 +302,26 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
             {/* FONDO DINÁMICO DEL MAPA */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/30 via-[#12121a] to-[#12121a] transition-all duration-1000"></div>
 
-            {/* HUD SUPERIOR */}
+            {/* HUD SUPERIOR (Leyenda de Controles) */}
             <div className="absolute top-0 left-0 w-full p-8 flex justify-between items-start z-10 pointer-events-none">
-                <div className="bg-black/40 backdrop-blur-md border border-white/10 p-5 rounded-2xl shadow-2xl flex flex-col gap-3 pointer-events-auto">
-                    <span className="text-xs font-bold text-indigo-400 tracking-widest uppercase mb-1">🗺️ {mapaActual.nombre}</span>
-                    <div className="flex items-center gap-3 text-sm text-gray-300">
-                        <div className="flex gap-1">
-                            <kbd className="bg-white/10 border-b-2 border-white/20 px-2 py-1 rounded text-white font-mono font-bold">A</kbd>
-                            <kbd className="bg-white/10 border-b-2 border-white/20 px-2 py-1 rounded text-white font-mono font-bold">D</kbd>
+                <div className="bg-[#0a0a0f]/90 border border-gray-800 p-5 rounded-2xl backdrop-blur-md shadow-2xl flex flex-col pointer-events-auto">
+                    <h3 className="text-indigo-400 font-black uppercase tracking-[0.2em] text-xs mb-5 flex items-center gap-2 border-b border-gray-800 pb-2">
+                        🗺️ {mapaActual.nombre}
+                    </h3>
+                    <div className="flex flex-col gap-4 text-sm text-gray-400 font-bold">
+                        <div className="flex items-center gap-4">
+                            <div className="grid grid-cols-3 gap-1 w-fit">
+                                <div className="col-start-2"><kbd className="block bg-[#1e1e24] border-b-4 border-gray-900 text-white px-2 py-1 rounded text-center shadow-sm">W</kbd></div>
+                                <div className="col-start-1 row-start-2"><kbd className="block bg-[#1e1e24] border-b-4 border-gray-900 text-white px-2 py-1 rounded text-center shadow-sm">A</kbd></div>
+                                <div className="col-start-2 row-start-2"><kbd className="block bg-[#1e1e24] border-b-4 border-gray-900 text-white px-2 py-1 rounded text-center shadow-sm">S</kbd></div>
+                                <div className="col-start-3 row-start-2"><kbd className="block bg-[#1e1e24] border-b-4 border-gray-900 text-white px-2 py-1 rounded text-center shadow-sm">D</kbd></div>
+                            </div>
+                            <span className="tracking-wide">Navegar</span>
                         </div>
-                        <span className="opacity-70">Moverse</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-sm text-gray-300">
-                        <kbd className="bg-indigo-600 border-b-2 border-indigo-800 px-3 py-1 rounded text-white font-mono font-bold">ENTER</kbd>
-                        <span className="opacity-70">Entrar a la Zona</span>
+                        <div className="flex items-center gap-4 mt-2">
+                            <kbd className="bg-indigo-600 border-b-4 border-indigo-900 text-white px-4 py-2 rounded shadow-sm tracking-widest text-xs font-mono font-bold">ENTER</kbd>
+                            <span className="tracking-wide">Confirmar</span>
+                        </div>
                     </div>
                 </div>
 
@@ -267,12 +346,12 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                     <div className="absolute top-1/2 left-0 w-full h-2 bg-gray-800 rounded-full -translate-y-1/2 -z-10 shadow-inner"></div>
 
                     {niveles.map((nivel, idx) => {
-                        const isHovered = nivelHover === idx;
+                        // Si estamos en la tienda, el nodo normal se ve "inactivo"
+                        const isHovered = nivelHover === idx && !enTienda; 
                         const isBoss = idx === niveles.length - 1;
                         const esImpar = (idx + 1) % 2 !== 0;
-                        const isLocked = idx > nivelDesbloqueado;
+                        const isLocked = modoHardcore ? idx > nivelHover : idx > nivelDesbloqueado;
                         
-                        // 🔥 Magia pura: Cogemos el ID del bioma y buscamos su nombre épico
                         const biomaId = mapaActual.biomas[idx];
                         const tituloEpico = nombresBiomas[biomaId] || "Territorio Inexplorado";
 
@@ -281,14 +360,17 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                                 key={nivel.id} 
                                 className={`relative flex flex-col items-center group ${isLocked ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                                 onClick={() => {
+                                    setEnTienda(false);
                                     setNivelHover(idx);
-                                    if (!isLocked && isHovered) {
+                                    if (!isLocked && !enTienda) {
                                         setTransicion({ fase: 'intro', bioma: biomaId, dataNivel: { ...nivel, nombre: tituloEpico }, esBoss: isBoss });
                                     }
                                 }}
+                                onMouseEnter={() => { if (!isLocked) { setNivelHover(idx); setEnTienda(false); } }}
                             >
+                                {/* TEXTOS DEL NODO (¡Invertidos!) */}
                                 <div className={`absolute w-72 text-center transition-all duration-500 left-1/2 -translate-x-1/2 pointer-events-none 
-                                    ${esImpar ? 'bottom-full mb-10' : 'top-full mt-16'} 
+                                    ${esImpar ? 'top-full mt-16' : 'bottom-full mb-10'} 
                                     ${isHovered ? 'opacity-100 scale-110' : 'opacity-40 scale-100'}
                                     ${isLocked ? 'grayscale opacity-20' : ''}`}>
                                     
@@ -300,11 +382,12 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                                     </span>
                                 </div>
 
+                                {/* CÍRCULO DEL NODO */}
                                 <div className={`w-20 h-20 rounded-full flex items-center justify-center transition-all duration-500 border-4 relative ${
                                     isHovered && !isLocked ? (isBoss ? 'bg-purple-600 border-purple-300 shadow-[0_0_40px_rgba(168,85,247,0.6)]' : 'bg-indigo-600 border-indigo-300 shadow-[0_0_40px_rgba(79,70,229,0.6)]') : 
                                     isLocked ? 'bg-[#0a0a0f] border-gray-800 scale-90 opacity-50' :
                                     'bg-[#1e1e24] border-gray-700 hover:border-gray-500'
-                                } ${isHovered && !isLocked ? 'scale-125 z-10' : 'scale-100'}`}>
+                                } ${isHovered && !isLocked ? 'scale-125' : 'scale-100'} z-40`}> 
                                     
                                     <span className={`text-3xl transition-transform duration-300 ${isHovered && !isLocked ? 'scale-110' : 'scale-90 opacity-50'}`}>
                                         {isLocked ? '🔒' : isBoss ? '🏰' : '🛡️'}
@@ -313,14 +396,70 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                                     {isHovered && !isLocked && <div className={`absolute inset-0 rounded-full animate-ping opacity-20 ${isBoss ? 'bg-purple-400' : 'bg-white'}`}></div>}
                                 </div>
                                 
-                                <div className={`absolute -bottom-8 transition-all duration-500 z-20 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                                {/* FLECHA DE SELECCIÓN */}
+                                <div className={`absolute ${esImpar ? '-top-8 rotate-180' : '-bottom-8'} transition-all duration-500 z-20 ${isHovered ? 'opacity-100 translate-y-0' : `opacity-0 ${esImpar ? 'translate-y-4' : '-translate-y-4'}`}`}>
                                     <div className={`w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-b-[16px] animate-bounce ${isLocked ? 'border-b-gray-600' : (isBoss ? 'border-b-purple-400' : 'border-b-indigo-400')}`}></div>
                                 </div>
+
+                                {/* 🎪 LA TIENDA (Solo en Nivel 3) */}
+                                {idx === 2 && nivelDesbloqueado >= 3 && (
+                                    <div 
+                                        className={`absolute -top-40 left-1/2 -translate-x-1/2 flex flex-col items-center cursor-pointer z-30 transition-all duration-300 ${enTienda ? 'scale-125' : 'scale-100 opacity-80 hover:opacity-100'}`}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            setEnTienda(true);
+                                            setNivelHover(2);
+                                            setTimeout(() => alert("Abriendo tienda... (Próximamente)"), 100);
+                                        }}
+                                        onMouseEnter={() => { setNivelHover(2); setEnTienda(true); }}
+                                    >
+                                        {/* TEXTO DEL MERCADER (Ahora flota por encima) */}
+                                        <span className={`absolute bottom-full mb-3 whitespace-nowrap font-serif tracking-[0.2em] text-xs px-3 py-1.5 uppercase transition-all duration-300 ${enTienda ? 'bg-black text-white border-2 border-yellow-400 shadow-[0_0_15px_rgba(250,204,21,0.8)]' : 'bg-black/80 text-yellow-600 border border-yellow-800/50'}`}>
+                                            El Mercader
+                                        </span>
+
+                                        {/* Línea conectora */}
+                                        <div className={`absolute top-8 h-32 w-1.5 transition-all duration-300 -z-10 ${enTienda ? 'bg-gradient-to-b from-yellow-300 to-yellow-600 shadow-[0_0_20px_rgba(250,204,21,1)]' : 'bg-gradient-to-b from-yellow-700/50 to-transparent'}`}></div>
+                                        
+                                        {/* Círculo del Mercader */}
+                                        <div className={`w-16 h-16 rounded-full border-4 flex items-center justify-center transition-all duration-300 relative ${enTienda ? 'bg-gradient-to-br from-yellow-400 to-yellow-600 border-white shadow-[0_0_40px_rgba(251,191,36,1)]' : 'bg-gradient-to-br from-amber-700 to-yellow-900 border-yellow-600/50'}`}>
+                                            <span className="text-3xl drop-shadow-md">🎒</span>
+                                            {enTienda && <div className="absolute -inset-2 rounded-full border border-yellow-300 animate-ping"></div>}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         );
                     })}
                 </div>
             </div>
+            
+            {/* BOTÓN MODO HARDCORE: SENDA DEL MAESTRO */}
+            <div className="absolute bottom-8 left-8 z-10">
+                <button 
+                    onClick={activarSendaMaestro}
+                    className={`relative group p-[2px] transition-all duration-500 ${modoHardcore ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+                >
+                    <div className="absolute inset-0 bg-red-600 blur-md opacity-40 group-hover:opacity-100"></div>
+                    <div 
+                        className="relative bg-black border border-red-500/50 text-red-500 font-serif font-black px-6 py-3 uppercase tracking-[0.2em] text-xs [clip-path:polygon(1rem_0%,calc(100%-1rem)_0%,100%_50%,calc(100%-1rem)_100%,1rem_100%,0%_50%)] group-hover:text-white group-hover:bg-red-600 transition-all"
+                    >
+                        🔥 Senda del Maestro
+                    </div>
+                </button>
+            </div>
+
+            {/* INDICADOR DE VIDAS GLOBALES SI ESTÁ ACTIVO */}
+            {modoHardcore && (
+                <div className="absolute top-32 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center animate-bounce">
+                    <span className="text-red-500 font-black tracking-widest text-xs mb-2">VIDAS DEL RECORRIDO</span>
+                    <div className="flex gap-2 bg-black/80 p-3 rounded-full border border-red-500/50 backdrop-blur-md">
+                        {[...Array(5)].map((_, i) => (
+                            <span key={i} className={`text-2xl ${vidasGlobales > i ? 'drop-shadow-[0_0_8px_rgba(239,68,68,1)]' : 'opacity-10 grayscale'}`}>❤️</span>
+                        ))}
+                    </div>
+                </div>
+            )}
 
             {/* HUD INFERIOR: Multiverso */}
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">

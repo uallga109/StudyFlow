@@ -2,13 +2,14 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import database as db
-from google import genai  # <--- Nueva librería de 2026
+from google import genai  
 import os
 import json
 from dotenv import load_dotenv
 import uuid
 from datetime import datetime
-import traceback # Añade esto arriba del todo con los otros imports
+import traceback 
+import random
 
 # --- CONFIGURACIÓN INICIAL ---
 load_dotenv()
@@ -410,16 +411,21 @@ def generar_mapa_mental(notebook_id: str, peticion: PeticionMapa):
 @app.post("/api/notebooks/{notebook_id}/juego")
 def generar_juego(notebook_id: str):
     try:
-        # 1. Obtenemos el cuaderno para saber qué fuentes tiene
+        # 1. Obtener cuaderno
         cuaderno = db.obtener_cuaderno(notebook_id)
         if not cuaderno or not cuaderno.get("fuentes"):
-            raise HTTPException(status_code=400, detail="El cuaderno no tiene fuentes para generar el juego.")
+            raise HTTPException(status_code=400, detail="El cuaderno no tiene fuentes.")
 
-        # 2. Extraemos el texto de TODAS las fuentes (es el juego completo)
         contexto_formateado = db.extraer_texto_cuaderno(notebook_id, cuaderno["fuentes"])
 
-        if not contexto_formateado.strip():
-            raise HTTPException(status_code=400, detail="No se pudo extraer texto de los PDFs.")
+        # 🎲 LÓGICA DEL DADO DEL MULTIVERSO
+        mapas_ids = [
+            "mapa_01_clasico", "mapa_02_locura", "mapa_03_cielos", 
+            "mapa_04_subterraneo", "mapa_05_helado", "mapa_06_oscuro",
+            "mapa_07_volcan", "mapa_08_archipielago", "mapa_09_devastadas",
+            "mapa_10_peregrino", "mapa_11_estelar", "mapa_12_hardcore"
+        ]
+        mapa_asignado = random.choice(mapas_ids)
 
        # 3. El Mega-Prompt para Gemini (Diseñador de Niveles)
         instrucciones = f"""
@@ -438,7 +444,7 @@ def generar_juego(notebook_id: str):
             - Fase 2: 15 preguntas de Tipo Test (4 opciones) muy difíciles pensadas para hacerse a contrarreloj.
         - Nivel 4 (Las Cavernas del Recuerdo): 10 preguntas de respuesta corta exacta. Das la definición y la respuesta es una sola palabra o término clave.
         - Nivel 5 (La Torre de Casos): 5 escenarios prácticos. Test de 4 opciones donde se aplica la teoría a un problema o situación.
-        - Nivel 6 (Jefe Final): tipo "jefe_pokemon". Debes generar un objeto con 4 listas separadas de 10 ejercicios cada una para simular "ataques": 
+        - Nivel 6 (Jefe Final): tipo "jefe_pokemon". Debes generar un objeto con 4 listas separadas de 5 ejercicios cada una para simular "ataques": 
             1. "ataque_vf": 5 preguntas de verdadero o falso.
             2. "ataque_test": 5 preguntas con 4 opciones.
             3. "ataque_huecos": 5 frases LARGAS Y EXPLICATIVAS donde falte un ÚNICO concepto o palabra corta. 
@@ -448,7 +454,7 @@ def generar_juego(notebook_id: str):
             4. "ataque_palabra": 5 definiciones con su "respuesta_exacta".
 
         REGLA ESTRICTA: Devuelve ÚNICAMENTE un JSON válido con esta estructura exacta (sin markdown extra, solo el JSON puro):
-        {{
+        
             "niveles": [
                 {{
                     "id": 1,
@@ -498,39 +504,32 @@ def generar_juego(notebook_id: str):
                 }},
                 {{
                     "id": 6,
-                    "nombre": "Mundo 6: El Jefe Final",
-                    "tipo": "feynman",
-                    "preguntas": [
-                        {{"concepto_a_explicar": "Teoría Celular", "palabras_clave_requeridas": ["unidad", "vida", "preexistente", "organismos"]}}
-                    ]
+                    "nombre": "Mundo 6: La Ciudadela Cósmica",
+                    "tipo": "jefe_pokemon",
+                    "ataque_vf": [ {{"pregunta": "...", "opciones": ["Verdadero", "Falso"], "correcta": "...", "explicacion": "..."}} ],
+                    "ataque_test": [ {{"pregunta": "...", "opciones": ["A","B","C","D"], "correcta": "...", "explicacion": "..."}} ],
+                    "ataque_huecos": [ {{"frase": "La ___ es...", "respuesta_correcta": "..."}} ],
+                    "ataque_palabra": [ {{"definicion": "...", "respuesta_exacta": "..."}} ]
                 }}
             ]
-        }}
+        
 
-        CONTEXTO A ANALIZAR:
-        {contexto_formateado}
+        CONTEXTO A ANALIZAR: {contexto_formateado}
         """
 
-        # 4. Llamada a Gemini
-        response = client.models.generate_content(
-            model=MODEL_ID,
-            contents=instrucciones
-        )
-
-        # 5. Limpieza del JSON
+        # Llamada a Gemini
+        response = client.models.generate_content(model=MODEL_ID, contents=instrucciones)
+        
+        # Limpieza y carga de JSON
         texto_bruto = response.text
         inicio = texto_bruto.find('{')
         fin = texto_bruto.rfind('}') + 1
-        
-        if inicio == -1 or fin == 0:
-            raise ValueError("No se encontró un JSON válido en la respuesta de la IA")
-        
         datos_juego = json.loads(texto_bruto[inicio:fin])
+
+        # 6. Guardar con el MAPA ASIGNADO
+        db.guardar_juego_cuaderno(notebook_id, datos_juego, mapa_asignado)
         
-        # 6. Guardar en la Base de Datos y "sellar" el cuaderno
-        db.guardar_juego_cuaderno(notebook_id, datos_juego)
-        
-        return {"mensaje": "¡Mundo forjado con éxito!", "juego": datos_juego}
+        return {"mensaje": "¡Mundo forjado!", "mapa": mapa_asignado}
 
     except Exception as e:
         print("❌ ERROR GENERANDO JUEGO:")
@@ -539,20 +538,13 @@ def generar_juego(notebook_id: str):
         raise HTTPException(status_code=500, detail="Error generando el juego")
     
 
+# En main.py
 @app.post("/api/notebooks/{notebook_id}/progreso")
-def actualizar_progreso(notebook_id: str, nivel_id: int):
-      # Restamos 1 al nivel_id porque en el JSON el índice empieza en 0
-      exito, monedas, nuevo_nivel = db.actualizar_progreso_juego(notebook_id, nivel_id - 1)
-        
-      if not exito:
-        # Si ya lo había pasado, simplemente devolvemos ok sin subir nivel
-       return {"mensaje": "Nivel ya completado anteriormente"}
-            
-      return {
-            "mensaje": "¡Progreso guardado!",
-            "monedas_totales": monedas,
-            "nivel_actual": nuevo_nivel
-        }
+def actualizar_progreso(notebook_id: str, nivel_id: int, vidas: int = 3, hardcore: bool = False):
+    exito, monedas_ganadas, nivel_actual = db.actualizar_progreso_juego(notebook_id, nivel_id, vidas, hardcore)
+    if not exito:
+        raise HTTPException(status_code=404, detail="Cuaderno no encontrado")
+    return {"mensaje": "Progreso guardado", "monedas_ganadas": monedas_ganadas, "nivel_actual": nivel_actual}
 
 # ESTO TIENE QUE SER OBLIGATORIAMENTE LO ÚLTIMO DEL ARCHIVO
 if __name__ == "__main__":
