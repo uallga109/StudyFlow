@@ -18,9 +18,755 @@
                 "texto": "¡Hola! Como tu tutor universitario experto, he revisado cuidadosamente tus apuntes sobre \"Transmisión en Banda Base y por Cable\". A continuación, te presento un resumen exhaustivo y estructurado, destacando los conceptos clave tal como aparecen en tus materiales.\n\n---\n\n# Resumen: Tema 2 - Transmisión en Banda Base y por Cable\n\n**Curso:** TRANSMISIÓN DE DATOS Y REDES DE COMPUTADORES\n**Departamento:** Área de Tecnología Electrónica, Departamento de Ingeniería\n**Profesores:** Paco Portillo, Salvador Hernández\n\n## 1. Introducción a la Transmisión en Banda Base\n\nLa **transmisión en banda base** implica enviar la señal tal como es, sin cambiar su frecuencia. Esto significa que las señales se transmiten en su forma original, utilizando el rango de frecuencias bajas a través de un canal de comunicación. Un ejemplo común es la transmisión de señales digitales en **redes Ethernet**, donde la señal digital (secuencia de bits) se transmite directamente por cable sin modulación a una frecuencia más alta. Este tipo de transmisión se da en **medios guiados**, donde las señales se confinan dentro de un medio físico.\n\n### 1.1. Ventajas\n*   Es una forma **simple de transmisión**, ya que no requiere procesos adicionales como la modulación de frecuencia o amplitud.\n*   Se utiliza en medios de transmisión con **alcance limitado**, como cables de par trenzado o fibra óptica para distancias cortas.\n\n### 1.2. Desventajas\n*   La **distancia de transmisión está limitada**, ya que las señales en banda base se atenúan más rápidamente que las señales moduladas en frecuencias más altas.\n*   **No es eficiente en transmisión de larga distancia** o en medios compartidos (como el espectro radioeléctrico), donde la modulación es más común para evitar interferencias y aprovechar mejor el ancho de banda.\n\n## 2. Ruido y Tasa de Fallos BER\n\n### 2.1. Ruido\nEl **ruido** es una interferencia no deseada en una señal que afecta su calidad. Cuando se produce en circuitos que manejan información, representa un problema, especialmente para los circuitos de señales y datos.\n\n#### 2.1.1. Tipos de Ruido\n*   **Térmico**\n*   **Flicker (1/f)**\n*   **Impulsivo**\n\n### 2.2. Relación Señal a Ruido (SNR)\nLa **relación señal a ruido (SNR)** es una métrica que compara el nivel de la señal útil con el nivel del ruido de fondo no deseado en un sistema. Se expresa generalmente en decibelios (dB) y mide la calidad de una señal.\n\n#### 2.2.1. Fórmula y Notación\n*   **SNR en relación de potencias**: `s/n = Potencia media de la señal (W) / Potencia media del ruido (W)`\n*   **SNR en decibelios**:\n    *   Para la entrada: `S/Ne = 10log(se/ne) = Se - Ne`\n    *   Para la salida: `S/Ns = 10log(ss/ns) = Ss - Ns`\n    *   Donde:\n        *   `ne = KToB` (Ruido generado en la entrada)\n        *   `ns = g*ne + ni` (Ruido a la salida, incluyendo ruido interno `ni`)\n        *   `ss = g*se` (Señal a la salida)\n        *   `g = ss/se` (Ganancia del sistema)\n        *   **K**: Constante de Boltzmann (1,38x10⁻²³ J/K)\n        *   **T**: Temperatura en Kelvin\n        *   **B**: Ancho de banda en Hz\n\n#### 2.2.2. Interpretación de la SNR\n*   **SNR alto**: Señal más clara.\n*   **SNR bajo**: Ruido comparable con la señal.\n*   **SNR negativo**: Ruido mayor que la señal.\n*   La relación fundamental es `S/Ns = S/Ne - FN` (donde FN es la Figura de Ruido).\n\n### 2.3. Factor de Ruido (fn) y Figura de Ruido (FN)\n*   **Factor de Ruido (fn)**: Magnitud que mide la contribución de un sistema a los niveles de ruido.\n    *   `fn = (s/n)e / (s/n)s = (se/ss) * (ns/ne) = ns / (g*ne)`\n    *   También se puede expresar como `fn = 1 + Te/To`, donde `To` es la temperatura de referencia y `Te` es la Temperatura Equivalente de Ruido.\n*   **Figura de Ruido (FN)**: Es el factor de ruido expresado en decibelios (`FN = 10log(fn)`). La Figura de Ruido es siempre mayor que 0 (`FN > 0`).\n\n### 2.4. Temperatura Equivalente de Ruido (Te)\nRepresenta la temperatura que produciría un ruido equivalente.\n*   `Te = ni / (g*K*B)`\n\n### 2.5. Factor de Ruido en Multietapa (Fórmula de Friis)\nPara sistemas en cascada:\n*   `fn_total = fn1 + (fn2-1)/g1 + (fn3-1)/(g1*g2) + ...`\n*   **Conclusión clave**: El factor de ruido total de un sistema en cascada está **dominado por el factor de ruido de las primeras etapas**. La primera etapa es crucial para minimizar el ruido total.\n\n### 2.6. Tasa de Fallos (Bit Error Ratio, BER)\nEl **BER** se define como el `Número de bits erróneos / Número de bits transmitidos`.\n\n#### 2.6.1. Factores que afectan el BER\n*   **Ruido**\n*   Calidad del canal de transmisión\n*   Potencia de la señal\n*   Interferencias externas\n\n#### 2.6.2. Relación entre SNR y BER\n*   **A mayor SNR, menor BER**. Esta relación se visualiza en una curva típica.\n\n## 3. Capacidad del Canal de Transmisión\n\nCualquier medio o canal de transmisión tiene un **ancho de banda limitado**.\n\n### 3.1. Criterio de Nyquist\nEn un sistema ideal de transmisión, la **capacidad máxima de bits por segundo (Vbin_max)** es el doble del ancho de banda (W) en Hz.\n*   `Vbin_max = 2 * W`\n*   Esta fórmula es una simplificación y no considera factores como el ruido, la codificación avanzada o técnicas de compresión.\n\n### 3.2. Teorema de Shannon (Ley de Shannon)\nIncorpora el ruido para calcular la capacidad máxima de un canal de transmisión.\n*   `Vbin_max = W * lg2(1 + S/N)`\n*   Donde `S/N` es la relación señal a ruido.\n\n### 3.3. FEC (Forward Error Correction)\nLa **Corrección de Errores Hacia Adelante (FEC)** es una técnica donde el emisor no solo transmite los datos originales, sino también **información redundante** para permitir al receptor detectar y corregir errores.\n\n#### 3.3.1. Proceso\n1.  **Codificación en el emisor**: Se añaden bits de redundancia usando un algoritmo de codificación FEC.\n2.  **Transmisión**: Los datos y la redundancia viajan por el canal, donde pueden ocurrir errores.\n3.  **Decodificación en el receptor**: Se usan los bits de redundancia para detectar y corregir automáticamente los errores, sin necesidad de retransmisión.\n\n#### 3.3.2. Aplicaciones\n*   **Televisión digital (DVB-T, DVB-S)**: Mejora la calidad de la señal y evita errores.\n*   **Redes de comunicación (Wi-Fi, 4G, 5G)**: Reduce la tasa de errores y mantiene la calidad de servicio.\n\n#### 3.3.3. Beneficios\n*   **Menor necesidad de retransmisión**.\n*   **Mejor rendimiento en canales ruidosos**.\n*   **Optimización de la eficiencia del canal**.\n\n#### 3.3.4. Desventajas\n*   **Mayor complejidad**: Requiere algoritmos de codificación y decodificación sofisticados.\n*   **Sobrecarga de datos**: La redundancia aumenta la cantidad total de datos transmitidos.\n*   **Retardo adicional**: El proceso puede añadir un pequeño retardo.\n\n#### 3.3.5. Efecto en el BER\nEl uso de FEC **reduce significativamente la Tasa de Fallos (BER)** para una misma relación Señal a Ruido (SNR).\n\n## 4. Códigos de Línea\n\nLos códigos de línea definen cómo se representan los bits como señales eléctricas en un medio físico.\n\n### 4.1. Códigos NRZ (Non-Return to Zero)\n*   Se asigna un nivel de voltaje a cada bit transmitido (ej: 0V para un '1', 5V para un '0').\n*   No hay proceso de modulación; adecuado para cables.\n*   **Características y Problemas**:\n    *   **No hay paso por cero** durante el tiempo de bit.\n    *   **No hay transiciones entre bits consecutivos de igual valor**, lo que causa **problemas de sincronismo** entre el receptor y el emisor.\n    *   Suele haber un **valor medio de voltaje (componente de corriente continua)**, provocando corriente en el cable.\n    *   Para evitar el valor medio de voltaje, se puede usar una configuración balanceada (ej: 3 hilos).\n\n### 4.2. Otros Códigos de Línea Comunes\n*   **NRZ-L**: Nivel '1' es +V y nivel '0' es -V.\n*   **RZ (Return to Zero)**: Similar a NRZ, pero siempre vuelve a cero a mitad del intervalo de símbolo, lo que facilita el **sincronismo**.\n*   **AMI (Alternate Mark Inversion)**: Los '1's se alternan entre +V y -V, mientras que los '0's permanecen en cero.\n*   **Manchester**: El '1' se representa por una transición de alto a bajo, y el '0' por una transición de bajo a alto, lo que asegura una transición por bit para sincronismo.\n\n### 4.3. Código de Línea 2B1Q (Two Binary One Quaternary)\n*   **PAM-4**: Codifica **2 bits en cada cambio de señal**.\n*   Utiliza cuatro niveles de voltaje diferentes para transmitir combinaciones de dos bits a la vez (ej: +450mV para '10', +150mV para '11', -150mV para '01', -450mV para '00').\n*   Más eficaz, requiere **menor ancho de banda**. Usado en HDSL (no en Europa).\n\n#### 4.3.1. Beneficios 2B1Q\n*   **Eficiencia espectral**: Reduce el ancho de banda necesario.\n*   **Menor interferencia**: Minimiza la interferencia electromagnética al reducir el número de transiciones.\n\n#### 4.3.2. Desventajas 2B1Q\n*   **Complejidad de implementación**: Requiere transmisores y receptores más sofisticados.\n*   **Sensibilidad al ruido**: Más susceptible al ruido debido a los cuatro niveles de voltaje.\n\n### 4.4. Código de Línea HDB3\n*   **No admite más de 3 ceros consecutivos**. En el lugar del cuarto cero, se coloca un impulso (positivo o negativo).\n*   Mantiene la componente de corriente continua con valor nulo, transmitiendo alternativamente tantas violaciones positivas como negativas.\n\n### 4.5. Código de Línea 4B3T\n*   Utiliza 4 bits y 3 niveles de tensión (usado en RDSI).\n*   No se utiliza la combinación '000'.\n\n## 5. Líneas de Transmisión, Cables\n\n### 5.1. Transmisión No Balanceada (Asimétrica)\n*   Es susceptible a la **inducción externa**, lo que provoca una incidencia aditiva en la señal (ej: RS232).\n\n### 5.2. RS232\n*   Protocolo de comunicación serial no balanceado.\n*   **Niveles de voltaje**:\n    *   **1 lógico**: Voltaje negativo (típicamente entre -3V y -15V).\n    *   **0 lógico**: Voltaje positivo (típicamente entre +3V y +15V).\n*   **Comunicación bidireccional**: Envío y recepción de datos en conductores dedicados.\n*   **Velocidad de transmisión**: Entre 300 bps y 115200 bps.\n*   **Distancia máxima**: Aproximadamente 15 metros.\n*   **Pines**: Conexiones estándar de 9 o 25 pines (datos, control de flujo, tierra).\n*   **Uso**: Conexión de computadoras con periféricos (impresoras, módems, equipos industriales) donde no se necesita alta velocidad.\n*   **Trama (RS232 NRZ Neutral, Orientado a carácter)**:\n    *   **Bit de arranque (A)**: '0' lógico, indica el inicio de la transmisión.\n    *   **Bits de datos (LSB a MSB)**: Transmisión bit a bit, del menos significativo al más significativo.\n    *   **Bit de parada (P)**: Uno o más '1' lógicos (-V), indica el final de la transmisión de un carácter.\n    *   **Sin Señal**: El canal puede permanecer inactivo hasta el siguiente carácter.\n\n### 5.3. Transmisión Equilibrada o Balanceada (Diferencial)\n*   En este tipo de transmisión, se utilizan dos cables y la señal se representa como la diferencia de voltaje entre ellos.\n*   **Se elimina la inducción externa**, ya que cualquier ruido común en ambos cables se cancela en el receptor diferencial.\n*   **Vo = 2Vd** (la tensión de salida es el doble de la tensión diferencial de entrada).\n\n### 5.4. RS485\n*   Protocolo de comunicación serial balanceado (diferencial).\n*   **Transmisión diferencial**: Los datos se transmiten como la diferencia de voltaje entre dos cables (A y B).\n    *   Diferencia positiva (A-B > 0): '1'.\n    *   Diferencia negativa (A-B < 0): '0'.\n*   **Resistencia a interferencias**: Mucho más resistente a interferencias electromagnéticas que sistemas de un solo cable como RS-232, ideal para entornos industriales.\n*   **Capacidad**: Soporta hasta **32 dispositivos** en un mismo bus (ampliable con repetidores).\n*   **Terminación**: Se utilizan **resistencias de terminación** en ambos extremos del cableado para evitar reflexiones de la señal y mejorar la calidad de la comunicación.\n\n### 5.5. Impedancia Característica (Z0)\n*   **Definición**: Es la impedancia que presenta una línea de transmisión cuando se observa desde un punto dado.\n*   **Propiedad intrínseca**: Depende de las características físicas y eléctricas de la línea, **no de su longitud**.\n*   **Fórmula (ideal)**: `Z0 = sqrt(L/C)` (donde L es inductancia por unidad de longitud y C es capacitancia por unidad de longitud).\n*   **Terminación correcta**: Si una línea está terminada con una carga (`ZL`) igual a su **impedancia característica (Z0)**, no habrá reflexiones de la señal, y toda la potencia enviada desde la fuente será absorbida por la carga.\n*   **Máxima transferencia de potencia**: Ocurre cuando la impedancia de carga es igual a la impedancia de la fuente (o su conjugada para impedancias complejas).\n\n#### 5.5.1. Coeficiente de Reflexión y Factor de Pérdidas\n*   **Coeficiente de reflexión en la carga (ρL)**: Fracción de la señal que se refleja cuando `ZL` no coincide con `Z0`.\n    *   `ρL = (ZL - Z0) / (ZL + Z0)`\n*   **Coeficiente de reflexión en el generador (ρg)**: Mide las reflexiones en el extremo del generador si `Zg` no coincide con `Z0`.\n    *   `ρg = (Zg - Z0) / (Zg + Z0)`\n*   **Reflexión**: Se produce cuando hay desadaptación de impedancias, parte de la potencia regresa.\n*   **Factor de pérdidas (η)**: Representa la fracción de potencia que realmente se transfiere.\n    *   `η = 1 - ρ²`\n\n#### 5.5.2. Ejemplos de Impedancias Características\n*   **Cable coaxial RG-58**: 50 ohmios (sistemas RF, telecomunicaciones, antenas).\n*   **Cable coaxial RG-59**: 75 ohmios (TV por cable, videovigilancia, banda ancha).\n*   **Par trenzado (UTP/STP)**: 100 ohmios (redes Ethernet, telecomunicaciones, telefonía).\n\n### 5.6. Pares de Cobre\nSon medios de transmisión comunes, compuestos por dos conductores de cobre aislados y trenzados para mejorar el rendimiento y reducir la interferencia.\n\n#### 5.6.1. Tipos de Cables de Par Trenzado\n*   **UTP (Unshielded Twisted Pair)**: No tiene blindaje adicional, confía en el trenzado para reducir la interferencia electromagnética (EMI) y la diafonía. Comúnmente usado en redes LAN (Ethernet).\n*   **STP (Shielded Twisted Pair) / FTP (Foiled Twisted Pair)**: Incluye una capa adicional de blindaje (sobre cada par o alrededor de todos los pares) para mayor protección contra interferencias externas. Más robusto en entornos con alto nivel de EMI (ej: plantas industriales).\n\n#### 5.6.2. Atenuación en Pares de Cobre\n*   La **atenuación** es la característica principal, producida por la pérdida de energía radiada. A mayor apantallamiento, menor atenuación.\n*   El cable UTP de mayor categoría tiene menor atenuación (más vueltas = mayor apantallamiento). El cable STP tiene una atenuación aún menor.\n*   La **atenuación depende de la frecuencia**: A mayor frecuencia de la señal transmitida, mayor atenuación, independientemente del tipo de cable.\n\n#### 5.6.3. Certificación de Red de Datos\nProceso que garantiza que una instalación de cableado cumple con las normativas oficiales y que su rendimiento soportará la velocidad y el rendimiento para el que ha sido diseñada.\n\n### 5.7. Cable Coaxial\n*   Por su construcción, posee **alta inmunidad frente al ruido** y puede alcanzar **anchos de banda considerables**.\n*   En distancias de hasta 1 Km, es factible alcanzar velocidades de 1 ó 2 Gbps.\n*   Debe manipularse con cuidado, ya que deformaciones (golpes, dobleces) pueden reducir su alcance.\n*   Tiene **mejor apantallamiento que el par trenzado**, permitiendo mayores distancias y velocidades.\n*   **Tipos de cable coaxial en transmisión de datos**:\n    *   **50 ohmios**: Utilizado en transmisión digital, conocido como **cable coaxial de banda base**. Se usaba en redes locales antiguas.\n    *   **75 ohmios**: Utilizado en transmisión analógica, conocido como **cable coaxial de banda ancha**. Empleado en redes de televisión por cable.\n\n## 6. Transmisión en Fibra Óptica\n\nPara aumentar la capacidad de un canal (limitada por el ancho de banda y la frecuencia portadora, según Nyquist y Shannon), se puede subir la frecuencia portadora hasta llegar a la luz visible.\n\n### 6.1. Elementos de un Sistema de Fibra Óptica\n1.  **Emisor**: Transmite un bit por baudio (pulso de luz = '1', ausencia de pulso = '0').\n2.  **Medio de transmisión**: Fibra de vidrio ultrafina.\n3.  **Detector**: Genera un pulso eléctrico al recibir luz.\n\n### 6.2. Principio de Funcionamiento: Reflexión Total Interna\n*   La luz se \"captura\" en la fibra aprovechando la **reflexión**.\n*   Cuando la luz pasa de un medio con **mayor índice de refracción** a uno con **menor índice**, existe un **ángulo límite**.\n*   Si el rayo de luz incide en la fibra con un ángulo **por encima del ángulo límite** (es decir, suficientemente longitudinal), se **refleja totalmente** y queda \"atrapado\" en la fibra, viajando grandes distancias con mínimas pérdidas.\n\n### 6.3. Emisores de Luz\n*   **LEDs (Light-Emitting Diode)**:\n    *   Emiten luz normal **no coherente**, generando **múltiples rayos (modos)**.\n    *   Se utilizan con **fibra multimodo** (Step-Index y Graded-Index).\n    *   Fibras multimodo típicas: 50/100 y 62,5/125 micras (diámetro interior/exterior).\n*   **Diodos LÁSER**:\n    *   Emiten luz **coherente**, con un **único rayo**. La fibra se comporta como un guía-ondas sin dispersión.\n    *   Se utilizan con **fibra monomodo**.\n    *   Para transmitir a **grandes velocidades y/o grandes distancias**.\n    *   La fibra interior de las monomodo es muy pequeña (8 a 10 micras, del mismo orden que la longitud de onda de la luz). Una fibra monomodo típica es 8,1/125 micras.\n\n### 6.4. Rangos de Frecuencia (Ventanas)\nSe utilizan tres rangos de frecuencia en la zona infrarroja del espectro donde las fibras muestran menor absorción (mayor 'transparencia'):\n*   **Primera ventana (alrededor de 0,85 micras)**: Mayor atenuación, poco utilizada.\n*   **Segunda ventana (alrededor de 1,30 micras)**: Anchura de 18 THz, la más utilizada.\n*   **Tercera ventana (alrededor de 1,55 micras)**: Anchura de 12,5 THz, presenta la **menor atenuación** y se usa en fibra monomodo para cubrir grandes distancias sin repetidores.\n\n### 6.5. Atenuación en Fibra Óptica\nLa atenuación varía según el tipo de fibra (monomodo/multimodo) y la longitud de onda utilizada, siendo generalmente menor en monomodo y en las ventanas de 1300 nm y 1500 nm.\n\n### 6.6. Elección entre Fibra Óptica y Cable de Cobre\nSe recomienda utilizar fibra óptica en las siguientes circunstancias:\n*   La **distancia a cubrir es superior a 100 metros**.\n*   El cableado une **edificios diferentes** (para evitar diferencias de potencial en las tierras).\n*   Se prevén **velocidades superiores a 1 Gbps** en el futuro.\n*   Se desea **máxima seguridad** en la red (la fibra es más difícil de interceptar).\n*   Se atraviesan **atmósferas corrosivas** para metales.\n*   Existe **interferencia eléctrica** por proximidad de motores, luces fluorescentes o equipos de alta tensión.\n\n#### 6.6.1. Comparación General (Fibra vs. Cobre)\n| Característica        | Par Trenzado | Coaxial   | Fibra Óptica |\n| :-------------------- | :----------- | :-------- | :----------- |\n| **Ancho de Banda**    | Moderado     | Grande    | **Muy Grande** |\n| **Longitud**          | Pequeña      | Moderada  | **Muy Alta** |\n| **Fiabilidad**        | Moderada     | Alta      | **Muy Alta** |\n| **Seguridad**         | Baja         | Moderada  | **Alta**     |\n| **Complejidad Inst.** | Sencilla     | Moderada  | **Compleja** |\n| **Coste**             | Bajo         | Moderado  | **Alto**     |\n\n### 6.7. Modos de Operación (Intercambio de Datos)\n*   **Simplex**: La transmisión se efectúa en **un solo sentido**.\n*   **Half-duplex o semi-dúplex**: La transmisión puede hacerse en **ambos sentidos, pero no simultáneamente**.\n*   **Full-duplex o Dúplex**: La transmisión puede efectuarse en **ambos sentidos a la vez**.\n*   Un enlace es **simétrico** si la velocidad de conexión es la misma en ambos sentidos, y **asimétrico** en caso contrario.\n\n### 6.8. Tipos de Conectores de Fibra Óptica\nExisten diversos tipos de conectores de fibra óptica (ej: SC, LC, ST, FC, MTRJ, E2000), con diferentes características y aplicaciones.\n\n---\n\nEspero que este resumen te sea de gran utilidad para comprender y repasar los conceptos clave de este tema. ¡Sigue así!"
             }
         ],
-        "juego_creado": false,
-        "datos_juego": {},
-        "monedas": 0
+        "juego_creado": true,
+        "datos_juego": {
+            "niveles": [
+                {
+                    "id": 1,
+                    "nombre": "Mundo 1: El Calentamiento",
+                    "tipo": "vf",
+                    "preguntas": [
+                        {
+                            "pregunta": "La frecuencia (f) es el número de ciclos por segundo, medido en Hertz (Hz).",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Según la sección 'Introducción' del Tema 1, f es la frecuencia y es el número de ciclos por segundo, Hz."
+                        },
+                        {
+                            "pregunta": "Las señales en medios guiados se transmiten por el aire, el mar o el vacío.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "Las señales en medios guiados se confinan dentro de algún medio físico (ej. cables), mientras que las señales en medios no guiados se transmiten por el aire, el mar o el vacío (Tema 1, pág. 5)."
+                        },
+                        {
+                            "pregunta": "El factor de forma de una onda da una idea de su cresta.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "El factor de forma (Φf) da una idea de la forma de la onda, mientras que el factor de cresta (Φc) da una idea de la forma de la onda y se define como la relación entre el valor de cresta y el valor eficaz (Tema 1, pág. 25)."
+                        },
+                        {
+                            "pregunta": "Las señales periódicas tienen energía total infinita al sumar la potencia de un intervalo en un tiempo infinito.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Las señales periódicas son un ejemplo de señales con potencia media > 0 y energía total infinita (Tema 1, pág. 28)."
+                        },
+                        {
+                            "pregunta": "El espectro de fase se descarta en la mayoría de los analizadores de espectros.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "El espectro de fase se descarta en la mayoría de los analizadores de espectros, pero no en los VNA (analizadores vectoriales de redes) (Tema 1, pág. 31)."
+                        },
+                        {
+                            "pregunta": "Para transmitir una señal sin distorsión se necesita un canal con ancho de banda infinito.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Para transmitir, sin distorsión, una señal limitada en el tiempo, se necesita un canal con ancho de banda infinito (Tema 1, pág. 39)."
+                        },
+                        {
+                            "pregunta": "La convolución de dos funciones es un producto específico de las mismas.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "La convolución se define como un producto generalizado de dos funciones mediante una integral (Tema 1, pág. 77-78)."
+                        },
+                        {
+                            "pregunta": "La modulación DBL tiene un ancho de banda igual al de la moduladora.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "En DBL, el ancho de banda sigue siendo el doble de la moduladora (Tema 4, pág. 16). La modulación BLU reduce el ancho de banda a la mitad (igual que la moduladora) (Tema 4, pág. 19)."
+                        },
+                        {
+                            "pregunta": "El coeficiente de reflexión en la carga mide las reflexiones en el extremo del generador.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "El coeficiente de reflexión en la carga mide la fracción de señal reflejada cuando la impedancia de la carga no coincide con la característica, mientras que el coeficiente de reflexión en el generador mide las reflexiones en el extremo del generador (Tema 2, pág. 50)."
+                        },
+                        {
+                            "pregunta": "La ley de Shannon-Hartley tiene en cuenta el ruido en el canal para calcular la capacidad máxima.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "Modelos más avanzados, como la Ley de Shannon, incorporan estos factores (ruido) para calcular la capacidad máxima de un canal (Tema 2, pág. 18)."
+                        },
+                        {
+                            "pregunta": "En la transmisión en banda base, la señal se envía tal como es, sin cambiar su frecuencia.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "La transmisión en banda base envía la señal en su forma original, utilizando el rango de frecuencias bajas (Tema 2, pág. 3)."
+                        },
+                        {
+                            "pregunta": "Un valor de SNR negativo indica que la señal es más fuerte que el ruido.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "Un SNR negativo indica que el ruido es mayor que la señal (Tema 2, pág. 8)."
+                        },
+                        {
+                            "pregunta": "El código de línea HDB3 no permite más de 3 ceros consecutivos.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "HDB3 no admite más de 3 ceros consecutivos, colocando un impulso en el lugar del 4.º cero (Tema 2, pág. 30)."
+                        },
+                        {
+                            "pregunta": "En un sistema RS-232, un '1' lógico se representa por un voltaje positivo.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Falso",
+                            "explicacion": "En RS-232, un '1' lógico se representa por un voltaje negativo y un '0' lógico por un voltaje positivo (Tema 2, pág. 34)."
+                        },
+                        {
+                            "pregunta": "La fibra multimodo se utiliza para transmitir luz de emisores LED.",
+                            "opciones": [
+                                "Verdadero",
+                                "Falso"
+                            ],
+                            "correcta": "Verdadero",
+                            "explicacion": "A la fibra que se utiliza para transmitir luz de emisores LED se la denomina fibra multimodo (Tema 2, pág. 63)."
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "nombre": "Mundo 2: El Bosque Rápido",
+                    "tipo": "test3",
+                    "preguntas": [
+                        {
+                            "pregunta": "¿Qué tipo de señales no están confinadas en ningún medio físico?",
+                            "opciones": [
+                                "Medios guiados",
+                                "Medios no guiados",
+                                "Medios coaxiales"
+                            ],
+                            "correcta": "Medios no guiados",
+                            "explicacion": "Las señales no confinadas en un medio físico son las de medios no guiados, como radio o infrarrojos (Tema 1, pág. 5)."
+                        },
+                        {
+                            "pregunta": "¿Cuál es la velocidad de la luz en el vacío aproximadamente?",
+                            "opciones": [
+                                "3x10^6 m/s",
+                                "3x10^8 m/s",
+                                "3x10^10 m/s"
+                            ],
+                            "correcta": "3x10^8 m/s",
+                            "explicacion": "La velocidad de la luz en el vacío (c) es aproximadamente 3x10^8 m/s (Tema 1, pág. 6)."
+                        },
+                        {
+                            "pregunta": "¿Qué valor tienen los coeficientes de Fourier (cn) en el desarrollo en Serie de Fourier más general?",
+                            "opciones": [
+                                "Siempre reales",
+                                "Generalmente complejos",
+                                "Siempre imaginarios"
+                            ],
+                            "correcta": "Generalmente complejos",
+                            "explicacion": "Los coeficientes cn serán, en general, complejos (Tema 1, pág. 52)."
+                        },
+                        {
+                            "pregunta": "¿Qué propiedad del desarrollo en serie de Fourier indica que si una señal se desplaza en el tiempo, sus coeficientes cambian de fase?",
+                            "opciones": [
+                                "Linealidad",
+                                "Traslación en frecuencia",
+                                "Desplazamiento en el tiempo"
+                            ],
+                            "correcta": "Desplazamiento en el tiempo",
+                            "explicacion": "El desplazamiento en el tiempo cambia la fase de los coeficientes de Fourier (Tema 1, pág. 54)."
+                        },
+                        {
+                            "pregunta": "¿Cómo se define la capacidad máxima de bits por segundo según el criterio de Nyquist en un sistema ideal de transmisión?",
+                            "opciones": [
+                                "La mitad del ancho de banda",
+                                "El doble del ancho de banda",
+                                "Igual al ancho de banda"
+                            ],
+                            "correcta": "El doble del ancho de banda",
+                            "explicacion": "El criterio de Nyquist establece que la capacidad máxima de bits por segundo es el doble del ancho de banda (Tema 2, pág. 17)."
+                        },
+                        {
+                            "pregunta": "¿Cuál es la principal ventaja de la modulación AM?",
+                            "opciones": [
+                                "Bajo rendimiento en potencia",
+                                "Sencillez en los circuitos",
+                                "Gran ancho de banda"
+                            ],
+                            "correcta": "Sencillez en los circuitos",
+                            "explicacion": "La modulación AM destaca por su sencillez en los circuitos del transmisor y receptor (Tema 4, pág. 11)."
+                        },
+                        {
+                            "pregunta": "¿Qué nombre recibe el circuito utilizado para la demodulación AM?",
+                            "opciones": [
+                                "Modulador",
+                                "Amplificador",
+                                "Detector"
+                            ],
+                            "correcta": "Detector",
+                            "explicacion": "El circuito de demodulación AM se llama detector (Tema 4, pág. 13)."
+                        },
+                        {
+                            "pregunta": "¿Qué tipo de propagación de ondas de radio sigue la curvatura de la Tierra?",
+                            "opciones": [
+                                "Onda terrestre",
+                                "Reflexión ionosférica",
+                                "Línea de visión"
+                            ],
+                            "correcta": "Onda terrestre",
+                            "explicacion": "La onda terrestre es la señal que sigue la curvatura de la Tierra (Tema 4, pág. 50)."
+                        },
+                        {
+                            "pregunta": "¿Cuál es el alcance típico de Bluetooth?",
+                            "opciones": [
+                                "Entre 10 y 100 metros",
+                                "Varios kilómetros",
+                                "Más de 1000 metros"
+                            ],
+                            "correcta": "Entre 10 y 100 metros",
+                            "explicacion": "Bluetooth tiene un alcance generalmente entre 10 y 100 metros (Tema 4, pág. 65)."
+                        },
+                        {
+                            "pregunta": "¿Qué tipo de modulación angular varía la frecuencia de una portadora de amplitud constante en proporción directa a la amplitud de la señal moduladora?",
+                            "opciones": [
+                                "Modulación de Fase (PM)",
+                                "Modulación de Amplitud (AM)",
+                                "Modulación de Frecuencia (FM)"
+                            ],
+                            "correcta": "Modulación de Frecuencia (FM)",
+                            "explicacion": "La modulación directa de frecuencia (FM) varía la frecuencia de una portadora de amplitud constante en proporción directa a la amplitud de la señal moduladora (Tema 4, pág. 21)."
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "nombre": "Mundo 3: El Mini-Castillo",
+                    "tipo": "minijefe",
+                    "fase1_conexiones": [
+                        {
+                            "termino": "Medios guiados",
+                            "definicion": "Señales confinadas dentro de un medio físico, como cables de pares o fibra óptica."
+                        },
+                        {
+                            "termino": "Espectro de amplitudes",
+                            "definicion": "Representación de las magnitudes de las frecuencias que componen una señal."
+                        },
+                        {
+                            "termino": "Teorema de Parseval",
+                            "definicion": "La energía total de una señal en el dominio del tiempo es igual a la energía total de su representación en el dominio de la frecuencia."
+                        },
+                        {
+                            "termino": "Muestreo",
+                            "definicion": "Multiplicación por un tren de impulsos o deltas de Dirac para convertir señales continuas en discretas."
+                        },
+                        {
+                            "termino": "RS-485",
+                            "definicion": "Estándar que utiliza una línea de transmisión diferencial, más resistente a interferencias electromagnéticas."
+                        }
+                    ],
+                    "fase1_huecos": [
+                        {
+                            "frase": "La ______________ es la distancia de cresta a cresta de una onda.",
+                            "respuesta_correcta": "longitud de onda"
+                        },
+                        {
+                            "frase": "Una señal con energía total finita tiene una potencia media de ______________.",
+                            "respuesta_correcta": "0"
+                        },
+                        {
+                            "frase": "La función ______________ no existe físicamente, pero tiene propiedades de impulso unidad.",
+                            "respuesta_correcta": "delta de Dirac"
+                        },
+                        {
+                            "frase": "El ______________ es una magnitud que mide la contribución a los niveles de ruido de un sistema de medida.",
+                            "respuesta_correcta": "factor de ruido"
+                        },
+                        {
+                            "frase": "La impedancia característica de una línea de transmisión no depende de su ______________.",
+                            "respuesta_correcta": "longitud"
+                        }
+                    ],
+                    "fase2_test": [
+                        {
+                            "pregunta": "Si en una comunicación por satélite se mencionan 'enlaces espacio/Tierra con emisiones espaciales', ¿a qué servicio de telecomunicaciones pertenecen?",
+                            "opciones": [
+                                "Servicios móviles por satélite",
+                                "Servicios de Radiodifusión por satélite",
+                                "Servicios Espaciales",
+                                "Servicios fijos por satélite"
+                            ],
+                            "correcta": "Servicios Espaciales",
+                            "explicacion": "Los enlaces espacio/Tierra con emisiones espaciales pertenecen al 'Servicio de Telecomunicaciones por Satélite' dentro de los 'Servicios Espaciales' (Tema 4, pág. 60)."
+                        },
+                        {
+                            "pregunta": "¿Qué ocurre si una línea de transmisión no está correctamente terminada con una carga igual a Z0?",
+                            "opciones": [
+                                "Aumentará la velocidad de propagación",
+                                "No habrá reflexiones de la señal",
+                                "Parte de la potencia se reflejará",
+                                "Se reducirá la atenuación del cable"
+                            ],
+                            "correcta": "Parte de la potencia se reflejará",
+                            "explicacion": "Si una línea no está correctamente terminada, no habrá adaptación de impedancias, y parte de la potencia que entrega volverá hacia atrás en forma de reflexiones (Tema 2, pág. 43 y 50)."
+                        },
+                        {
+                            "pregunta": "Según la regla de Carson, ¿cómo se calcula el ancho de banda práctico (BFM) para la modulación FM?",
+                            "opciones": [
+                                "BFM = Δf + fm",
+                                "BFM = 2 * fm",
+                                "BFM = 2 * (Δf + fm)",
+                                "BFM = Δf / fm"
+                            ],
+                            "correcta": "BFM = 2 * (Δf + fm)",
+                            "explicacion": "La regla de Carson establece que el ancho de banda práctico para FM es BFM = 2 (Δf + fm) (Tema 4, pág. 31)."
+                        },
+                        {
+                            "pregunta": "¿Qué tipo de cable de par trenzado no tiene blindaje adicional y confía en el trenzado de los conductores para reducir la interferencia?",
+                            "opciones": [
+                                "STP (Shielded Twisted Pair)",
+                                "FTP (Foiled Twisted Pair)",
+                                "UTP (Unshielded Twisted Pair)",
+                                "SFTP (Shielded Foiled Twisted Pair)"
+                            ],
+                            "correcta": "UTP (Unshielded Twisted Pair)",
+                            "explicacion": "El cable UTP no tiene blindaje adicional y confía en el trenzado para reducir EMI y diafonía (Tema 2, pág. 53)."
+                        },
+                        {
+                            "pregunta": "En un transmisor con frecuencia intermedia, ¿qué componentes se generan en el mezclador?",
+                            "opciones": [
+                                "Solo la frecuencia portadora (Fo)",
+                                "Solo la frecuencia intermedia (FI)",
+                                "FI+FL y FI-FL",
+                                "Únicamente la señal moduladora"
+                            ],
+                            "correcta": "FI+FL y FI-FL",
+                            "explicacion": "En el mezclador, se generan dos frecuencias: FI+FL y FI-FL (Tema 4, pág. 35)."
+                        },
+                        {
+                            "pregunta": "¿Cuál de las siguientes afirmaciones sobre la densidad espectral de energía S(f) es correcta?",
+                            "opciones": [
+                                "Es compleja y par",
+                                "Es real, negativa e impar",
+                                "Es real, positiva y par",
+                                "Es compleja e impar"
+                            ],
+                            "correcta": "Es real, positiva y par",
+                            "explicacion": "S(f) se denomina 'densidad espectral de energía' y es real, positiva y par (Tema 1, pág. 66)."
+                        },
+                        {
+                            "pregunta": "¿Por qué es crucial la primera etapa de un sistema en cascada en la minimización del ruido total, según la fórmula de Friis?",
+                            "opciones": [
+                                "Porque las etapas posteriores contribuyen más al factor de ruido",
+                                "Porque el factor de ruido total está dominado por el factor de ruido de las primeras etapas",
+                                "Porque el factor de ruido es siempre cero en las primeras etapas",
+                                "Porque solo la última etapa introduce ruido significativo"
+                            ],
+                            "correcta": "Porque el factor de ruido total está dominado por el factor de ruido de las primeras etapas",
+                            "explicacion": "La fórmula de Friis establece que el factor de ruido total de un sistema en cascada está dominado por el factor de ruido de las primeras etapas (Tema 2, pág. 12)."
+                        },
+                        {
+                            "pregunta": "¿Qué tipo de señal tiene un espectro discreto y se distingue por estar formado por 'rayas espectrales'?",
+                            "opciones": [
+                                "Señales aperiódicas",
+                                "Señales continuas",
+                                "Señales periódicas",
+                                "Señales deterministas"
+                            ],
+                            "correcta": "Señales periódicas",
+                            "explicacion": "Para señales periódicas, el espectro es discreto y se distingue por estar formado por 'rayas espectrales' (Tema 1, pág. 38)."
+                        },
+                        {
+                            "pregunta": "¿Qué problema grave de inestabilidad ocurre en un transmisor básico cuando la potencia es superior a 0.2 W?",
+                            "opciones": [
+                                "Interferencia con otras señales",
+                                "Aumento excesivo del ancho de banda",
+                                "Realimentación de la señal de antena hacia el oscilador",
+                                "Reducción de la ganancia del amplificador"
+                            ],
+                            "correcta": "Realimentación de la señal de antena hacia el oscilador",
+                            "explicacion": "El principal inconveniente del transmisor básico es la realimentación de la señal de antena hacia el oscilador, que genera inestabilidad con potencia >0.2 W (Tema 4, pág. 34)."
+                        },
+                        {
+                            "pregunta": "¿Cuál es una desventaja de la modulación AM en comparación con otras modulaciones?",
+                            "opciones": [
+                                "Sencillez en los circuitos",
+                                "Cobertura amplia",
+                                "Sensibilidad al ruido",
+                                "Bajo consumo de potencia"
+                            ],
+                            "correcta": "Sensibilidad al ruido",
+                            "explicacion": "Las señales AM son más susceptibles a interferencias y ruido (Tema 4, pág. 12)."
+                        },
+                        {
+                            "pregunta": "¿Cuál es la función del filtro pasabanda en un transmisor de radio?",
+                            "opciones": [
+                                "Aumentar la potencia de la señal",
+                                "Generar la señal portadora",
+                                "Eliminar componentes armónicas o señales no deseadas",
+                                "Transformar la señal eléctrica en ondas electromagnéticas"
+                            ],
+                            "correcta": "Eliminar componentes armónicas o señales no deseadas",
+                            "explicacion": "El filtro pasabanda se utiliza para eliminar componentes armónicas o señales no deseadas generadas por el oscilador (Tema 4, pág. 33)."
+                        },
+                        {
+                            "pregunta": "¿En qué tipo de transmisión de fibra óptica el emisor LED genera múltiples rayos de luz (modos)?",
+                            "opciones": [
+                                "Fibra monomodo",
+                                "Fibra multimodo",
+                                "Fibra de índice gradual",
+                                "Fibra de índice escalonado"
+                            ],
+                            "correcta": "Fibra multimodo",
+                            "explicacion": "En los sistemas que utilizan LEDs, la transmisión de un pulso de luz genera múltiples rayos de luz, y a la fibra utilizada se la denomina fibra multimodo (Tema 2, pág. 63)."
+                        },
+                        {
+                            "pregunta": "¿Cuál es la principal razón para utilizar FEC (Forward Error Correction) en la televisión digital?",
+                            "opciones": [
+                                "Aumentar la complejidad de la implementación",
+                                "Reducir la sobrecarga de datos",
+                                "Mejorar la calidad de la señal y evitar errores por ruido atmosférico",
+                                "Eliminar cualquier retardo adicional en la transmisión"
+                            ],
+                            "correcta": "Mejorar la calidad de la señal y evitar errores por ruido atmosférico",
+                            "explicacion": "La televisión digital utiliza FEC para mejorar la calidad de la señal y evitar errores causados por el ruido atmosférico o interferencias (Tema 2, pág. 20)."
+                        },
+                        {
+                            "pregunta": "¿Qué tipo de redes Wi-Fi (IEEE 802.11) puede alcanzar hasta 10 Gbps con mejoras en eficiencia espectral y gestión de dispositivos conectados?",
+                            "opciones": [
+                                "802.11a",
+                                "802.11g",
+                                "802.11ac",
+                                "802.11ax (Wi-Fi 6)"
+                            ],
+                            "correcta": "802.11ax (Wi-Fi 6)",
+                            "explicacion": "802.11ax (Wi-Fi 6) puede alcanzar hasta 10 Gbps, con mejoras en la eficiencia espectral, capacidad y gestión de dispositivos conectados simultáneamente (Tema 4, pág. 69)."
+                        },
+                        {
+                            "pregunta": "¿Cuál es la frecuencia de muestreo de un CD de música (44,1 kHz) en relación con el teorema de Nyquist para el oído humano (20 Hz - 20 kHz)?",
+                            "opciones": [
+                                "Es menor de lo requerido, produciendo aliasing.",
+                                "Es exactamente el mínimo requerido (2 x 20 kHz).",
+                                "Es superior a lo mínimo requerido, asegurando la calidad de audio.",
+                                "No tiene relación con el teorema de Nyquist."
+                            ],
+                            "correcta": "Es superior a lo mínimo requerido, asegurando la calidad de audio.",
+                            "explicacion": "El teorema de Nyquist requiere Fs >= 2B, es decir, 2 * 20 kHz = 40 kHz. El CD de música usa 44,1 kHz, que es superior a este requisito, asegurando la calidad (Tema 1, pág. 86)."
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "nombre": "Mundo 4: Las Cavernas del Recuerdo",
+                    "tipo": "palabra_clave",
+                    "preguntas": [
+                        {
+                            "definicion": "Distancia entre dos puntos equivalentes de una onda, como los picos, medida en metros.",
+                            "respuesta_exacta": "longitud de onda"
+                        },
+                        {
+                            "definicion": "Componente continua de una señal, también conocida como valor medio.",
+                            "respuesta_exacta": "DC"
+                        },
+                        {
+                            "definicion": "Señal que se repite cada cierto tiempo, caracterizada por tener un espectro discreto.",
+                            "respuesta_exacta": "periódica"
+                        },
+                        {
+                            "definicion": "Operación matemática que mide la similitud entre dos señales en función del desfase temporal.",
+                            "respuesta_exacta": "correlación cruzada"
+                        },
+                        {
+                            "definicion": "Fenómeno que permite que las ondas se 'doblen' alrededor de obstáculos o continúen propagándose después de encontrar una barrera.",
+                            "respuesta_exacta": "difracción"
+                        },
+                        {
+                            "definicion": "Tecnología de comunicación móvil de voz de segunda generación (2G) que utiliza modulación GMSK.",
+                            "respuesta_exacta": "GSM"
+                        },
+                        {
+                            "definicion": "Estándar de comunicación inalámbrica de baja potencia y bajo costo, basado en IEEE 802.15.4, ideal para redes de sensores.",
+                            "respuesta_exacta": "ZigBee"
+                        },
+                        {
+                            "definicion": "Dispositivo inalámbrico que emite señales de radio utilizando Bluetooth Low Energy (BLE) para enviar notificaciones a dispositivos cercanos.",
+                            "respuesta_exacta": "beacon"
+                        },
+                        {
+                            "definicion": "Modulación donde se varía la fase de una portadora de amplitud constante en proporción directa a la amplitud de la señal moduladora.",
+                            "respuesta_exacta": "PM"
+                        },
+                        {
+                            "definicion": "Técnica donde el emisor añade información redundante para detectar y corregir errores en el receptor sin retransmisión.",
+                            "respuesta_exacta": "FEC"
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "nombre": "Mundo 5: La Torre de Casos",
+                    "tipo": "casos_practicos",
+                    "preguntas": [
+                        {
+                            "pregunta": "Un ingeniero debe diseñar un sistema de comunicación para submarinos que opere en el extremo superior del intervalo audible humano. ¿Qué banda de frecuencias de la UIT sería la más adecuada para esta aplicación?",
+                            "opciones": [
+                                "Frecuencias Extremadamente Bajas (ELF)",
+                                "Frecuencias Muy Bajas (VLF)",
+                                "Frecuencias Altas (HF)",
+                                "Frecuencias Ultra Altas (UHF)"
+                            ],
+                            "correcta": "Frecuencias Muy Bajas (VLF)",
+                            "explicacion": "Las VLF (3 a 30 kHz) comprenden el extremo superior del intervalo audible humano y se usan en sistemas especiales de gobierno y militares, como comunicaciones con submarinos (Tema 1, pág. 10)."
+                        },
+                        {
+                            "pregunta": "En una planta industrial con altos niveles de interferencia electromagnética, un equipo de redes necesita instalar un nuevo cableado Ethernet para una conexión de 1 Gbps. ¿Qué tipo de cable de par trenzado sería el más adecuado para garantizar una transmisión fiable?",
+                            "opciones": [
+                                "UTP Categoría 5e",
+                                "STP/FTP Categoría 6a",
+                                "UTP Categoría 3",
+                                "Cable coaxial RG-58"
+                            ],
+                            "correcta": "STP/FTP Categoría 6a",
+                            "explicacion": "Los cables STP (Shielded Twisted Pair) o FTP (Foiled Twisted Pair) de categoría 6a ofrecen mayor protección contra interferencias externas y son más robustos en entornos con alto nivel de EMI, adecuados para 10 Gbps, lo que incluye 1 Gbps con mayor margen (Tema 2, pág. 54)."
+                        },
+                        {
+                            "pregunta": "Un desarrollador de IoT está diseñando un sistema de monitoreo ambiental para un bosque, donde los sensores deben operar durante años con baterías pequeñas y transmitir pequeñas cantidades de datos a largas distancias. ¿Qué estándar de comunicación inalámbrica sería el más apropiado?",
+                            "opciones": [
+                                "Wi-Fi (IEEE 802.11ax)",
+                                "Bluetooth 5.2",
+                                "LoRaWAN",
+                                "GSM"
+                            ],
+                            "correcta": "LoRaWAN",
+                            "explicacion": "LoRaWAN está diseñado para IoT, permitiendo comunicación inalámbrica de largo alcance con bajo consumo de energía, ideal para dispositivos alimentados por baterías que necesitan durar muchos años (Tema 4, pág. 68)."
+                        },
+                        {
+                            "pregunta": "Una estación de radio AM transmite con una potencia de portadora muy alta. Sin embargo, los receptores experimentan una baja calidad de señal, especialmente en entornos ruidosos. ¿Qué desventaja de la modulación AM se manifiesta en este escenario?",
+                            "opciones": [
+                                "Sencillez en los circuitos del receptor",
+                                "Cobertura de transmisión amplia",
+                                "Alto rendimiento en potencia",
+                                "Sensibilidad al ruido y bajo rendimiento en potencia de la información"
+                            ],
+                            "correcta": "Sensibilidad al ruido y bajo rendimiento en potencia de la información",
+                            "explicacion": "La modulación AM es sensible al ruido, y la portadora consume gran parte de la potencia (2/3), reduciendo la eficiencia para transmitir información (Tema 4, pág. 12)."
+                        },
+                        {
+                            "pregunta": "Un sistema de comunicación necesita asegurar la máxima seguridad en la red y evitar problemas por diferencias de potencial entre tierras de edificios, además de atravesar atmósferas corrosivas. ¿Qué medio de transmisión debería elegirse?",
+                            "opciones": [
+                                "Cable coaxial de 50 ohmios",
+                                "Par trenzado STP Categoría 7",
+                                "Fibra óptica",
+                                "Par trenzado UTP Categoría 6"
+                            ],
+                            "correcta": "Fibra óptica",
+                            "explicacion": "Se recomienda usar fibra óptica cuando se desea máxima seguridad, se unen edificios diferentes (evitando problemas de potencial) o se atraviesan atmósferas corrosivas (Tema 2, pág. 67)."
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "nombre": "Mundo 6: El Jefe Final",
+                    "tipo": "feynman",
+                    "preguntas": [
+                        {
+                            "concepto_a_explicar": "Teorema de Nyquist y Ley de Shannon",
+                            "palabras_clave_requeridas": [
+                                "capacidad",
+                                "ancho de banda",
+                                "ruido",
+                                "bits por segundo",
+                                "ideal"
+                            ]
+                        },
+                        {
+                            "concepto_a_explicar": "Modulación AM (Amplitud Modulada)",
+                            "palabras_clave_requeridas": [
+                                "amplitud",
+                                "portadora",
+                                "moduladora",
+                                "bandas laterales",
+                                "índice de modulación"
+                            ]
+                        },
+                        {
+                            "concepto_a_explicar": "Propagación de Señales de Radio",
+                            "palabras_clave_requeridas": [
+                                "onda terrestre",
+                                "difracción",
+                                "reflexión ionosférica",
+                                "línea de visión",
+                                "frecuencia"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "nivel_actual": 2
+        },
+        "monedas": 100,
+        "quizzes": [
+            {
+                "id": "1946b88a-f587-41a8-8e27-27ca455362fb",
+                "fecha": "06/04/2026 19:41",
+                "fuentes_usadas": [
+                    "Tema2_24_25.pdf"
+                ],
+                "preguntas": [
+                    {
+                        "pregunta": "¿Cuál es la característica principal de la transmisión en banda base, según los apuntes?",
+                        "opciones": [
+                            "A. La señal se modula a una frecuencia portadora alta.",
+                            "B. La señal se envía tal como es, sin cambiar su frecuencia, utilizando el rango de frecuencias bajas.",
+                            "C. Requiere modulación de amplitud para distancias largas.",
+                            "D. Es eficiente en transmisión de larga distancia y medios compartidos como el espectro radioeléctrico."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "Según los apuntes, en la transmisión en banda base, la señal se envía tal como es, sin cambiar su frecuencia, utilizando el rango de frecuencias bajas. Es una forma simple y se usa en medios de transmisión con alcance limitado como cables Ethernet.",
+                        "pista": "Revisa la sección 'Introducción' sobre transmisión en banda base."
+                    },
+                    {
+                        "pregunta": "¿Qué indica un valor alto de la relación Señal a Ruido (S/N) en un sistema de transmisión?",
+                        "opciones": [
+                            "A. El ruido es mayor que la señal deseada.",
+                            "B. La señal deseada es comparable con el ruido.",
+                            "C. La señal es más clara, ya que la señal deseada es significativamente más fuerte que el ruido.",
+                            "D. No hay ruido presente en el circuito."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "Una relación S/N alta indica que la señal deseada es significativamente más fuerte que el ruido de fondo, resultando en una señal más clara y de mejor calidad.",
+                        "pista": "Consulta la sección 'Ruido y tasa de fallos BER' y la interpretación de S/N."
+                    },
+                    {
+                        "pregunta": "¿Cuál es la principal ventaja de utilizar Forward Error Correction (FEC) en la transmisión de datos?",
+                        "opciones": [
+                            "A. Aumenta la velocidad de transmisión sin añadir sobrecarga de datos.",
+                            "B. Permite al receptor corregir automáticamente los errores sin necesidad de retransmisión, mejorando el rendimiento en canales ruidosos.",
+                            "C. Reduce la complejidad de implementación en el emisor y el receptor.",
+                            "D. Elimina completamente el ruido en el canal de transmisión."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "Los beneficios de FEC incluyen una menor necesidad de retransmisión y un mejor rendimiento en canales ruidosos, ya que el receptor puede corregir errores automáticamente usando información redundante.",
+                        "pista": "Busca la sección 'Capacidad del canal de transmisión' y las ventajas de FEC."
+                    },
+                    {
+                        "pregunta": "Según el criterio de Nyquist, ¿cuál es la capacidad máxima de bits por segundo (Vbin max) en un sistema ideal de transmisión, dado un ancho de banda (W)?",
+                        "opciones": [
+                            "A. Vbin max = W * log2(1 + S/N)",
+                            "B. Vbin max = W / 2",
+                            "C. Vbin max = 2 * W",
+                            "D. Vbin max = W"
+                        ],
+                        "correcta": "C",
+                        "explicacion": "El criterio de Nyquist establece que en un sistema ideal de transmisión, la capacidad máxima de bits por segundo es el doble del ancho de banda (Vbin max = 2 * W). La opción A corresponde al teorema de Shannon.",
+                        "pista": "Revisa la sección 'Capacidad del canal de transmisión' y el criterio de Nyquist."
+                    },
+                    {
+                        "pregunta": "¿Cuál es uno de los problemas asociados con los códigos de línea NRZ (Non-Return to Zero) que no tienen transiciones entre bits consecutivos de igual valor?",
+                        "opciones": [
+                            "A. Excesiva eficiencia espectral.",
+                            "B. La necesidad de modulación de frecuencia.",
+                            "C. Problemas de sincronismo entre el receptor y el emisor y un valor medio de voltaje que provoca corriente en el cable.",
+                            "D. Mayor inmunidad al ruido en comparación con otros códigos."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "Los códigos NRZ presentan problemas de sincronismo debido a la ausencia de transiciones entre bits consecutivos del mismo valor, y un valor medio de voltaje que puede provocar corriente continua en el cable, lo cual es indeseable.",
+                        "pista": "Observa la descripción de los códigos de línea NRZ en la sección 'Códigos de línea'."
+                    },
+                    {
+                        "pregunta": "¿Qué tipo de codificación utiliza el código de línea 2B1Q y cuáles son sus beneficios clave?",
+                        "opciones": [
+                            "A. Codifica 1 bit por cambio de señal, es muy sensible al ruido y de implementación sencilla.",
+                            "B. Codifica 2 bits en cada cambio de señal usando cuatro niveles de voltaje, ofreciendo eficiencia espectral y menor interferencia.",
+                            "C. Codifica 3 bits en cada cambio de señal, requiere un único nivel de voltaje y es de larga distancia.",
+                            "D. Utiliza solo dos niveles de voltaje, es complejo de implementar y propenso a la interferencia."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "El código 2B1Q utiliza cuatro niveles de voltaje diferentes para transmitir combinaciones de dos bits a la vez, lo que se traduce en eficiencia espectral y menor interferencia al reducir el número de transiciones.",
+                        "pista": "Busca la descripción del código de línea 2B1Q en la sección 'Códigos de línea'."
+                    },
+                    {
+                        "pregunta": "¿Cuál es la principal diferencia de transmisión entre RS232 y RS485, y cuál es el impacto de esta diferencia?",
+                        "opciones": [
+                            "A. RS232 usa fibra óptica para larga distancia, RS485 usa par trenzado para corta distancia.",
+                            "B. RS232 es un sistema de transmisión diferencial para múltiples dispositivos, RS485 es un sistema de un solo cable para un solo dispositivo.",
+                            "C. RS232 utiliza transmisión no balanceada con un conductor de datos y tierra, mientras que RS485 utiliza transmisión diferencial con dos cables (A y B) para mayor resistencia a interferencias.",
+                            "D. RS232 permite más dispositivos en el bus que RS485."
+                        ],
+                        "correcta": "C",
+                        "explicacion": "RS232 usa transmisión no balanceada, que es más susceptible al ruido, mientras que RS485 utiliza transmisión diferencial, que lo hace mucho más resistente a interferencias electromagnéticas.",
+                        "pista": "Compara las secciones 'RS232' y 'RS485' en 'Líneas de transmisión, cables'."
+                    },
+                    {
+                        "pregunta": "¿Qué es la impedancia característica (Z0) de una línea de transmisión?",
+                        "opciones": [
+                            "A. Es la impedancia que varía con la longitud de la línea y es igual a la resistencia de la fuente para máxima potencia.",
+                            "B. Es la impedancia que presenta una línea de transmisión cuando se observa desde un punto dado, una propiedad intrínseca que no depende de la longitud de la línea.",
+                            "C. Es la resistencia de la carga necesaria para causar reflexiones máximas en la señal.",
+                            "D. Es la impedancia que mide la potencia disipada por la línea debido a la atenuación."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "La impedancia característica (Z0) es un parámetro fundamental que describe la relación entre tensión y corriente en una línea, una propiedad intrínseca que no depende de la longitud de la línea.",
+                        "pista": "Consulta la sección 'Líneas de transmisión, cables' sobre impedancia característica."
+                    },
+                    {
+                        "pregunta": "¿Cuál es la principal diferencia entre la fibra óptica multimodo y monomodo, en relación con los emisores y la propagación de la luz?",
+                        "opciones": [
+                            "A. La fibra multimodo utiliza diodos láser y la luz se propaga sin dispersión, mientras que la monomodo utiliza LEDs y genera múltiples rayos de luz.",
+                            "B. La fibra monomodo utiliza diodos láser que emiten luz coherente con un único rayo, mientras que la fibra multimodo utiliza LEDs que generan múltiples rayos de luz no coherente.",
+                            "C. Ambas fibras utilizan LEDs, pero la monomodo tiene un diámetro interior más grande.",
+                            "D. Ambas fibras utilizan diodos láser, pero la multimodo permite mayores distancias de transmisión."
+                        ],
+                        "correcta": "B",
+                        "explicacion": "Los sistemas con LEDs usan fibra multimodo (luz no coherente, múltiples rayos), mientras que los sistemas con diodos láser usan fibra monomodo (luz coherente, un único rayo que se propaga sin dispersión).",
+                        "pista": "Revisa la sección 'Transmisión en fibra óptica' sobre LEDs y diodos láser."
+                    },
+                    {
+                        "pregunta": "¿En qué situación NO se recomienda el uso de fibra óptica frente al cable de cobre?",
+                        "opciones": [
+                            "A. Si la distancia a cubrir es superior a 100 metros.",
+                            "B. Cuando se desea la máxima seguridad en la red.",
+                            "C. Si se prevé pasar a velocidades superiores a 1 Gbps más adelante.",
+                            "D. Cuando la instalación requiere una complejidad de instalación baja y un coste inicial mínimo."
+                        ],
+                        "correcta": "D",
+                        "explicacion": "La fibra óptica es más compleja de instalar y tiene un coste inicial más alto que el cable de cobre. Se recomienda fibra para largas distancias, alta seguridad, futuras altas velocidades o entornos con interferencias/corrosión.",
+                        "pista": "Examina la tabla comparativa de 'Elección entre fibra óptica y cable de cobre'."
+                    }
+                ]
+            }
+        ]
     },
     "cce5b8cf-fa7f-4b46-93a8-c72043aff0f1": {
         "id": "cce5b8cf-fa7f-4b46-93a8-c72043aff0f1",

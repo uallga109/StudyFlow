@@ -430,11 +430,22 @@ def generar_juego(notebook_id: str):
         - Nivel 1 (El Calentamiento): 15 preguntas de Verdadero/Falso. Dificultad media.
         - Nivel 2 (El Bosque Rápido): 10 preguntas de Tipo Test con solo 3 opciones. Dificultad media-baja.
         - Nivel 3 (El Mini-Castillo): Tiene 2 fases. 
-            - Fase 1: 5 pares para un "Tablero de conexiones" (término y definición) y 5 frases para "Rellenar huecos".
+            - Fase 1: 
+              - 5 pares para un "Tablero de conexiones" (término y definición).
+              - 5 frases para "Rellenar huecos". REGLA ESTRICTA PARA HUECOS: Deben ser frases LARGAS y con contexto, donde falte un ÚNICO concepto clave o palabra corta. El lugar de la palabra faltante DEBE indicarse siempre con tres guiones bajos "___". 
+                * EJEMPLO MAL: frase: "La ___", respuesta_correcta: "mitocondria produce energía".
+                * EJEMPLO BIEN: frase: "La organela encargada de la respiración celular y producción de energía es la ___", respuesta_correcta: "mitocondria".
             - Fase 2: 15 preguntas de Tipo Test (4 opciones) muy difíciles pensadas para hacerse a contrarreloj.
         - Nivel 4 (Las Cavernas del Recuerdo): 10 preguntas de respuesta corta exacta. Das la definición y la respuesta es una sola palabra o término clave.
         - Nivel 5 (La Torre de Casos): 5 escenarios prácticos. Test de 4 opciones donde se aplica la teoría a un problema o situación.
-        - Nivel 6 (El Jefe Final - Técnica Feynman): 3 conceptos troncales del temario. El usuario deberá explicarlos con sus palabras. Proporciona el concepto y una lista de 4-5 palabras clave imprescindibles que el usuario deberá mencionar para ganar.
+        - Nivel 6 (Jefe Final): tipo "jefe_pokemon". Debes generar un objeto con 4 listas separadas de 10 ejercicios cada una para simular "ataques": 
+            1. "ataque_vf": 5 preguntas de verdadero o falso.
+            2. "ataque_test": 5 preguntas con 4 opciones.
+            3. "ataque_huecos": 5 frases LARGAS Y EXPLICATIVAS donde falte un ÚNICO concepto o palabra corta. 
+                - El hueco debe indicarse estrictamente con "___". 
+                - EJEMPLO MAL: frase: "El ___", respuesta_correcta: "perro es verde".
+                - EJEMPLO BIEN: frase: "El perro de mi vecino es de color ___", respuesta_correcta: "verde".
+            4. "ataque_palabra": 5 definiciones con su "respuesta_exacta".
 
         REGLA ESTRICTA: Devuelve ÚNICAMENTE un JSON válido con esta estructura exacta (sin markdown extra, solo el JSON puro):
         {{
