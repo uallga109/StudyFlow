@@ -90,6 +90,7 @@ function VistaCuaderno() {
                 alSalir={() => setVistaActiva('chat')}
                 recargarBD={cargarDatosCuaderno} 
                 notebookId={id}
+                cuaderno={datos} /* <--- ¡ESTE ES EL CAMBIO! */
             />
         );
     }

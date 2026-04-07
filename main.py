@@ -52,6 +52,10 @@ class PeticionFlashcards(BaseModel):
 class PeticionMapaMental(BaseModel):
     fuentes: list[str]
 
+class PeticionCompra(BaseModel):
+    precio: int
+    item_id: str
+
 # 1. Obtener todos
 @app.get("/api/notebooks")
 def obtener_cuadernos():
@@ -545,6 +549,14 @@ def actualizar_progreso(notebook_id: str, nivel_id: int, vidas: int = 3, hardcor
     if not exito:
         raise HTTPException(status_code=404, detail="Cuaderno no encontrado")
     return {"mensaje": "Progreso guardado", "monedas_ganadas": monedas_ganadas, "nivel_actual": nivel_actual}
+
+@app.post("/api/notebooks/{notebook_id}/comprar")
+def comprar_item(notebook_id: str, peticion: PeticionCompra):
+    exito = db.restar_monedas(notebook_id, peticion.precio)
+    if not exito:
+        raise HTTPException(status_code=400, detail="Monedas insuficientes o error")
+    return {"mensaje": "Compra realizada con éxito"}
+
 
 # ESTO TIENE QUE SER OBLIGATORIAMENTE LO ÚLTIMO DEL ARCHIVO
 if __name__ == "__main__":

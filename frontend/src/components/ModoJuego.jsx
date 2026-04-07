@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import NivelBatalla from './NivelBatalla';
 import { estilosBiomas } from './estilosBiomas'; // Ajusta la ruta si es necesario
+import Tienda from './Tienda'; // (o la ruta donde lo hayas guardado)
 
 // 🗺️ EL MULTIVERSO (Nuestras 12 obras maestras)
 const mapasPrefabricados = [
@@ -46,7 +47,7 @@ const enemigosPorBioma = {
     "ciudadela": "Hechicero del Caos Estelar"
 };
 
-export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, notebookId }) {
+export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, notebookId, cuaderno }) {
     const niveles = datosJuego?.niveles || [];
     
     const mapaId = datosJuego?.mapa_id || "mapa_01_clasico"; 
@@ -58,10 +59,13 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
     const [nivelJugando, setNivelJugando] = useState(null); 
     const [transicion, setTransicion] = useState(null);
 
-    
+    const [enTienda, setEnTienda] = useState(false);
+    const [mostrandoTienda, setMostrandoTienda] = useState(false);
 
     const [modoHardcore, setModoHardcore] = useState(false);
     const [vidasGlobales, setVidasGlobales] = useState(5);
+
+    const [buffsActivos, setBuffsActivos] = useState({ vida: 0, tiempo: 0, pista: 0 });
 
     // Función para activar el reto
     const activarSendaMaestro = () => {
@@ -82,7 +86,6 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
         }
     }, [vidasGlobales, modoHardcore]);
 
-    const [enTienda, setEnTienda] = useState(false);
     // 🎮 CONTROLADOR DE MOVIMIENTO 2D (Teclado)
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -105,7 +108,7 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                 if (enTienda) setEnTienda(false);
             } else if (e.key === 'Enter') {
                 if (enTienda) {
-                    alert("Abriendo tienda... (Próximamente)");
+                    setMostrandoTienda(true);
                     // setMostrandoTienda(true);
                 } else {
                     // Lógica corregida para el Enter
@@ -124,6 +127,30 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [transicion, nivelJugando, nivelHover, nivelDesbloqueado, enTienda, modoHardcore, niveles, mapaActual]);
+
+    // 💰 FUNCIÓN DE COMPRA REAL
+    const ejecutarCompra = async (item) => {
+        try {
+            const res = await fetch(`http://127.0.0.1:8000/api/notebooks/${notebookId}/comprar`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ precio: item.precio, item_id: item.id })
+            });
+            
+            if (res.ok) {
+                // Recargamos el cuaderno para actualizar las monedas en pantalla
+                if (recargarBD) await recargarBD();
+                
+                // Guardamos el buff en nuestro inventario mágico
+                setBuffsActivos(prev => ({ ...prev, [item.id]: prev[item.id] + 1 }));
+                return true; // Compra exitosa
+            }
+            return false;
+        } catch (error) {
+            console.error("El mercader te ha rechazado la tarjeta:", error);
+            return false;
+        }
+    };
 
     // ==========================================
     // 🎬 PANTALLA 1: INTRODUCCIÓN DEL ENEMIGO
@@ -200,21 +227,26 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                 nivel={nivelJugando} 
                 modoHardcore={modoHardcore}
                 vidasGlobales={vidasGlobales}
+                buffsActivos={buffsActivos} /* 👈 ¡CLAVE! Pasamos la mochila de compras */
                 onPerderVida={() => setVidasGlobales(prev => prev - 1)}
                 alHuir={() => {
                     if (modoHardcore) setModoHardcore(false);
                     setNivelJugando(null);
                 }} 
-                alCompletar={(idNivel) => {
-                    // 1. CERRAMOS EL NIVEL (Para salir de la pantalla del trofeo)
+                /* 👈 CORRECCIÓN: Añadimos vidasSobrantes en los parámetros */
+                alCompletar={(idNivel, vidasSobrantes) => { 
+                    // 1. CERRAMOS EL NIVEL
                     setNivelJugando(null);
                     
                     // 2. Si ganamos el jefe final, quitamos el modo hardcore
                     if (nivelHover === 5 && modoHardcore) {
                         setModoHardcore(false);
                     }
+
+                    // 🔥 3. CONSUMIMOS LOS OBJETOS (Se gastan al pasarte el nivel)
+                    setBuffsActivos({ vida: 0, tiempo: 0, pista: 0 });
                     
-                    // 3. LLAMAMOS A LA PANTALLA ÉPICA DE VICTORIA (Outro)
+                    // 4. LLAMAMOS A LA PANTALLA ÉPICA DE VICTORIA (Outro)
                     setTransicion({ 
                         fase: 'outro', 
                         bioma: mapaActual.biomas[nivelHover], 
@@ -409,7 +441,7 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                                             e.stopPropagation();
                                             setEnTienda(true);
                                             setNivelHover(2);
-                                            setTimeout(() => alert("Abriendo tienda... (Próximamente)"), 100);
+                                            setTimeout(() => setMostrandoTienda(true), 100);
                                         }}
                                         onMouseEnter={() => { setNivelHover(2); setEnTienda(true); }}
                                     >
@@ -426,6 +458,7 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                                             <span className="text-3xl drop-shadow-md">🎒</span>
                                             {enTienda && <div className="absolute -inset-2 rounded-full border border-yellow-300 animate-ping"></div>}
                                         </div>
+                                    
                                     </div>
                                 )}
                             </div>
@@ -444,7 +477,7 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                     <div 
                         className="relative bg-black border border-red-500/50 text-red-500 font-serif font-black px-6 py-3 uppercase tracking-[0.2em] text-xs [clip-path:polygon(1rem_0%,calc(100%-1rem)_0%,100%_50%,calc(100%-1rem)_100%,1rem_100%,0%_50%)] group-hover:text-white group-hover:bg-red-600 transition-all"
                     >
-                        🔥 Senda del Maestro
+                         Senda del Maestro
                     </div>
                 </button>
             </div>
@@ -467,6 +500,22 @@ export default function ModoJuego({ datosJuego, monedas, alSalir, recargarBD, no
                     <span className="text-xl">🌍</span> Ver todos los cuadernos
                 </button>
             </div>
+
+            {/* 🎪 OVERLAY DE LA TIENDA (Totalmente fuera del mapa y del scroll) */}
+            {mostrandoTienda && (
+                <Tienda 
+                    monedasTotales={cuaderno?.monedas || 0} // Usamos las de verdad
+                    modoHardcore={modoHardcore}
+                    inventario={buffsActivos} // Pasamos lo que ya tenemos
+                    onComprar={ejecutarCompra} // Le pasamos la función real
+                    onCerrar={() => {
+                        setMostrandoTienda(false);
+                        setEnTienda(false);
+                        setNivelHover(2);
+                    }} 
+                />
+            )}
+
         </div>
     );
 }

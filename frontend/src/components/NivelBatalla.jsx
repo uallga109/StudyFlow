@@ -3,8 +3,8 @@ import RellenarHuecos from './RellenarHuecos';
 import TableroConexiones from './TableroConexiones'; 
 import BatallaJefe from './BatallaJefe'; // ✅ AQUÍ ESTÁ LA LÍNEA QUE FALTABA
 
-export default function NivelBatalla({ nivel, alHuir, alCompletar, modoHardcore, vidasGlobales, onPerderVida }) {
-    
+export default function NivelBatalla({ nivel, modoHardcore, vidasGlobales, onPerderVida, alHuir, alCompletar, buffsActivos }) {
+
     // 1. RECOLECCIÓN Y BARAJO (SHUFFLE GLOBAL E INTERNO)
     const preguntas = useMemo(() => {
         let lista = [];
@@ -35,15 +35,18 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar, modoHardcore,
         return listaConOpcionesBarajadas.sort(() => Math.random() - 0.5);
     }, [nivel]);
 
-    // 2. LÓGICA DE TIEMPO
+    // 2. LÓGICA DE TIEMPO (Añadimos tiempo extra si compramos el reloj)
     const esMiniJefe = nivel?.tipo === 'minijefe';
     const esJefeFinal = nivel?.tipo === 'jefe_pokemon' || nivel?.tipo === 'feynman';
     const esGlobalTimer = esMiniJefe || esJefeFinal;
-    const TIEMPO_MAXIMO = esJefeFinal ? 300 : (esMiniJefe ? 120 : 15); 
+    
+    // Si tienes buffsActivos.tiempo, te da 60 segundos por cada uno
+    const tiempoExtra = (buffsActivos?.tiempo || 0) * 60; 
+    const TIEMPO_MAXIMO = (esJefeFinal ? 300 : (esMiniJefe ? 120 : 15)) + tiempoExtra;
     
     // SISTEMA DE VIDAS (Híbrido)
-    const [vidasLocales, setVidasLocales] = useState(3);
-    const vidas = modoHardcore ? vidasGlobales : vidasLocales; // La vida actual depende del modo
+    const [vidasLocales, setVidasLocales] = useState(3 + (modoHardcore ? 0 : (buffsActivos?.vida || 0)));
+    const vidas = modoHardcore ? vidasGlobales : vidasLocales;
     
     const [indicePregunta, setIndicePregunta] = useState(0);
     const [tiempoRestante, setTiempoRestante] = useState(TIEMPO_MAXIMO);
@@ -211,7 +214,8 @@ export default function NivelBatalla({ nivel, alHuir, alCompletar, modoHardcore,
             <header className="flex flex-col p-6 bg-black/40 backdrop-blur-md border-b border-white/5 relative z-10 gap-4">
                 <div className="flex justify-between items-center w-full">
                     <div className="flex gap-2 text-2xl bg-black/50 p-3 rounded-2xl border border-white/10 shadow-inner">
-                        {[...Array(modoHardcore ? 5 : 3)].map((_, i) => {
+                        {/* Corazones Dinámicos */}
+                        {[...Array(modoHardcore ? 5 : Math.max(3, vidas))].map((_, i) => {
                             const v = i + 1;
                             return (
                                 <span key={v} className={`text-2xl transition-all duration-300 ${vidas >= v ? 'drop-shadow-[0_0_12px_rgba(239,68,68,1)] scale-110' : 'opacity-20 grayscale scale-75'}`}>

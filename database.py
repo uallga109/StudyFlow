@@ -334,3 +334,15 @@ def actualizar_progreso_juego(notebook_id, nivel_completado, vidas_restantes, mo
             
         return True, monedas_a_sumar, datos["nivel_actual"]
     return False, 0, 0
+
+def restar_monedas(notebook_id, cantidad):
+    """Resta monedas al comprar en la tienda"""
+    cuadernos = listar_cuadernos()
+    if notebook_id in cuadernos:
+        monedas_actuales = cuadernos[notebook_id].get("monedas", 0)
+        if monedas_actuales >= cantidad:
+            cuadernos[notebook_id]["monedas"] = monedas_actuales - cantidad
+            with open(NOTEBOOKS_FILE, 'w', encoding='utf-8') as f:
+                json.dump(cuadernos, f, indent=4, ensure_ascii=False)
+            return True
+    return False
